@@ -5,6 +5,9 @@
  */
 package com.mycompany.tennertcomclient;
 
+import java.net.*;
+import java.io.*;
+
 /**
  *
  * @author Carsten
@@ -27,99 +30,132 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        panel_login = new javax.swing.JPanel();
+        label_login = new javax.swing.JLabel();
+        label_benutzername = new javax.swing.JLabel();
+        tInput_benutzername = new javax.swing.JTextField();
+        label_password = new javax.swing.JLabel();
+        tInput_password = new javax.swing.JTextField();
+        button_login = new javax.swing.JButton();
+        button_registrieren = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setToolTipText("Bitte Benutzernamen hier eintragen");
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        label_login.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        label_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_login.setText("LOGIN");
+        label_login.setToolTipText("");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Benutzername:");
-        jLabel1.setToolTipText("");
+        label_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label_benutzername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_benutzername.setText("Benutzername:");
+        label_benutzername.setToolTipText("");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("LOGIN");
-        jLabel3.setToolTipText("");
+        tInput_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tInput_benutzername.setToolTipText("Bitte Benutzernamen hier eintragen");
+        tInput_benutzername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        label_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_password.setText("Password:");
+        label_password.setToolTipText("");
+
+        tInput_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tInput_password.setToolTipText("Bitte Benutzernamen hier eintragen");
+        tInput_password.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        button_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        button_login.setText("Login");
+        button_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                button_loginActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Registrieren");
+        button_registrieren.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        button_registrieren.setText("Registrieren");
+        button_registrieren.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_registrierenActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.setToolTipText("Bitte Benutzernamen hier eintragen");
-        jTextField2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        javax.swing.GroupLayout panel_loginLayout = new javax.swing.GroupLayout(panel_login);
+        panel_login.setLayout(panel_loginLayout);
+        panel_loginLayout.setHorizontalGroup(
+            panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_loginLayout.createSequentialGroup()
+                .addGap(459, 459, 459)
+                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(511, Short.MAX_VALUE))
+            .addGroup(panel_loginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label_login)
+                .addContainerGap(1261, Short.MAX_VALUE))
+            .addGroup(panel_loginLayout.createSequentialGroup()
+                .addGap(578, 578, 578)
+                .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panel_loginLayout.createSequentialGroup()
+                .addGap(579, 579, 579)
+                .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panel_loginLayout.createSequentialGroup()
+                .addGap(556, 556, 556)
+                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_loginLayout.setVerticalGroup(
+            panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_loginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_login)
+                .addGap(180, 180, 180)
+                .addComponent(label_benutzername)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
+                .addComponent(label_password)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(button_login)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button_registrieren)
+                .addContainerGap(194, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(450, 450, 450)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 450, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(537, 537, 537))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(581, 581, 581))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(558, 558, 558))))
+            .addComponent(panel_login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jLabel3)
-                .addGap(72, 72, 72)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(206, Short.MAX_VALUE))
+            .addComponent(panel_login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        jLabel1.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_button_loginActionPerformed
 
+    private void button_registrierenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_registrierenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_registrierenActionPerformed
+
+    Socket server = null;
+    
     /**
      * @param args the command line arguments
      */
@@ -147,6 +183,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        TryConnecting();
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -154,13 +192,38 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
+    
+    static void TryConnecting(){
+        try {
+            server = new Socket("localhost", 3141);
+            DataInputStream in = new DataInputStream(server.getInputStream());
+            DataOutputStream out = new DataOutputStream(server.getOutputStream());
+            out.writeInt(4); // sende 1. Operanden
+            out.writeInt(10000); // sende 2. Operanden
+            int result = in.readInt(); // lese das Ergebnis
+            System.out.println(result);
+        } catch (UnknownHostException e) {
+            
+        } // Verbindungsfehler
+        catch (IOException e) {
+        } // Fehler bei Ein-und Ausgabe
+        finally {
+            if (server != null)
+            try {
+                server.close();
+            } catch (IOException e) {
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton button_login;
+    private javax.swing.JButton button_registrieren;
+    private javax.swing.JLabel label_benutzername;
+    private javax.swing.JLabel label_login;
+    private javax.swing.JLabel label_password;
+    private javax.swing.JPanel panel_login;
+    private javax.swing.JTextField tInput_benutzername;
+    private javax.swing.JTextField tInput_password;
     // End of variables declaration//GEN-END:variables
 }
