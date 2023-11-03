@@ -47,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
@@ -79,6 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainFrame().setVisible(true);
             }

@@ -5,7 +5,6 @@
 package com.mycompany.tennertcomserver;
 
 import java.net.*;
-import java.io.*;
 import java.util.ArrayList;
 
 /**

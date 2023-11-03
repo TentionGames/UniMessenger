@@ -87,37 +87,35 @@ public class MainFrame extends javax.swing.JFrame {
         panel_login.setLayout(panel_loginLayout);
         panel_loginLayout.setHorizontalGroup(
             panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_loginLayout.createSequentialGroup()
-                .addGap(459, 459, 459)
+            .addGroup(panel_loginLayout.createSequentialGroup()
                 .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addGap(459, 459, 459)
+                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addGap(578, 578, 578)
+                        .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addGap(579, 579, 579)
+                        .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addGap(556, 556, 556)
+                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addGap(617, 617, 617)
+                        .addComponent(label_login)))
                 .addContainerGap(511, Short.MAX_VALUE))
-            .addGroup(panel_loginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label_login)
-                .addContainerGap(1261, Short.MAX_VALUE))
-            .addGroup(panel_loginLayout.createSequentialGroup()
-                .addGap(578, 578, 578)
-                .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel_loginLayout.createSequentialGroup()
-                .addGap(579, 579, 579)
-                .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel_loginLayout.createSequentialGroup()
-                .addGap(556, 556, 556)
-                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_loginLayout.setVerticalGroup(
             panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_loginLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(168, 168, 168)
                 .addComponent(label_login)
-                .addGap(180, 180, 180)
+                .addGap(18, 18, 18)
                 .addComponent(label_benutzername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,18 +145,15 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
-        // TODO add your handling code here:
+        serverHandler.SendLogin(tInput_benutzername.getText(), tInput_password.getText());
     }//GEN-LAST:event_button_loginActionPerformed
 
     private void button_registrierenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_registrierenActionPerformed
-        // TODO add your handling code here:
+        serverHandler.SendRegister(tInput_benutzername.getText(), tInput_password.getText());
     }//GEN-LAST:event_button_registrierenActionPerformed
 
-    Socket server = null;
-    
-    /**
-     * @param args the command line arguments
-     */
+    static ServerHandler serverHandler;
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -183,7 +178,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        TryConnecting();
+        serverHandler = new ServerHandler();
+        serverHandler.run();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -191,29 +187,6 @@ public class MainFrame extends javax.swing.JFrame {
                 new MainFrame().setVisible(true);
             }
         });
-    }
-    
-    static void TryConnecting(){
-        try {
-            server = new Socket("localhost", 3141);
-            DataInputStream in = new DataInputStream(server.getInputStream());
-            DataOutputStream out = new DataOutputStream(server.getOutputStream());
-            out.writeInt(4); // sende 1. Operanden
-            out.writeInt(10000); // sende 2. Operanden
-            int result = in.readInt(); // lese das Ergebnis
-            System.out.println(result);
-        } catch (UnknownHostException e) {
-            
-        } // Verbindungsfehler
-        catch (IOException e) {
-        } // Fehler bei Ein-und Ausgabe
-        finally {
-            if (server != null)
-            try {
-                server.close();
-            } catch (IOException e) {
-            }
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

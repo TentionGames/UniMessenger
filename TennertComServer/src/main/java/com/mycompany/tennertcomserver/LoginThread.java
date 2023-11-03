@@ -22,7 +22,7 @@ public class LoginThread extends Thread {
     @Override
     public void run() { // Bearbeitung einer aufgebauten Verbindung
         while (true) { // einzelner Thread bearbeitet eine aufgebaute Verbindung
-            Socket client = null;
+            Socket client;
             try {
                 client = server.accept();
                 comManager.ClientFound(client);
