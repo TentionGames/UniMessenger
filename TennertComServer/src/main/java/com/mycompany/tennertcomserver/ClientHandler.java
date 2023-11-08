@@ -56,7 +56,7 @@ public class ClientHandler extends Thread {
         if (clientInfo == null) {
             SendMsg("ERRBenutzername existiert nicht!");
         } else if (clientInfo.password.equals(data[1])) {
-            SendMsg("ACC");
+            SendMsg("ACL");
             this.info = clientInfo;
         } else {
             SendMsg("ERRFalsches Passwort!");
@@ -67,7 +67,7 @@ public class ClientHandler extends Thread {
         String[] data = registerData.split("%SPLIT%");
         ClientInfo clientInfo = Datenbank.newAccount(data[0], data[1]);
         if (clientInfo != null) {
-            SendMsg("ACC");
+            SendMsg("ACL");
             this.info = clientInfo;
         } else {
             SendMsg("ERRBenutzer existiert schon!");

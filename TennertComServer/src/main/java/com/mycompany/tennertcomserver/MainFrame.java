@@ -6,6 +6,8 @@ package com.mycompany.tennertcomserver;
 
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -73,16 +75,18 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        ServerSocket server = new ServerSocket(3141); 
-        CommunicationManager comManager = new CommunicationManager();
-        LoginThread loginThread = new LoginThread(server, comManager);        
-        loginThread.start();
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new MainFrame().setVisible(true);
+                ServerSocket server;
+                try {
+                    server = new ServerSocket(3141);
+                    CommunicationManager comManager = new CommunicationManager();
+                    LoginThread loginThread = new LoginThread(server, comManager);
+                    loginThread.start();
+                } catch (IOException ex) {}
             }
         });
     }

@@ -13,38 +13,46 @@ import java.net.Socket;
  *
  * @author marbu
  */
-public class ServerHandler {
+public class ServerHandler extends Thread {
 
     Socket server;
     DataInputStream in;
     DataOutputStream out;
+    MainFrame mainFrame;
+    
+    public ServerHandler(MainFrame mainFrame){this.mainFrame = mainFrame;}
 
+    @Override
     public void run() { // Bearbeitung einer aufgebauten Verbindung
-        try {
-            server = new Socket("localhost", 3141);
-            in = new DataInputStream(server.getInputStream());
-            out = new DataOutputStream(server.getOutputStream());
-        } catch (IOException e) {}
-
+        TryConnect();
         while (true) {
             try {
                 receiveMsg();
             } catch (IOException e) {}
         }
     }
+    
+    public void TryConnect(){
+        try {
+            server = new Socket("localhost", 3141);
+            in = new DataInputStream(server.getInputStream());
+            out = new DataOutputStream(server.getOutputStream());
+            mainFrame.ChangePanel(1);
+        } catch (IOException e) {}
+    } 
 
     void receiveMsg() throws IOException {
         String input = in.readUTF();
         String code = input.substring(0, 3);
         switch (code) {
-            case "ACC" -> {
-                
+            case "ACL" -> {
+                mainFrame.ChangePanel(2);
             }
             case "ERR" -> {
-                
+                mainFrame.DisplayLoginError(input.substring(3));
             }
             default -> {
-                
+                System.out.println("");
             }
         }
     }
