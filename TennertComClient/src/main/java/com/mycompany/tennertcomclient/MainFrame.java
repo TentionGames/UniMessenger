@@ -34,10 +34,10 @@ public class MainFrame extends javax.swing.JFrame {
         label_benutzername = new javax.swing.JLabel();
         tInput_benutzername = new javax.swing.JTextField();
         label_password = new javax.swing.JLabel();
-        tInput_password = new javax.swing.JTextField();
         button_login = new javax.swing.JButton();
         button_registrieren = new javax.swing.JButton();
         label_loginError = new javax.swing.JLabel();
+        tInput_password = new javax.swing.JPasswordField();
         ChatPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ChatField = new javax.swing.JTextArea();
@@ -101,10 +101,6 @@ public class MainFrame extends javax.swing.JFrame {
         label_password.setText("Password:");
         label_password.setToolTipText("");
 
-        tInput_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tInput_password.setToolTipText("Bitte Benutzernamen hier eintragen");
-        tInput_password.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
         button_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         button_login.setText("Login");
         button_login.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +122,8 @@ public class MainFrame extends javax.swing.JFrame {
         label_loginError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_loginError.setText(" ");
 
+        tInput_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
         LoginPanel.setLayout(LoginPanelLayout);
         LoginPanelLayout.setHorizontalGroup(
@@ -140,24 +138,24 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(554, 554, 554))))
             .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(459, 459, 459)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(LoginPanelLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(441, Short.MAX_VALUE))
-            .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addGap(330, 330, 330)
                 .addComponent(label_loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 308, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(534, 534, 534))
+            .addGroup(LoginPanelLayout.createSequentialGroup()
+                .addGap(459, 459, 459)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tInput_password)
+                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LoginPanelLayout.setVerticalGroup(
             LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,9 +168,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(label_password)
-                .addGap(18, 18, 18)
+                .addGap(7, 7, 7)
                 .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(40, 40, 40)
                 .addComponent(label_loginError)
                 .addGap(32, 32, 32)
                 .addComponent(button_login)
@@ -184,8 +182,6 @@ public class MainFrame extends javax.swing.JFrame {
         ChatField.setColumns(20);
         ChatField.setRows(5);
         jScrollPane1.setViewportView(ChatField);
-
-        jTextField1.setText("jTextField1");
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -260,11 +256,11 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
-        serverHandler.SendLogin(mainFrame.tInput_benutzername.getText(), mainFrame.tInput_password.getText());
+        serverHandler.SendLogin(mainFrame.tInput_benutzername.getText(), new String(mainFrame.tInput_password.getPassword()));
     }//GEN-LAST:event_button_loginActionPerformed
 
     private void button_registrierenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_registrierenActionPerformed
-        serverHandler.SendRegister(mainFrame.tInput_benutzername.getText(), mainFrame.tInput_password.getText());
+        serverHandler.SendRegister(mainFrame.tInput_benutzername.getText(), new String(mainFrame.tInput_password.getPassword()));
     }//GEN-LAST:event_button_registrierenActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -347,6 +343,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_loginError;
     private javax.swing.JLabel label_password;
     private javax.swing.JTextField tInput_benutzername;
-    private javax.swing.JTextField tInput_password;
+    private javax.swing.JPasswordField tInput_password;
     // End of variables declaration//GEN-END:variables
 }
