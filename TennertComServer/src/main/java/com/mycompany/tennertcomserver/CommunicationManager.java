@@ -17,7 +17,6 @@ public class CommunicationManager {
     public void ClientFound(Socket client) {
         ClientHandler clientHandler = new ClientHandler(client, clientHandlers.size()-1);
         clientHandlers.add(clientHandler);
-        System.out.println("OK");
         clientHandler.start();
     }
 }

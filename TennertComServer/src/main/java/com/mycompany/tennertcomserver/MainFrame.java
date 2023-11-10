@@ -8,6 +8,7 @@ import java.net.*;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -38,6 +39,8 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         panChats = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         panUsers = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,7 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panStartServerLayout.createSequentialGroup()
                 .addGap(602, 602, 602)
                 .addComponent(butStartRetry)
-                .addContainerGap(602, Short.MAX_VALUE))
+                .addContainerGap(763, Short.MAX_VALUE))
         );
         panStartServerLayout.setVerticalGroup(
             panStartServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,15 +82,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         panChats.setBackground(new java.awt.Color(255, 0, 51));
 
+        jList1.setModel(new DefaultListModel());
+        jScrollPane1.setViewportView(jList1);
+
         javax.swing.GroupLayout panChatsLayout = new javax.swing.GroupLayout(panChats);
         panChats.setLayout(panChatsLayout);
         panChatsLayout.setHorizontalGroup(
             panChatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatsLayout.createSequentialGroup()
+                .addContainerGap(126, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
         );
         panChatsLayout.setVerticalGroup(
             panChatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 252, Short.MAX_VALUE)
+            .addGroup(panChatsLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         panUsers.setBackground(new java.awt.Color(0, 204, 204));
@@ -96,11 +108,11 @@ public class MainFrame extends javax.swing.JFrame {
         panUsers.setLayout(panUsersLayout);
         panUsersLayout.setHorizontalGroup(
             panUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
         panUsersLayout.setVerticalGroup(
             panUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panChatLayout = new javax.swing.GroupLayout(panChat);
@@ -110,11 +122,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panChatLayout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125)
-                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panChats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addGap(105, 105, 105)
+                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panChats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(142, 142, 142))
         );
         panChatLayout.setVerticalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,11 +134,13 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panChatLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addComponent(panChats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(panUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(panUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(33, 33, 33))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addGap(92, 92, 92))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,9 +215,15 @@ public class MainFrame extends javax.swing.JFrame {
         mainFrame.panStartServer.setVisible(newPanel == 0);
         mainFrame.panChat.setVisible(newPanel == 1);
     }
+    
+    public void AddName(String clientName){
+        ((DefaultListModel)mainFrame.jList1.getModel()).addElement(clientName);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butStartRetry;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labStartInfo;

@@ -47,12 +47,22 @@ public class ServerHandler extends Thread {
         switch (code) {
             case "ACL" -> {
                 mainFrame.ChangePanel(2);
+                String[] nutzerNamen = input.substring(3).split("%SPLIT%");
+                if(nutzerNamen[0].isEmpty()) break;
+                MainFrame.mainFrame.DisplayNutzerList(nutzerNamen);
             }
             case "ERR" -> {
                 mainFrame.DisplayLoginError(input.substring(3));
             }
+            case "NUS" -> {
+                mainFrame.DisplayNewNutzer(input.substring(3));
+            }
+            case "MSG" -> {
+                String[] data = input.substring(3).split("%SPLIT%");
+                mainFrame.DisplayMSG(data[0], data[1]);
+            }
             default -> {
-                System.out.println("");
+                
             }
         }
     }

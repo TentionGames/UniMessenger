@@ -26,12 +26,14 @@ public class ClientHandler extends Thread {
         try {
             in = new DataInputStream(client.getInputStream());
             out = new DataOutputStream(client.getOutputStream());
-        } catch (IOException e) {}
-        
+        } catch (IOException e) {
+        }
+
         while (true) {
             try {
                 ReceiveMsg();
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
         }
     }
 
@@ -45,6 +47,14 @@ public class ClientHandler extends Thread {
             case "REG" -> {
                 Register(input.substring(3));
             }
+            case "MSG" -> {
+                for (int i = 0; i < MainFrame.comManager.clientHandlers.size(); i++) {
+                    ClientInfo curClientInfo = MainFrame.comManager.clientHandlers.get(i).info;
+                    if (curClientInfo != null) {
+                        MainFrame.comManager.clientHandlers.get(i).SendMsg("MSG" + info.name + "%SPLIT%" + input.substring(3));
+                    }
+                }
+            }
             default -> {
             }
         }
@@ -56,8 +66,7 @@ public class ClientHandler extends Thread {
         if (clientInfo == null) {
             SendMsg("ERRBenutzername existiert nicht!");
         } else if (clientInfo.password.equals(data[1])) {
-            SendMsg("ACL");
-            this.info = clientInfo;
+            SuccesfullLogin(clientInfo);
         } else {
             SendMsg("ERRFalsches Passwort!");
         }
@@ -67,8 +76,7 @@ public class ClientHandler extends Thread {
         String[] data = registerData.split("%SPLIT%");
         ClientInfo clientInfo = Datenbank.newAccount(data[0], data[1]);
         if (clientInfo != null) {
-            SendMsg("ACL");
-            this.info = clientInfo;
+            SuccesfullLogin(clientInfo);
         } else {
             SendMsg("ERRBenutzer existiert schon!");
         }
@@ -79,5 +87,19 @@ public class ClientHandler extends Thread {
             out.writeUTF(msg);
         } catch (IOException ex) {
         }
+    }
+
+    void SuccesfullLogin(ClientInfo clientInfo) {
+        this.info = clientInfo;
+        String msg = "ACL";
+        for (int i = 0; i < MainFrame.comManager.clientHandlers.size(); i++) {
+            ClientInfo curClientInfo = MainFrame.comManager.clientHandlers.get(i).info;
+            if (curClientInfo != null && !curClientInfo.name.equals(info.name)) {
+                MainFrame.comManager.clientHandlers.get(i).SendMsg("NUS" + info.name);
+                msg += curClientInfo.name + "%SPLIT%";
+            }
+        }
+        SendMsg(msg);
+        MainFrame.mainFrame.AddName(clientInfo.name);
     }
 }
