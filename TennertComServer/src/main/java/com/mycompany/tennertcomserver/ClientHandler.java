@@ -13,6 +13,8 @@ public class ClientHandler extends Thread {
     int index;
     ClientInfo info;
 
+    public long lastBeatReceived = System.currentTimeMillis();
+    
     ClientHandler(Socket client, int index) {
         this.client = client;
         this.index = index;
@@ -22,13 +24,13 @@ public class ClientHandler extends Thread {
     DataOutputStream out;
 
     @Override
-    public void run() { // Bearbeitung einer aufgebauten Verbindung
+    public void run() {
         try {
             in = new DataInputStream(client.getInputStream());
             out = new DataOutputStream(client.getOutputStream());
         } catch (IOException e) {
         }
-
+        
         while (true) {
             try {
                 ReceiveMsg();
@@ -46,6 +48,9 @@ public class ClientHandler extends Thread {
             }
             case "REG" -> {
                 Register(input.substring(3));
+            }
+            case "HBT" -> {
+                lastBeatReceived = System.currentTimeMillis();
             }
             case "MSG" -> {
                 for (int i = 0; i < MainFrame.comManager.clientHandlers.size(); i++) {
@@ -95,7 +100,7 @@ public class ClientHandler extends Thread {
         for (int i = 0; i < MainFrame.comManager.clientHandlers.size(); i++) {
             ClientInfo curClientInfo = MainFrame.comManager.clientHandlers.get(i).info;
             if (curClientInfo != null && !curClientInfo.name.equals(info.name)) {
-                MainFrame.comManager.clientHandlers.get(i).SendMsg("NUS" + info.name);
+                MainFrame.comManager.clientHandlers.get(i).SendMsg("NCL" + info.name);
                 msg += curClientInfo.name + "%SPLIT%";
             }
         }

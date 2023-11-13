@@ -19,12 +19,13 @@ public class ServerHandler extends Thread {
     DataInputStream in;
     DataOutputStream out;
     MainFrame mainFrame;
-    
+
     public ServerHandler(MainFrame mainFrame){this.mainFrame = mainFrame;}
 
     @Override
-    public void run() { // Bearbeitung einer aufgebauten Verbindung
+    public void run() {
         TryConnect();
+        
         while (true) {
             try {
                 receiveMsg();
@@ -54,8 +55,14 @@ public class ServerHandler extends Thread {
             case "ERR" -> {
                 mainFrame.DisplayLoginError(input.substring(3));
             }
-            case "NUS" -> {
+            case "HBT" -> {
+                MainFrame.heartBeat.ReceivedBeat();
+            }
+            case "NCL" -> {
                 mainFrame.DisplayNewNutzer(input.substring(3));
+            }
+            case "CLD" -> {
+                mainFrame.RemoveName(input.substring(3));
             }
             case "MSG" -> {
                 String[] data = input.substring(3).split("%SPLIT%");

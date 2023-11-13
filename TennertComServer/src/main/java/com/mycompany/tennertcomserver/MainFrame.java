@@ -36,14 +36,13 @@ public class MainFrame extends javax.swing.JFrame {
         labStartInfo = new javax.swing.JLabel();
         butStartRetry = new javax.swing.JButton();
         panChat = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        panChats = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        panUsers = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
 
         labStartInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labStartInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -64,7 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panStartServerLayout.createSequentialGroup()
                 .addGap(602, 602, 602)
                 .addComponent(butStartRetry)
-                .addContainerGap(763, Short.MAX_VALUE))
+                .addContainerGap(632, Short.MAX_VALUE))
         );
         panStartServerLayout.setVerticalGroup(
             panStartServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,71 +75,33 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(348, Short.MAX_VALUE))
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        panChats.setBackground(new java.awt.Color(255, 0, 51));
-
         jList1.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(jList1);
 
-        javax.swing.GroupLayout panChatsLayout = new javax.swing.GroupLayout(panChats);
-        panChats.setLayout(panChatsLayout);
-        panChatsLayout.setHorizontalGroup(
-            panChatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatsLayout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
-        );
-        panChatsLayout.setVerticalGroup(
-            panChatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panChatsLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-
-        panUsers.setBackground(new java.awt.Color(0, 204, 204));
-
-        javax.swing.GroupLayout panUsersLayout = new javax.swing.GroupLayout(panUsers);
-        panUsers.setLayout(panUsersLayout);
-        panUsersLayout.setHorizontalGroup(
-            panUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
-        );
-        panUsersLayout.setVerticalGroup(
-            panUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jLabel1.setText("Clients");
 
         javax.swing.GroupLayout panChatLayout = new javax.swing.GroupLayout(panChat);
         panChat.setLayout(panChatLayout);
         panChatLayout.setHorizontalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panChatLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
+                .addContainerGap(498, Short.MAX_VALUE)
                 .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panChats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(142, 142, 142))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(451, 451, 451))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(619, 619, 619))))
         );
         panChatLayout.setVerticalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panChatLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panChatLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(panChats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(33, 33, 33))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(92, 92, 92))
+                .addGap(201, 201, 201)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,6 +129,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static MainFrame mainFrame;
     public static CommunicationManager comManager;
     public static LoginThread loginThread;
+    public static HeartBeat heartBeat;
     
     /**
      * @param args the command line arguments
@@ -207,6 +169,8 @@ public class MainFrame extends javax.swing.JFrame {
                 comManager = new CommunicationManager();
                 loginThread = new LoginThread(mainFrame);
                 loginThread.start();
+                heartBeat = new HeartBeat();
+                heartBeat.start();
             }
         });
     }
@@ -219,17 +183,18 @@ public class MainFrame extends javax.swing.JFrame {
     public void AddName(String clientName){
         ((DefaultListModel)mainFrame.jList1.getModel()).addElement(clientName);
     }
+    
+    public void RemoveName(String clientName){
+        ((DefaultListModel)mainFrame.jList1.getModel()).removeElement(clientName);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butStartRetry;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labStartInfo;
     private javax.swing.JPanel panChat;
-    private javax.swing.JPanel panChats;
     private javax.swing.JPanel panStartServer;
-    private javax.swing.JPanel panUsers;
     // End of variables declaration//GEN-END:variables
 }

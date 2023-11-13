@@ -47,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
         btn_Send = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         list_Nutzer = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -183,11 +184,12 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(190, Short.MAX_VALUE))
         );
 
+        ChatField.setEditable(false);
         ChatField.setColumns(20);
         ChatField.setRows(5);
         jScrollPane1.setViewportView(ChatField);
 
-        btn_Send.setText("jButton1");
+        btn_Send.setText(">");
         btn_Send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_SendActionPerformed(evt);
@@ -196,6 +198,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         list_Nutzer.setModel(new DefaultListModel());
         jScrollPane2.setViewportView(list_Nutzer);
+
+        jLabel1.setText("Andere Benutzer");
 
         javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
         ChatPanel.setLayout(ChatPanelLayout);
@@ -210,8 +214,13 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(btn_Send, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136))
+                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(254, 254, 254))))
         );
         ChatPanelLayout.setVerticalGroup(
             ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +230,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGap(89, 89, 89)
+                        .addGap(158, 158, 158)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -287,6 +298,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public static ServerHandler serverHandler;
     public static MainFrame mainFrame;
+    public static HeartBeat heartBeat;
 
     /**
      * @param args the command line arguments
@@ -326,6 +338,8 @@ public class MainFrame extends javax.swing.JFrame {
 
                 serverHandler = new ServerHandler(mainFrame);
                 serverHandler.start();
+                heartBeat = new HeartBeat();
+                heartBeat.start();
             }
         });
     }
@@ -342,6 +356,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void DisplayNutzerList(String[] nutzer) {
         DefaultListModel routesmodel = ((DefaultListModel) mainFrame.list_Nutzer.getModel());
+        routesmodel.clear();
         for (int i = 0; i < nutzer.length; i++) {
             routesmodel.addElement(nutzer[i]);
         }
@@ -351,8 +366,12 @@ public class MainFrame extends javax.swing.JFrame {
         ((DefaultListModel) mainFrame.list_Nutzer.getModel()).addElement(nutzer);
     }
     
+    public void RemoveName(String clientName){
+        ((DefaultListModel)mainFrame.list_Nutzer.getModel()).removeElement(clientName);
+    }
+    
     public void DisplayMSG(String nutzer, String msg){
-        ChatField.setText(ChatField.getText() + "\n" + nutzer + ":\t" + msg);
+        ChatField.setText(ChatField.getText() + nutzer + ":\t" + msg + "\n");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -366,6 +385,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton button_login;
     private javax.swing.JButton button_registrieren;
     private javax.swing.JTextField inf_Nachricht;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_benutzername;
