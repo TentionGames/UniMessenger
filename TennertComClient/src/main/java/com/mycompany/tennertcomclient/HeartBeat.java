@@ -4,23 +4,25 @@
  */
 package com.mycompany.tennertcomclient;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Carsten
  */
 public class HeartBeat extends Thread {
 
-    long lastBeatSend = System.currentTimeMillis();
     long lastBeatReceived = System.currentTimeMillis();
 
     @Override
     public void run() {
         while (true) {
-            if (System.currentTimeMillis() - lastBeatSend >= 1000) {
-                MainFrame.serverHandler.SendMsg("HBT");
-                lastBeatSend = System.currentTimeMillis();
-            }
-            if (System.currentTimeMillis() - lastBeatReceived >= 2000) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {}
+            MainFrame.serverHandler.SendMsg("HBT");
+            if (System.currentTimeMillis() - lastBeatReceived >= 3000) {
                 MainFrame.mainFrame.ChangePanel(0);
             }
         }

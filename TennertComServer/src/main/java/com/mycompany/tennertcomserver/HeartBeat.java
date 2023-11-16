@@ -5,24 +5,27 @@
 package com.mycompany.tennertcomserver;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HeartBeat extends Thread {
 
-    long lastBeatSend = System.currentTimeMillis();
     ArrayList<ClientHandler> clientHandlers = MainFrame.comManager.clientHandlers;
 
     @Override
     public void run() {
         while (true) {
-            if (System.currentTimeMillis() - lastBeatSend > 1000) {
-                lastBeatSend = System.currentTimeMillis();
-                for (int i = 0; i < clientHandlers.size(); i++) {
-                    clientHandlers.get(i).SendMsg("HBT");
-                }
+            try {
+                Thread.sleep((long) 1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HeartBeat.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.print("");
             for (int i = 0; i < clientHandlers.size(); i++) {
-                if (System.currentTimeMillis() - clientHandlers.get(i).lastBeatReceived > 2000) {
+                clientHandlers.get(i).SendMsg("HBT");
+            }
+            //System.out.print("");
+            for (int i = 0; i < clientHandlers.size(); i++) {
+                if (System.currentTimeMillis() - clientHandlers.get(i).lastBeatReceived > 3000) {
                     if (clientHandlers.get(i).info != null) {
                         String name = clientHandlers.get(i).info.name;
                         for (int j = 0; j < clientHandlers.size(); j++) {
