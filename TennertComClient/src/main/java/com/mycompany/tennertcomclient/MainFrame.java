@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.tennertcomclient;
 
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
 
-/**
- *
- * @author Carsten
- */
 public class MainFrame extends javax.swing.JFrame {
 
     /**
@@ -177,17 +170,23 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(label_loginError)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_login)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(button_registrieren)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
 
         ChatField.setEditable(false);
         ChatField.setColumns(20);
         ChatField.setRows(5);
         jScrollPane1.setViewportView(ChatField);
+
+        inf_Nachricht.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inf_NachrichtKeyPressed(evt);
+            }
+        });
 
         btn_Send.setText(">");
         btn_Send.addActionListener(new java.awt.event.ActionListener() {
@@ -247,7 +246,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1180, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -264,7 +263,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -290,11 +289,19 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btn_SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SendActionPerformed
         serverHandler.SendMsg("MSG"+inf_Nachricht.getText());
+        inf_Nachricht.setText("");
     }//GEN-LAST:event_btn_SendActionPerformed
 
     private void ConnectRetryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectRetryButtonActionPerformed
         serverHandler.TryConnect();
     }//GEN-LAST:event_ConnectRetryButtonActionPerformed
+
+    private void inf_NachrichtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inf_NachrichtKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            serverHandler.SendMsg("MSG"+inf_Nachricht.getText());
+            inf_Nachricht.setText("");
+        }
+    }//GEN-LAST:event_inf_NachrichtKeyPressed
 
     public static ServerHandler serverHandler;
     public static MainFrame mainFrame;

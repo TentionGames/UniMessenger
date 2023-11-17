@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.tennertcomclient;
 
 import java.io.DataInputStream;
@@ -9,10 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-/**
- *
- * @author marbu
- */
 public class ServerHandler extends Thread {
 
     Socket server;
@@ -83,14 +75,20 @@ public class ServerHandler extends Thread {
     public void SendLogin(String name, String password){
         name = name.trim();
         password = password.trim();
-        if(name.contains("%SPLIT%") || password.contains("%SPLIT%")) return;
+        if(name.contains("%SPLIT%") || password.contains("%SPLIT%") || name.isEmpty() || password.isEmpty()){
+            mainFrame.DisplayLoginError("Name oder Passwort sind ungültig!");
+            return;
+        }
         SendMsg("LOG"+name+"%SPLIT%"+password);
     } 
     
     public void SendRegister(String name, String password){
         name = name.trim();
         password = password.trim();
-        if(name.contains("%SPLIT%") || password.contains("%SPLIT%")) return;
+        if(name.contains("%SPLIT%") || password.contains("%SPLIT%") || name.isEmpty() || password.isEmpty()){
+            mainFrame.DisplayLoginError("Name oder Passwort sind ungültig!");
+            return;
+        }
         SendMsg("REG"+name+"%SPLIT%"+password);
     }
 }

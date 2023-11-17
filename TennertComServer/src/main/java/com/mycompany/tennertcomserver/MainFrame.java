@@ -59,20 +59,23 @@ public class MainFrame extends javax.swing.JFrame {
         panStartServer.setLayout(panStartServerLayout);
         panStartServerLayout.setHorizontalGroup(
             panStartServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labStartInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panStartServerLayout.createSequentialGroup()
                 .addGap(602, 602, 602)
                 .addComponent(butStartRetry)
-                .addContainerGap(632, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panStartServerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labStartInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 1268, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panStartServerLayout.setVerticalGroup(
             panStartServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panStartServerLayout.createSequentialGroup()
-                .addGap(308, 308, 308)
+                .addGap(347, 347, 347)
                 .addComponent(labStartInfo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(butStartRetry)
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
 
         jList1.setModel(new DefaultListModel());
@@ -85,7 +88,7 @@ public class MainFrame extends javax.swing.JFrame {
         panChatLayout.setHorizontalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panChatLayout.createSequentialGroup()
-                .addContainerGap(498, Short.MAX_VALUE)
+                .addContainerGap(468, Short.MAX_VALUE)
                 .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)

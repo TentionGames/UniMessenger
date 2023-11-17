@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.tennertcomserver;
 
 import java.net.*;
@@ -43,7 +39,7 @@ public class ClientHandler extends Thread {
         String input = in.readUTF();
         String code = input.substring(0, 3);
         switch (code) {
-            case "LOG" -> {
+            case "LOG" ->{
                 CheckLogin(input.substring(3));
             }
             case "REG" -> {
