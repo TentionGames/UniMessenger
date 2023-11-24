@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.tennertcomserver;
 
 import java.io.*;
 import javax.swing.DefaultListModel;
 
-/**
- *
- * @author marbu
- */
 public class MainFrame extends javax.swing.JFrame {
 
     /**
@@ -124,12 +116,10 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butStartRetryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butStartRetryActionPerformed
-        db.loginThread.TryStartServer();
+        db.getLoginThread().TryStartServer();
     }//GEN-LAST:event_butStartRetryActionPerformed
 
-    //Variablen
     private Datenbank db;
-    //VariablenEnde
     
     /**
      * @param args the command line arguments
@@ -166,24 +156,24 @@ public class MainFrame extends javax.swing.JFrame {
                 Datenbank datenbank = null;
                 datenbank = new Datenbank();
                 
-                datenbank.mainFrame.setVisible(true);
-                datenbank.loginThread.start();
-                datenbank.heartBeat.start();
+                datenbank.getMainFrame().setVisible(true);
+                datenbank.getLoginThread().start();
+                datenbank.getHeartBeat().start();
             }
         });
     }
     
     public void ChangePanel(int newPanel){
-        db.mainFrame.panStartServer.setVisible(newPanel == 0);
-        db.mainFrame.panChat.setVisible(newPanel == 1);
+        panStartServer.setVisible(newPanel == 0);
+        panChat.setVisible(newPanel == 1);
     }
     
     public void AddName(String clientName){
-        ((DefaultListModel)db.mainFrame.jList1.getModel()).addElement(clientName);
+        ((DefaultListModel) jList1.getModel()).addElement(clientName);
     }
     
     public void RemoveName(String clientName){
-        ((DefaultListModel)db.mainFrame.jList1.getModel()).removeElement(clientName);
+        ((DefaultListModel) jList1.getModel()).removeElement(clientName);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

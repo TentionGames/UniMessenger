@@ -7,13 +7,26 @@ public class HeartBeat extends Thread {
     @Override
     public void run() {
         while (true) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {}
-            MainFrame.serverHandler.SendMsg("HBT");
-            if (System.currentTimeMillis() - lastBeatReceived >= 3000) {
-                MainFrame.mainFrame.ChangePanel(0);
-            }
+            Wait(1000);
+            SendHB();
+            ListenToHB();
+        }
+    }
+
+    private void Wait(int millSec) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+        }
+    }
+
+    private void SendHB() {
+        MainFrame.serverHandler.SendMsg("HBT");
+    }
+
+    private void ListenToHB() {
+        if (System.currentTimeMillis() - lastBeatReceived >= 3000) {
+            MainFrame.mainFrame.ChangePanel(0);
         }
     }
 

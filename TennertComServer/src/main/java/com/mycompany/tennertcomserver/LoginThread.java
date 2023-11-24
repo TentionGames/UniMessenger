@@ -6,10 +6,10 @@ import java.io.*;
 public class LoginThread extends Thread {
 
     Datenbank db;
-    
+
     ServerSocket server;
-    
-    public LoginThread(Datenbank db){
+
+    public LoginThread(Datenbank db) {
         this.db = db;
     }
 
@@ -17,19 +17,24 @@ public class LoginThread extends Thread {
     public void run() {
         TryStartServer();
         
-        Socket client;
         while (true) {
-            try {
-                client = server.accept();
-                db.ClientFound(client);
-            } catch (IOException e) {}
+            TryForClient();
+        }
+    }
+
+    public void TryForClient() {
+        try {
+            Socket client = server.accept();
+            db.ClientFound(client);
+        } catch (IOException e) {
         }
     }
 
     public void TryStartServer() {
         try {
             server = new ServerSocket(3141);
-            db.mainFrame.ChangePanel(1);
-        } catch (IOException ex) {}
+            db.getMainFrame().ChangePanel(1);
+        } catch (IOException ex) {
+        }
     }
 }

@@ -6,34 +6,51 @@ public class HeartBeat extends Thread {
 
     Datenbank db;
 
-    public HeartBeat(Datenbank db){
+    public HeartBeat(Datenbank db) {
         this.db = db;
     }
-    
+
     @Override
     public void run() {
         while (true) {
-            try {
-                Thread.sleep((long) 1000);
-            } catch (InterruptedException ex) {}
-            for (int i = 0; i < db.getAnzClients(); i++) {
-                db.getClient(i).SendMsg("HBT");
-            }
-            for (int i = 0; i < db.getAnzClients(); i++) {
-                if (System.currentTimeMillis() - db.getClient(i).lastBeatReceived > 3000) {
-                    if (db.getClient(i).info != null) {
-                        String name = db.getClient(i).info.name;
-                        for (int j = 0; j < db.getAnzClients(); j++) {
-                            ClientInfo curClientInfo = db.getClient(i).info;
-                            if (curClientInfo != null && !curClientInfo.name.equals(name)) {
-                                db.getClient(i).SendMsg("CLD" + name);
-                            }
-                        }
-                        db.mainFrame.RemoveName(name);
-                    }
-                    db.RemoveClient(i);
-                }
+            Wait(1000);
+            SendHB();
+            ListenToHB();
+        }
+    }
+
+    private void Wait(int millSec) {
+        try {
+            Thread.sleep((long) millSec);
+        } catch (InterruptedException ex) {
+        }
+    }
+
+    private void SendHB() {
+        for (int i = 0; i < db.getAnzClients(); i++) {
+            db.getClientHandler(i).SendMsg("HBT");
+        }
+    }
+
+    private void ListenToHB() {
+        for (int i = 0; i < db.getAnzClients(); i++) {
+            if (System.currentTimeMillis() - db.getClientHandler(i).getLastBeatReceived() > 3000) {
+                ClientDisconnected(i);
             }
         }
+    }
+
+    private void ClientDisconnected(int clientIdx) {
+        if (db.getClientHandler(clientIdx).info != null) {
+            String name = db.getClientHandler(clientIdx).info.getName();
+            for (int j = 0; j < db.getAnzClients(); j++) {
+                ClientInfo curClientInfo = db.getClientHandler(clientIdx).info;
+                if (curClientInfo != null && !curClientInfo.getName().equals(name)) {
+                    db.getClientHandler(clientIdx).SendMsg("CLD" + name);
+                }
+            }
+            db.getMainFrame().RemoveName(name);
+        }
+        db.RemoveClient(clientIdx);
     }
 }
