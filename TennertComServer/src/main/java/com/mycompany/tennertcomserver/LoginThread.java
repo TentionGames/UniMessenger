@@ -5,12 +5,12 @@ import java.io.*;
 
 public class LoginThread extends Thread {
 
+    Datenbank db;
     
     ServerSocket server;
-    MainFrame mainFrame;
-
-    LoginThread(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    
+    public LoginThread(Datenbank db){
+        this.db = db;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class LoginThread extends Thread {
         while (true) {
             try {
                 client = server.accept();
-                mainFrame.comManager.ClientFound(client);
+                db.ClientFound(client);
             } catch (IOException e) {}
         }
     }
@@ -29,7 +29,7 @@ public class LoginThread extends Thread {
     public void TryStartServer() {
         try {
             server = new ServerSocket(3141);
-            mainFrame.ChangePanel(1);
+            db.mainFrame.ChangePanel(1);
         } catch (IOException ex) {}
     }
 }

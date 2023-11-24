@@ -4,10 +4,7 @@
  */
 package com.mycompany.tennertcomserver;
 
-import java.net.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
@@ -19,7 +16,8 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public MainFrame(Datenbank db) {
+        this.db = db;
         initComponents();
     }
 
@@ -126,13 +124,12 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butStartRetryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butStartRetryActionPerformed
-        loginThread.TryStartServer();
+        db.loginThread.TryStartServer();
     }//GEN-LAST:event_butStartRetryActionPerformed
 
-    public static MainFrame mainFrame;
-    public static CommunicationManager comManager;
-    public static LoginThread loginThread;
-    public static HeartBeat heartBeat;
+    //Variablen
+    private Datenbank db;
+    //VariablenEnde
     
     /**
      * @param args the command line arguments
@@ -166,29 +163,27 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                mainFrame = new MainFrame();
-                mainFrame.setVisible(true);
+                Datenbank datenbank = null;
+                datenbank = new Datenbank();
                 
-                comManager = new CommunicationManager();
-                loginThread = new LoginThread(mainFrame);
-                loginThread.start();
-                heartBeat = new HeartBeat();
-                heartBeat.start();
+                datenbank.mainFrame.setVisible(true);
+                datenbank.loginThread.start();
+                datenbank.heartBeat.start();
             }
         });
     }
     
     public void ChangePanel(int newPanel){
-        mainFrame.panStartServer.setVisible(newPanel == 0);
-        mainFrame.panChat.setVisible(newPanel == 1);
+        db.mainFrame.panStartServer.setVisible(newPanel == 0);
+        db.mainFrame.panChat.setVisible(newPanel == 1);
     }
     
     public void AddName(String clientName){
-        ((DefaultListModel)mainFrame.jList1.getModel()).addElement(clientName);
+        ((DefaultListModel)db.mainFrame.jList1.getModel()).addElement(clientName);
     }
     
     public void RemoveName(String clientName){
-        ((DefaultListModel)mainFrame.jList1.getModel()).removeElement(clientName);
+        ((DefaultListModel)db.mainFrame.jList1.getModel()).removeElement(clientName);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

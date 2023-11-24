@@ -5,13 +5,16 @@ import java.io.*;
 
 public class ClientHandler extends Thread {
 
+    Datenbank db;
+    
     Socket client;
     int index;
     ClientInfo info;
 
     public long lastBeatReceived = System.currentTimeMillis();
     
-    ClientHandler(Socket client, int index) {
+    ClientHandler(Datenbank db, Socket client, int index) {
+        this.db = db;
         this.client = client;
         this.index = index;
     }
@@ -49,10 +52,10 @@ public class ClientHandler extends Thread {
                 lastBeatReceived = System.currentTimeMillis();
             }
             case "MSG" -> {
-                for (int i = 0; i < MainFrame.comManager.clientHandlers.size(); i++) {
-                    ClientInfo curClientInfo = MainFrame.comManager.clientHandlers.get(i).info;
+                for (int i = 0; i < db.getAnzClients(); i++) {
+                    ClientInfo curClientInfo = db.getClient(i).info;
                     if (curClientInfo != null) {
-                        MainFrame.comManager.clientHandlers.get(i).SendMsg("MSG" + info.name + "%SPLIT%" + input.substring(3));
+                        db.getClient(i).SendMsg("MSG" + info.name + "%SPLIT%" + input.substring(3));
                     }
                 }
             }
@@ -63,7 +66,7 @@ public class ClientHandler extends Thread {
 
     void CheckLogin(String loginData) {
         String[] data = loginData.split("%SPLIT%");
-        ClientInfo clientInfo = Datenbank.checkForPassword(data[0]);
+        ClientInfo clientInfo = db.checkForPassword(data[0]);
         if (clientInfo == null) {
             SendMsg("ERRBenutzername existiert nicht!");
         } else if (clientInfo.password.equals(data[1])) {
@@ -75,7 +78,7 @@ public class ClientHandler extends Thread {
 
     void Register(String registerData) {
         String[] data = registerData.split("%SPLIT%");
-        ClientInfo clientInfo = Datenbank.newAccount(data[0], data[1]);
+        ClientInfo clientInfo = db.newAccount(data[0], data[1]);
         if (clientInfo != null) {
             SuccesfullLogin(clientInfo);
         } else {
@@ -93,14 +96,14 @@ public class ClientHandler extends Thread {
     void SuccesfullLogin(ClientInfo clientInfo) {
         this.info = clientInfo;
         String msg = "ACL";
-        for (int i = 0; i < MainFrame.comManager.clientHandlers.size(); i++) {
-            ClientInfo curClientInfo = MainFrame.comManager.clientHandlers.get(i).info;
+        for (int i = 0; i < db.getAnzClients(); i++) {
+            ClientInfo curClientInfo = db.getClient(i).info;
             if (curClientInfo != null && !curClientInfo.name.equals(info.name)) {
-                MainFrame.comManager.clientHandlers.get(i).SendMsg("NCL" + info.name);
+                db.getClient(i).SendMsg("NCL" + info.name);
                 msg += curClientInfo.name + "%SPLIT%";
             }
         }
         SendMsg(msg);
-        MainFrame.mainFrame.AddName(clientInfo.name);
+        db.mainFrame.AddName(clientInfo.name);
     }
 }

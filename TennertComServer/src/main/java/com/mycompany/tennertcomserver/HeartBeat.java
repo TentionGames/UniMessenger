@@ -4,30 +4,34 @@ import java.util.ArrayList;
 
 public class HeartBeat extends Thread {
 
-    ArrayList<ClientHandler> clientHandlers = MainFrame.comManager.clientHandlers;
+    Datenbank db;
 
+    public HeartBeat(Datenbank db){
+        this.db = db;
+    }
+    
     @Override
     public void run() {
         while (true) {
             try {
                 Thread.sleep((long) 1000);
             } catch (InterruptedException ex) {}
-            for (int i = 0; i < clientHandlers.size(); i++) {
-                clientHandlers.get(i).SendMsg("HBT");
+            for (int i = 0; i < db.getAnzClients(); i++) {
+                db.getClient(i).SendMsg("HBT");
             }
-            for (int i = 0; i < clientHandlers.size(); i++) {
-                if (System.currentTimeMillis() - clientHandlers.get(i).lastBeatReceived > 3000) {
-                    if (clientHandlers.get(i).info != null) {
-                        String name = clientHandlers.get(i).info.name;
-                        for (int j = 0; j < clientHandlers.size(); j++) {
-                            ClientInfo curClientInfo = clientHandlers.get(j).info;
+            for (int i = 0; i < db.getAnzClients(); i++) {
+                if (System.currentTimeMillis() - db.getClient(i).lastBeatReceived > 3000) {
+                    if (db.getClient(i).info != null) {
+                        String name = db.getClient(i).info.name;
+                        for (int j = 0; j < db.getAnzClients(); j++) {
+                            ClientInfo curClientInfo = db.getClient(i).info;
                             if (curClientInfo != null && !curClientInfo.name.equals(name)) {
-                                clientHandlers.get(j).SendMsg("CLD" + name);
+                                db.getClient(i).SendMsg("CLD" + name);
                             }
                         }
-                        MainFrame.mainFrame.RemoveName(name);
+                        db.mainFrame.RemoveName(name);
                     }
-                    MainFrame.comManager.clientHandlers.remove(i);
+                    db.RemoveClient(i);
                 }
             }
         }
