@@ -27,30 +27,29 @@ public class HeartBeat extends Thread {
     }
 
     private void SendHB() {
-        for (int i = 0; i < db.getAnzClients(); i++) {
-            db.getClientHandler(i).SendMsg("HBT");
-        }
+        db.getClientManager().SendMessageToAllClients("HBT");
     }
 
     private void ListenToHB() {
-        for (int i = 0; i < db.getAnzClients(); i++) {
-            if (System.currentTimeMillis() - db.getClientHandler(i).getLastBeatReceived() > 3000) {
+        for (int i = 0; i < db.getClientManager().getAnzClients(); i++) {
+            if (System.currentTimeMillis() - db.getClientManager().getClientHandler(i).getLastBeatReceived() > 3000) {
                 ClientDisconnected(i);
             }
         }
     }
 
     private void ClientDisconnected(int clientIdx) {
-        if (db.getClientHandler(clientIdx).info != null) {
-            String name = db.getClientHandler(clientIdx).info.getName();
-            for (int j = 0; j < db.getAnzClients(); j++) {
-                ClientInfo curClientInfo = db.getClientHandler(clientIdx).info;
+        ClientHandler disconnectedClient = db.getClientManager().getClientHandler(clientIdx);
+        if (disconnectedClient.info != null) {
+            String name = disconnectedClient.info.getName();
+            for (int j = 0; j < db.getClientManager().getAnzClients(); j++) {
+                ClientInfo curClientInfo = disconnectedClient.info;
                 if (curClientInfo != null && !curClientInfo.getName().equals(name)) {
-                    db.getClientHandler(clientIdx).SendMsg("CLD" + name);
+                    db.getClientManager().SendMessageToClient(j, "CLD" + name);
                 }
             }
             db.getMainFrame().RemoveName(name);
         }
-        db.RemoveClient(clientIdx);
+        db.getClientManager().RemoveClient(clientIdx);
     }
 }
