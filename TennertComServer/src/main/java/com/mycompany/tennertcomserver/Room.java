@@ -7,7 +7,12 @@ public class Room {
     private Datenbank db;
     
     private String roomName;
+<<<<<<< Updated upstream
     private ArrayList<String> connectedUsers;
+=======
+    private ArrayList<ClientHandler> connectedUsers = new ArrayList();
+    private String chatInhalt = "";
+>>>>>>> Stashed changes
     
     public Room(Datenbank db, String roomName){
         this.db = db;
@@ -30,5 +35,13 @@ public class Room {
     
     public String[] getUsers(){
         return (String[]) connectedUsers.toArray();
+    }
+
+    public String getChatInhalt() {
+        return chatInhalt;
+    }
+    
+    public void AddMsg(String nutzer, String msg){
+        chatInhalt += nutzer + ":\t" + msg + "\n";
     }
 }

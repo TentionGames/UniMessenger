@@ -8,7 +8,8 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public MainFrame(Datenbank db) {
+        this.db = db;
         initComponents();
     }
 
@@ -41,6 +42,10 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         list_Nutzer = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        list_Rooms = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
+        btn_JoinRoom = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -200,6 +205,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Andere Benutzer");
 
+        list_Rooms.setModel(new DefaultListModel());
+        jScrollPane3.setViewportView(list_Rooms);
+
+        jLabel2.setText("Rooms:");
+
+        btn_JoinRoom.setText("Join Room");
+        btn_JoinRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_JoinRoomActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
         ChatPanel.setLayout(ChatPanelLayout);
         ChatPanelLayout.setHorizontalGroup(
@@ -210,6 +227,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(ChatPanelLayout.createSequentialGroup()
                         .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+<<<<<<< Updated upstream
                         .addComponent(btn_Send, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
@@ -220,6 +238,26 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(254, 254, 254))))
+=======
+                        .addComponent(btn_Send, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ChatPanelLayout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(jLabel1))
+                    .addGroup(ChatPanelLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(ChatPanelLayout.createSequentialGroup()
+                        .addGap(219, 219, 219)
+                        .addComponent(jLabel2))
+                    .addGroup(ChatPanelLayout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(btn_JoinRoom)))
+                .addContainerGap(122, Short.MAX_VALUE))
+>>>>>>> Stashed changes
         );
         ChatPanelLayout.setVerticalGroup(
             ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,17 +265,23 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ChatPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inf_Nachricht)
+                            .addComponent(btn_Send, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)))
                     .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGap(158, 158, 158)
+                        .addGap(62, 62, 62)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inf_Nachricht)
-                    .addComponent(btn_Send, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addContainerGap(85, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_JoinRoom)))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -280,32 +324,34 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
-        serverHandler.SendLogin(mainFrame.tInput_benutzername.getText(), new String(mainFrame.tInput_password.getPassword()));
+        db.getServerHandler().SendLogin(tInput_benutzername.getText(), new String(tInput_password.getPassword()));
     }//GEN-LAST:event_button_loginActionPerformed
 
     private void button_registrierenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_registrierenActionPerformed
-        serverHandler.SendRegister(mainFrame.tInput_benutzername.getText(), new String(mainFrame.tInput_password.getPassword()));
+        db.getServerHandler().SendRegister(tInput_benutzername.getText(), new String(tInput_password.getPassword()));
     }//GEN-LAST:event_button_registrierenActionPerformed
 
     private void btn_SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SendActionPerformed
-        serverHandler.SendMsg("MSG"+inf_Nachricht.getText());
+        db.getServerHandler().SendMsg("MSG"+inf_Nachricht.getText());
         inf_Nachricht.setText("");
     }//GEN-LAST:event_btn_SendActionPerformed
 
     private void ConnectRetryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectRetryButtonActionPerformed
-        serverHandler.TryConnect();
+        db.getServerHandler().TryConnect();
     }//GEN-LAST:event_ConnectRetryButtonActionPerformed
 
     private void inf_NachrichtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inf_NachrichtKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            serverHandler.SendMsg("MSG"+inf_Nachricht.getText());
+            db.getServerHandler().SendMsg("MSG"+inf_Nachricht.getText());
             inf_Nachricht.setText("");
         }
     }//GEN-LAST:event_inf_NachrichtKeyPressed
 
-    public static ServerHandler serverHandler;
-    public static MainFrame mainFrame;
-    public static HeartBeat heartBeat;
+    private void btn_JoinRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_JoinRoomActionPerformed
+        db.getServerHandler().SendMsg("JRR" + getSelectedRoom());
+    }//GEN-LAST:event_btn_JoinRoomActionPerformed
+
+    private final Datenbank db;
 
     /**
      * @param args the command line arguments
@@ -337,32 +383,28 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                mainFrame = new MainFrame();
-                mainFrame.setVisible(true);
-
-                mainFrame.LoginPanel.setVisible(false);
-                mainFrame.ChatPanel.setVisible(false);
-
-                serverHandler = new ServerHandler(mainFrame);
-                serverHandler.start();
-                heartBeat = new HeartBeat();
-                heartBeat.start();
+                Datenbank datenbank = null;
+                datenbank = new Datenbank();
+                
+                datenbank.getMainFrame().setVisible(true);
+                datenbank.getMainFrame().ChangePanel(0);
+                datenbank.getServerHandler().start();
             }
         });
     }
 
     public void ChangePanel(int newPanel) {
-        mainFrame.ConnectPanel.setVisible(newPanel == 0);
-        mainFrame.LoginPanel.setVisible(newPanel == 1);
-        mainFrame.ChatPanel.setVisible(newPanel == 2);
+        ConnectPanel.setVisible(newPanel == 0);
+        LoginPanel.setVisible(newPanel == 1);
+        ChatPanel.setVisible(newPanel == 2);
     }
 
     public void DisplayLoginError(String errMsg) {
-        mainFrame.label_loginError.setText(errMsg);
+        label_loginError.setText(errMsg);
     }
 
     public void DisplayNutzerList(String[] nutzer) {
-        DefaultListModel routesmodel = ((DefaultListModel) mainFrame.list_Nutzer.getModel());
+        DefaultListModel routesmodel = ((DefaultListModel) list_Nutzer.getModel());
         routesmodel.clear();
         for (int i = 0; i < nutzer.length; i++) {
             routesmodel.addElement(nutzer[i]);
@@ -370,15 +412,43 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     public void DisplayNewNutzer(String nutzer){
-        ((DefaultListModel) mainFrame.list_Nutzer.getModel()).addElement(nutzer);
+        ((DefaultListModel) list_Nutzer.getModel()).addElement(nutzer);
     }
     
     public void RemoveName(String clientName){
-        ((DefaultListModel)mainFrame.list_Nutzer.getModel()).removeElement(clientName);
+        ((DefaultListModel) list_Nutzer.getModel()).removeElement(clientName);
+    }
+    
+    public void DisplayNewRoomList(String[] rooms){
+        DefaultListModel routesmodel = ((DefaultListModel) list_Rooms.getModel());
+        routesmodel.clear();
+        for (int i = 0; i < rooms.length; i++) {
+            routesmodel.addElement(rooms[i]);
+        }
+    }
+    
+    public void DisplayNewRoomChat(String chat){
+        ChatField.setText(chat);
     }
     
     public void DisplayMSG(String nutzer, String msg){
         ChatField.setText(ChatField.getText() + nutzer + ":\t" + msg + "\n");
+    }
+    
+    public int getSelectedRoom(){
+        return list_Rooms.getSelectedIndex();
+    }
+    
+    public void ChangeRoomName(int roomIndex, String roomName){
+        ((DefaultListModel) list_Rooms.getModel()).setElementAt(roomName, roomIndex);
+    }
+    
+    public void AddRoom(String roomName){
+        ((DefaultListModel) list_Rooms.getModel()).addElement(roomName);
+    }
+    
+    public void DeleteRoom(int roomIndex){
+        ((DefaultListModel) list_Rooms.getModel()).remove(roomIndex);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -388,18 +458,22 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ConnectPanel;
     private javax.swing.JButton ConnectRetryButton;
     private javax.swing.JPanel LoginPanel;
+    private javax.swing.JButton btn_JoinRoom;
     private javax.swing.JButton btn_Send;
     private javax.swing.JButton button_login;
     private javax.swing.JButton button_registrieren;
     private javax.swing.JTextField inf_Nachricht;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel label_benutzername;
     private javax.swing.JLabel label_login;
     private javax.swing.JLabel label_loginError;
     private javax.swing.JLabel label_password;
     private javax.swing.JList<String> list_Nutzer;
+    private javax.swing.JList<String> list_Rooms;
     private javax.swing.JTextField tInput_benutzername;
     private javax.swing.JPasswordField tInput_password;
     // End of variables declaration//GEN-END:variables

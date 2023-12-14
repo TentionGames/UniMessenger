@@ -13,8 +13,8 @@ public class HeartBeat extends Thread {
     @Override
     public void run() {
         while (true) {
-            Wait(1000);
             SendHB();
+            Wait(1000);
             ListenToHB();
         }
     }
