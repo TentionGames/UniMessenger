@@ -5,18 +5,20 @@ import java.util.ArrayList;
 
 public class Datenbank {
     
-    private MainFrame mainFrame;
-    private LoginThread loginThread;
-    private HeartBeat heartBeat;
+    private final MainFrame mainFrame;
+    private final LoginThread loginThread;
+    private final HeartBeat heartBeat;
+    private final RoomManager roomManager;
+    private final ClientManager clientManager;
     
-    private ArrayList<ClientHandler> clientHandlers = new ArrayList();
-    private ArrayList<ClientInfo> accs = new ArrayList();
-    private ArrayList<Room> rooms = new ArrayList();
+    private final ArrayList<ClientInfo> accs = new ArrayList();
     
     public Datenbank(){
         mainFrame = new MainFrame(this);
         loginThread = new LoginThread(this);
         heartBeat = new HeartBeat(this);
+        roomManager = new RoomManager(this);
+        clientManager = new ClientManager(this);
     }
     
     // <editor-fold defaultstate="collapsed" desc="Manager Verwaltung"> 
@@ -30,7 +32,16 @@ public class Datenbank {
 
     public HeartBeat getHeartBeat() {
         return heartBeat;
-    }// </editor-fold> 
+    }
+
+    public RoomManager getRoomManager(){
+        return roomManager;
+    }
+    
+    public ClientManager getClientManager(){
+        return clientManager;
+    }
+    // </editor-fold> 
 
     // <editor-fold defaultstate="collapsed" desc="LoginDaten Verwaltung">    
     public ClientInfo newAccount(String name, String password){
@@ -45,24 +56,5 @@ public class Datenbank {
             if(acc.getName().equals(name)) return acc;
         }
         return null;
-    }// </editor-fold> 
-    
-    // <editor-fold defaultstate="collapsed" desc="Client Verwaltung">
-    public void ClientFound(Socket client) {
-        ClientHandler clientHandler = new ClientHandler(this, client);
-        clientHandlers.add(clientHandler);
-        clientHandler.start();
-    }
-    
-    public ClientHandler getClientHandler(int index){
-        return clientHandlers.get(index);
-    }
-    
-    public void RemoveClient(int index){
-        clientHandlers.remove(index);
-    }
-    
-    public int getAnzClients(){
-        return clientHandlers.size();
     }// </editor-fold> 
 }
