@@ -27,8 +27,16 @@ public class Room {
         connectedUsers.add(userName);
     }
     
+    public void RemoveUser(ClientHandler client){
+        connectedUsers.remove(client);
+    }
+    
     public String[] getUsers(){
-        return (String[]) connectedUsers.toArray();
+        String[] ausgabe = new String[connectedUsers.size()];
+        for (int i = 0; i < ausgabe.length; i++) {
+            ausgabe[i] = connectedUsers.get(i).info.getName();
+        }
+        return ausgabe;
     }
 
     public String getChatInhalt() {

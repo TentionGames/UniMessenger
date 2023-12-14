@@ -81,7 +81,6 @@ public class ClientHandler extends Thread {
                 ReceivedTextChat(input.substring(3));
                 break;
             }
-            
             case "JRR" :{
                 ReceivedJoinRoomRequest(Integer.parseInt(input.substring(3)));
                 break;
@@ -127,7 +126,7 @@ public class ClientHandler extends Thread {
         for (int i = 0; i < db.getClientManager().getAnzClients(); i++) {
             ClientInfo curClientInfo = db.getClientManager().getClientHandler(i).info;
             if (curClientInfo != null && !curClientInfo.getName().equals(info.getName())) {
-                db.getClientHandler(i).SendMsg("NCL" + info.getName());
+                db.getClientManager().getClientHandler(i).SendMsg("NCL" + info.getName());
                 msg += curClientInfo.getName() + "%SPLIT%";
             }
         }
