@@ -325,6 +325,10 @@ public class MainFrame extends javax.swing.JFrame {
         panChat.setVisible(newPanel == 1);
     }
     
+    public void DisplayError(String Error){
+        
+    }
+    
     public void AddName(String clientName){
         ((DefaultListModel) list_Clients.getModel()).addElement(clientName);
     }
@@ -336,8 +340,6 @@ public class MainFrame extends javax.swing.JFrame {
     public int getSelectedRoom(){
         return list_Rooms.getSelectedIndex();
     }
-<<<<<<< Updated upstream
-=======
     
     public void ChangeRoomName(int roomIndex, String roomName){
         ((DefaultListModel) list_Rooms.getModel()).setElementAt(roomName, roomIndex);
@@ -350,7 +352,6 @@ public class MainFrame extends javax.swing.JFrame {
     public void DeleteRoom(int roomIndex){
         ((DefaultListModel) list_Rooms.getModel()).remove(roomIndex);
     }
->>>>>>> Stashed changes
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_AddRoom;

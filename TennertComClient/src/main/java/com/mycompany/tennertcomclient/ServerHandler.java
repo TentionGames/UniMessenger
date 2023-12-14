@@ -34,47 +34,6 @@ public class ServerHandler extends Thread {
             db.getHeartBeat().start();
         } catch (IOException e) {}
     } 
-<<<<<<< Updated upstream
-
-    void receiveMsg() throws IOException {
-        String input = in.readUTF();
-        String code = input.substring(0, 3);
-        switch (code) {
-            case "ACL" :{
-                mainFrame.ChangePanel(2);
-                String[] nutzerNamen = input.substring(3).split("%SPLIT%");
-                if(nutzerNamen[0].isEmpty()) break;
-                MainFrame.mainFrame.DisplayNutzerList(nutzerNamen);
-            }
-            case "ERR" :{
-                mainFrame.DisplayLoginError(input.substring(3));
-            }
-            case "HBT" :{
-                MainFrame.heartBeat.ReceivedBeat();
-            }
-            case "NCL" :{
-                mainFrame.DisplayNewNutzer(input.substring(3));
-            }
-            case "CLD" :{
-                mainFrame.RemoveName(input.substring(3));
-            }
-            case "MSG" :{
-                String[] data = input.substring(3).split("%SPLIT%");
-                mainFrame.DisplayMSG(data[0], data[1]);
-            }
-            case "UCR":{
-                
-            }
-            case "NRC":{
-                
-            }
-            case "RDL":{
-                
-            }
-        }
-    }
-=======
->>>>>>> Stashed changes
     
     void SendMsg(String msg){
         try {

@@ -12,6 +12,7 @@ public class ClientHandler extends Thread {
     Socket client;
     private DataInputStream in;
     private DataOutputStream out;
+    Room currentRoom;
 
     private long lastBeatReceived = System.currentTimeMillis();
 
@@ -80,13 +81,10 @@ public class ClientHandler extends Thread {
                 ReceivedTextChat(input.substring(3));
                 break;
             }
-<<<<<<< Updated upstream
-=======
             case "JRR" :{
                 ReceivedJoinRoomRequest(Integer.parseInt(input.substring(3)));
                 break;
             }
->>>>>>> Stashed changes
         }
     }
 
@@ -117,11 +115,6 @@ public class ClientHandler extends Thread {
     
     void SuccesfullLogin(ClientInfo clientInfo) {
         this.info = clientInfo;
-<<<<<<< Updated upstream
-        String msg = "ACL";
-        for (int i = 0; i < db.getAnzClients(); i++) {
-            ClientInfo curClientInfo = db.getClientHandler(i).info;
-=======
         currentRoom = db.getRoomManager().getRoom(0);
         currentRoom.AddUser(this);
         db.getMainFrame().AddName(clientInfo.getName());
@@ -132,9 +125,8 @@ public class ClientHandler extends Thread {
         String msg = "GSI%SPLIT%";
         for (int i = 0; i < db.getClientManager().getAnzClients(); i++) {
             ClientInfo curClientInfo = db.getClientManager().getClientHandler(i).info;
->>>>>>> Stashed changes
             if (curClientInfo != null && !curClientInfo.getName().equals(info.getName())) {
-                db.getClientHandler(i).SendMsg("NCL" + info.getName());
+                db.getClientManager().getClientHandler(i).SendMsg("NCL" + info.getName());
                 msg += curClientInfo.getName() + "%SPLIT%";
             }
         }
@@ -151,14 +143,6 @@ public class ClientHandler extends Thread {
     }
 
     void ReceivedTextChat(String nachricht) {
-<<<<<<< Updated upstream
-        for (int i = 0; i < db.getAnzClients(); i++) {
-            ClientInfo curClientInfo = db.getClientHandler(i).info;
-            if (curClientInfo != null) {
-                db.getClientHandler(i).SendMsg("MSG" + info.getName() + "%SPLIT%" + nachricht);
-            }
-        }
-=======
         currentRoom.AddMsg(info.getName(), nachricht);
         db.getClientManager().SendMessageToAllClientsInRoom(currentRoom, "MSG" + info.getName() + "%SPLIT%" + nachricht);
     }  
@@ -166,7 +150,6 @@ public class ClientHandler extends Thread {
     void ReceivedJoinRoomRequest(int roomIndex){
         db.getRoomManager().ChangeUserRoom(currentRoom, this, roomIndex);
         db.getClientManager().SendMessageToAllClients("UJR" + info.getName() + "%SPLIT%" + roomIndex);
->>>>>>> Stashed changes
     }
 
     
