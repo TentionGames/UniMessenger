@@ -227,7 +227,6 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(ChatPanelLayout.createSequentialGroup()
                         .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-<<<<<<< Updated upstream
                         .addComponent(btn_Send, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
@@ -238,26 +237,6 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(254, 254, 254))))
-=======
-                        .addComponent(btn_Send, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(jLabel1))
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGap(219, 219, 219)
-                        .addComponent(jLabel2))
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(btn_JoinRoom)))
-                .addContainerGap(122, Short.MAX_VALUE))
->>>>>>> Stashed changes
         );
         ChatPanelLayout.setVerticalGroup(
             ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
