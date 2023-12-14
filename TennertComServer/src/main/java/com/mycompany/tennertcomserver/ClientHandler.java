@@ -14,6 +14,7 @@ public class ClientHandler extends Thread {
     private DataOutputStream out;
 
     private long lastBeatReceived = System.currentTimeMillis();
+    private Room currentRoom;
 
     public long getLastBeatReceived() {
         return lastBeatReceived;
@@ -70,6 +71,9 @@ public class ClientHandler extends Thread {
             case "MSG" :{
                 ReceivedTextChat(input.substring(3));
             }
+            case "CRR" :{
+                ReceivedChangeRoomRequest(Integer.parseInt(input.substring(3)));
+            }
         }
     }
 
@@ -103,10 +107,10 @@ public class ClientHandler extends Thread {
     void SuccesfullLogin(ClientInfo clientInfo) {
         this.info = clientInfo;
         String msg = "ACL";
-        for (int i = 0; i < db.getAnzClients(); i++) {
-            ClientInfo curClientInfo = db.getClientHandler(i).info;
+        for (int i = 0; i < db.getClientManager().getAnzClients(); i++) {
+            ClientInfo curClientInfo = db.getClientManager().getClientHandler(i).info;
             if (curClientInfo != null && !curClientInfo.getName().equals(info.getName())) {
-                db.getClientHandler(i).SendMsg("NCL" + info.getName());
+                db.getClientManager().getClientHandler(i).SendMsg("NCL" + info.getName());
                 msg += curClientInfo.getName() + "%SPLIT%";
             }
         }
@@ -119,13 +123,11 @@ public class ClientHandler extends Thread {
     }
 
     void ReceivedTextChat(String nachricht) {
-        for (int i = 0; i < db.getAnzClients(); i++) {
-            ClientInfo curClientInfo = db.getClientHandler(i).info;
-            if (curClientInfo != null) {
-                db.getClientHandler(i).SendMsg("MSG" + info.getName() + "%SPLIT%" + nachricht);
-            }
-        }
-    }
-
+        db.getClientManager().SendMessageToAllClients("MSG" + info.getName() + "%SPLIT%" + nachricht);
+    }  
     
+    void ReceivedChangeRoomRequest(int roomIndex){
+        db.getRoomManager().ChangeUserRoom(currentRoom, this, roomIndex);
+        db.getClientManager().SendMessageToAllClients("UCR" + info.getName() + "%SPLIT%" + roomIndex);
+    }
 }

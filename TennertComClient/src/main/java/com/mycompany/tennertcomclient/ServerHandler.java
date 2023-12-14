@@ -38,29 +38,35 @@ public class ServerHandler extends Thread {
         String input = in.readUTF();
         String code = input.substring(0, 3);
         switch (code) {
-            case "ACL" -> {
+            case "ACL" :{
                 mainFrame.ChangePanel(2);
                 String[] nutzerNamen = input.substring(3).split("%SPLIT%");
                 if(nutzerNamen[0].isEmpty()) break;
                 MainFrame.mainFrame.DisplayNutzerList(nutzerNamen);
             }
-            case "ERR" -> {
+            case "ERR" :{
                 mainFrame.DisplayLoginError(input.substring(3));
             }
-            case "HBT" -> {
+            case "HBT" :{
                 MainFrame.heartBeat.ReceivedBeat();
             }
-            case "NCL" -> {
+            case "NCL" :{
                 mainFrame.DisplayNewNutzer(input.substring(3));
             }
-            case "CLD" -> {
+            case "CLD" :{
                 mainFrame.RemoveName(input.substring(3));
             }
-            case "MSG" -> {
+            case "MSG" :{
                 String[] data = input.substring(3).split("%SPLIT%");
                 mainFrame.DisplayMSG(data[0], data[1]);
             }
-            default -> {
+            case "UCR":{
+                
+            }
+            case "NRC":{
+                
+            }
+            case "RDL":{
                 
             }
         }

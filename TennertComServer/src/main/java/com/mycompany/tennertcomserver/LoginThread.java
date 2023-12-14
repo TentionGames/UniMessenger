@@ -25,7 +25,7 @@ public class LoginThread extends Thread {
     public void TryForClient() {
         try {
             Socket client = server.accept();
-            db.ClientFound(client);
+            db.getClientManager().ClientFound(client);
         } catch (IOException e) {
         }
     }

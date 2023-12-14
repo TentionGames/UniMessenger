@@ -168,12 +168,28 @@ public class MainFrame extends javax.swing.JFrame {
         panChat.setVisible(newPanel == 1);
     }
     
+    public void DisplayError(String Error){
+        
+    }
+    
     public void AddName(String clientName){
         ((DefaultListModel) jList1.getModel()).addElement(clientName);
     }
     
     public void RemoveName(String clientName){
         ((DefaultListModel) jList1.getModel()).removeElement(clientName);
+    }
+    
+    public void ChangeRoomName(int roomIndex, String roomName){
+        
+    }
+    
+    public void AddRoom(String roomName){
+        
+    }
+    
+    public void DeleteRoom(int roomIndex){
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
