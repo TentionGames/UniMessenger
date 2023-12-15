@@ -47,9 +47,8 @@ public class HeartBeat extends Thread {
                 if (curClientInfo != null && !curClientInfo.getName().equals(name)) {
                     db.getClientManager().SendMessageToClient(j, "CLD" + name);
                 }
-            }
-            db.getMainFrame().RemoveName(name);
+            }   
         }
-        db.getClientManager().RemoveClient(clientIdx);
+        db.getClientManager().RemoveClient(disconnectedClient);
     }
 }

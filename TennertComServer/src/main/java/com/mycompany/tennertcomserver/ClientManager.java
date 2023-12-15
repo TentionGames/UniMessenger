@@ -28,10 +28,6 @@ public class ClientManager {
     public int getAnzClients(){
         return clientHandlers.size();
     }
-    
-    public void RemoveClient(int index){
-        clientHandlers.remove(index);
-    }
 
     public void SendMessageToClient(int index, String msg){
         getClientHandler(index).SendMsg(msg);
@@ -43,10 +39,32 @@ public class ClientManager {
         }
     }
     
-    public void SendMessageToAllClientsInRoom(Room room, String msg){
+    public void SendMessageToAllClientsExcept(String msg, ClientHandler exceptionClient){
         for (int i = 0; i < getAnzClients(); i++) {
-            if(room != getClientHandler(i).getRoom()) continue;
+            if(clientHandlers.get(i).equals(exceptionClient)) continue;
             SendMessageToClient(i, msg);
         }
+    }
+    
+    public void SendMessageToAllClientsInRoom(Room room, String msg){
+        for (int i = 0; i < getAnzClients(); i++) {
+            if(!room.equals(getClientHandler(i).getRoom())) continue;
+            SendMessageToClient(i, msg);
+        }
+    }
+    
+    public void SendMessageToAllClientsNotInRoom(Room room, String msg){
+        for (int i = 0; i < getAnzClients(); i++) {
+            if(room.equals(getClientHandler(i).getRoom())) continue;
+            SendMessageToClient(i, msg);
+        }
+    }
+    
+    public void RemoveClient(ClientHandler client){
+        if(client.info != null){
+            db.getRoomManager().RemoveUserFromRoom(client.getRoom(), client);
+            db.getMainFrame().RemoveName(client.getName());
+        }
+        clientHandlers.remove(client);
     }
 }

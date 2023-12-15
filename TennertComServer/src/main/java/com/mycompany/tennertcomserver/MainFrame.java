@@ -341,12 +341,12 @@ public class MainFrame extends javax.swing.JFrame {
         return list_Rooms.getSelectedIndex();
     }
     
-    public void ChangeRoomName(int roomIndex, String roomName){
-        ((DefaultListModel) list_Rooms.getModel()).setElementAt(roomName, roomIndex);
+    public void ChangeRoomName(int roomIndex, int anzUser, String roomName){
+        ((DefaultListModel) list_Rooms.getModel()).setElementAt(roomName + " (" + anzUser + " User)", roomIndex);
     }
     
     public void AddRoom(String roomName){
-        ((DefaultListModel) list_Rooms.getModel()).addElement(roomName);
+        ((DefaultListModel) list_Rooms.getModel()).addElement(roomName + " (0 User)");
     }
     
     public void DeleteRoom(int roomIndex){

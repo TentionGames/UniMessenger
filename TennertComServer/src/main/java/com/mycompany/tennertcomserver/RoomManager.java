@@ -33,8 +33,9 @@ public class RoomManager {
             return;
         }
         rooms.get(selectedRoom).ChangeName(roomName);
-        db.getMainFrame().ChangeRoomName(selectedRoom, roomName);
-        db.getClientManager().SendMessageToAllClients("RNC" + selectedRoom + "%SPLIT%" + roomName);
+        db.getMainFrame().ChangeRoomName(selectedRoom, rooms.get(selectedRoom).getAnzUsers(), roomName);
+        db.getClientManager().SendMessageToAllClientsInRoom(rooms.get(selectedRoom), "RNC" + selectedRoom + "%SPLIT%1%SPLIT%" + roomName);
+        db.getClientManager().SendMessageToAllClientsNotInRoom(rooms.get(selectedRoom), "RNC" + selectedRoom + "%SPLIT%0%SPLIT%" + roomName);
     }
     
     public void CurrRoomDelete(){
@@ -47,6 +48,11 @@ public class RoomManager {
             db.getMainFrame().DisplayError("Kein Raum ausgewählt!");
             return;
         }
+        Room roomToDelete = rooms.get(selectedRoom);
+        for (int i = 0; i < roomToDelete.getAnzUsers(); i++) {
+            int neuerRaum = selectedRoom != 0? 0:1;
+            ChangeUserRoom(roomToDelete, roomToDelete.getUser(i), neuerRaum);
+        }
         rooms.remove(selectedRoom);
         db.getMainFrame().DeleteRoom(selectedRoom);
         db.getClientManager().SendMessageToAllClients("RDL" + selectedRoom);
@@ -54,17 +60,21 @@ public class RoomManager {
     
     public void RemoveUserFromRoom(Room currentRoom, ClientHandler client){
         currentRoom.RemoveUser(client);
+        client.setRoom(null);
+        db.getMainFrame().ChangeRoomName(rooms.indexOf(currentRoom), currentRoom.getAnzUsers(), currentRoom.getName());
     }
     
     public void AddUserToRoom(ClientHandler client, int newRoom){
         rooms.get(newRoom).AddUser(client);
+        client.setRoom(rooms.get(newRoom));
+        db.getMainFrame().ChangeRoomName(newRoom, rooms.get(newRoom).getAnzUsers(), rooms.get(newRoom).getName());
     }
     
     public void ChangeUserRoom(Room currentRoom, ClientHandler client, int newRoom){
-        client.setRoom(rooms.get(newRoom));
         RemoveUserFromRoom(currentRoom, client);
         AddUserToRoom(client, newRoom);
-        client.SendMsg("RRC" + rooms.get(newRoom).getChatInhalt());
+        client.SendMsg("RRC" + rooms.get(newRoom).getName() + "%SPLIT%" + rooms.get(newRoom).getChatInhalt());
+        db.getClientManager().SendMessageToAllClients("UJR" + client.info.getName() + "%SPLIT%" + newRoom);
     }
     
     boolean isLastRoom(){

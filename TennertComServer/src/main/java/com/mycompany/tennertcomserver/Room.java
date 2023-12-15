@@ -31,12 +31,12 @@ public class Room {
         connectedUsers.remove(client);
     }
     
-    public String[] getUsers(){
-        String[] ausgabe = new String[connectedUsers.size()];
-        for (int i = 0; i < ausgabe.length; i++) {
-            ausgabe[i] = connectedUsers.get(i).info.getName();
-        }
-        return ausgabe;
+    public int getAnzUsers(){
+        return connectedUsers.size();
+    }
+    
+    public ClientHandler getUser(int i){
+        return connectedUsers.get(i);
     }
 
     public String getChatInhalt() {

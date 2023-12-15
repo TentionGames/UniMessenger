@@ -115,24 +115,23 @@ public class ClientHandler extends Thread {
     
     void SuccesfullLogin(ClientInfo clientInfo) {
         this.info = clientInfo;
-        currentRoom = db.getRoomManager().getRoom(0);
-        currentRoom.AddUser(this);
+        db.getRoomManager().AddUserToRoom(this, 0);
         db.getMainFrame().AddName(clientInfo.getName());
+        db.getClientManager().SendMessageToAllClientsExcept("NCL" + info.getName(), this);
         SendMsg("ACL");
     }
 
     void SendGeneralServerInfo(){
-        String msg = "GSI%SPLIT%";
+        String msg = "GSI%SPLIT_2%";
         for (int i = 0; i < db.getClientManager().getAnzClients(); i++) {
             ClientInfo curClientInfo = db.getClientManager().getClientHandler(i).info;
-            if (curClientInfo != null && !curClientInfo.getName().equals(info.getName())) {
-                db.getClientManager().getClientHandler(i).SendMsg("NCL" + info.getName());
-                msg += curClientInfo.getName() + "%SPLIT%";
+            if (curClientInfo != null) {
+                msg += curClientInfo.getName() + "%SPLIT_2%";
             }
         }
-        msg += "%SPLIT_2%";
+        msg += "%SPLIT%";
         for (int i = 0; i < db.getRoomManager().getAnzRooms(); i++) {
-            msg += db.getRoomManager().getRoom(i).getName() + "%SPLIT%";
+            msg += db.getRoomManager().getRoom(i).getName() + "%SPLIT_2%";
         }
         SendMsg(msg);
     }
@@ -148,8 +147,8 @@ public class ClientHandler extends Thread {
     }  
     
     void ReceivedJoinRoomRequest(int roomIndex){
+        if(db.getRoomManager().getRoom(roomIndex).equals(currentRoom)) return;
         db.getRoomManager().ChangeUserRoom(currentRoom, this, roomIndex);
-        db.getClientManager().SendMessageToAllClients("UJR" + info.getName() + "%SPLIT%" + roomIndex);
     }
 
     

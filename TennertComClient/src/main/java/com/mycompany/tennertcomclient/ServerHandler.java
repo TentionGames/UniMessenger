@@ -74,7 +74,7 @@ public class ServerHandler extends Thread {
                 break;
             }
             case "GSI":{//General Server Info
-                ReceivedGeneralServerInfo(input.substring(3).split("%SPLIT_2%"));
+                ReceivedGeneralServerInfo(input.substring(3).split("%SPLIT%"));
                 break;
             }
             case "ACL" :{ //Accepted Client Login
@@ -109,7 +109,7 @@ public class ServerHandler extends Thread {
                 break;
             }
             case "RRC":{ //Receive Room Chat
-                ReceiveRoomChat(input.substring(3));
+                ReceiveRoomChat(input.substring(3).split("%SPLIT%"));
                 break;
             }
         }
@@ -124,8 +124,8 @@ public class ServerHandler extends Thread {
     }
     
     void ReceivedGeneralServerInfo(String[] data){
-        String[] nutzerNamen = data[0].split("%SPLIT%");
-        String[] rooms = data[1].split("%SPLIT%");
+        String[] nutzerNamen = data[0].split("%SPLIT_2%");
+        String[] rooms = data[1].split("%SPLIT_2%");
         if(nutzerNamen.length > 0){
             db.getMainFrame().DisplayNutzerList(nutzerNamen);
         }
@@ -153,15 +153,16 @@ public class ServerHandler extends Thread {
     }
     
     void ReceivedRoomNameChanged(String[] data){
-        db.getMainFrame().ChangeRoomName(Integer.parseInt(data[0]), data[1]);
+        db.getMainFrame().ChangeRoomName(Integer.parseInt(data[0]), Integer.parseInt(data[1]) > 0, data[2]);
     }
     
     void ReceivedRoomDeleted(int roomIndex){
         db.getMainFrame().DeleteRoom(roomIndex);
     }
     
-    void ReceiveRoomChat(String roomChat){
-        db.getMainFrame().DisplayNewRoomChat(roomChat);
+    void ReceiveRoomChat(String[] data){
+        if(data.length < 2) data = new String[]{data[0], ""};
+        db.getMainFrame().DisplayNewRoomChat(data[0], data[1]);
     }
             
 }

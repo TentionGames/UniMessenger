@@ -46,6 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
         list_Rooms = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         btn_JoinRoom = new javax.swing.JButton();
+        lbl_currentRoom = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
@@ -221,34 +222,41 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        lbl_currentRoom.setText("default");
+
         javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
         ChatPanel.setLayout(ChatPanelLayout);
         ChatPanelLayout.setHorizontalGroup(
             ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ChatPanelLayout.createSequentialGroup()
                 .addGap(165, 165, 165)
-                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_Send))
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(ChatPanelLayout.createSequentialGroup()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(137, 137, 137)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                        .addComponent(btn_JoinRoom)
-                        .addGap(247, 247, 247))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(268, 268, 268))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(244, 244, 244))))
+                    .addGroup(ChatPanelLayout.createSequentialGroup()
+                        .addComponent(lbl_currentRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(ChatPanelLayout.createSequentialGroup()
+                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(ChatPanelLayout.createSequentialGroup()
+                                .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Send))
+                            .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(137, 137, 137))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                .addComponent(btn_JoinRoom)
+                                .addGap(247, 247, 247))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(268, 268, 268))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(244, 244, 244))))))
         );
         ChatPanelLayout.setVerticalGroup(
             ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +273,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btn_JoinRoom)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addComponent(lbl_currentRoom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +336,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ConnectRetryButtonActionPerformed
 
     private void btn_JoinRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_JoinRoomActionPerformed
-        db.getServerHandler().SendMsg("JRR" + getSelectedRoom());
+        if(getSelectedRoom() >= 0){
+            db.getServerHandler().SendMsg("JRR" + getSelectedRoom());
+        }
     }//GEN-LAST:event_btn_JoinRoomActionPerformed
 
     private void btn_SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SendActionPerformed
@@ -397,6 +409,7 @@ public class MainFrame extends javax.swing.JFrame {
         DefaultListModel routesmodel = ((DefaultListModel) list_Nutzer.getModel());
         routesmodel.clear();
         for (int i = 0; i < nutzer.length; i++) {
+            if(nutzer[i].isEmpty()) continue;
             routesmodel.addElement(nutzer[i]);
         }
     }
@@ -417,7 +430,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
     
-    public void DisplayNewRoomChat(String chat){
+    public void DisplayNewRoomChat(String roomName, String chat){
+        lbl_currentRoom.setText(roomName);
         ChatField.setText(chat);
     }
     
@@ -429,7 +443,8 @@ public class MainFrame extends javax.swing.JFrame {
         return list_Rooms.getSelectedIndex();
     }
     
-    public void ChangeRoomName(int roomIndex, String roomName){
+    public void ChangeRoomName(int roomIndex, boolean inRoom, String roomName){
+        if(inRoom) lbl_currentRoom.setText(roomName);
         ((DefaultListModel) list_Rooms.getModel()).setElementAt(roomName, roomIndex);
     }
     
@@ -462,6 +477,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_login;
     private javax.swing.JLabel label_loginError;
     private javax.swing.JLabel label_password;
+    private javax.swing.JLabel lbl_currentRoom;
     private javax.swing.JList<String> list_Nutzer;
     private javax.swing.JList<String> list_Rooms;
     private javax.swing.JTextField tInput_benutzername;
