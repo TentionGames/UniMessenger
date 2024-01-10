@@ -62,19 +62,27 @@ public class RoomManager {
         currentRoom.RemoveUser(client);
         client.setRoom(null);
         db.getMainFrame().ChangeRoomName(rooms.indexOf(currentRoom), currentRoom.getAnzUsers(), currentRoom.getName());
+        db.getClientManager().SendMessageToAllClientsInRoom(currentRoom, "ULR" + client.info.getName());
     }
     
     public void AddUserToRoom(ClientHandler client, int newRoom){
         rooms.get(newRoom).AddUser(client);
         client.setRoom(rooms.get(newRoom));
+        db.getMainFrame().ChangeName(db.getClientManager().indexOfClient(client), client.getName(), rooms.get(newRoom).getName());
         db.getMainFrame().ChangeRoomName(newRoom, rooms.get(newRoom).getAnzUsers(), rooms.get(newRoom).getName());
+        
+        db.getClientManager().SendMessageToAllClientsInRoomExcept(rooms.get(newRoom), client, "UJR" + client.info.getName());
+        
+        String msg = "RRC" + rooms.get(newRoom).getName() + "%SPLIT%" + rooms.get(newRoom).getChatInhalt() + "%SPLIT%";
+        for (int i = 0; i < rooms.get(newRoom).getAnzUsers(); i++) {
+            msg += rooms.get(newRoom).getUser(i).getName() + "%SPLIT2%";
+        }
+        client.SendMsg(msg);
     }
     
     public void ChangeUserRoom(Room currentRoom, ClientHandler client, int newRoom){
         RemoveUserFromRoom(currentRoom, client);
         AddUserToRoom(client, newRoom);
-        client.SendMsg("RRC" + rooms.get(newRoom).getName() + "%SPLIT%" + rooms.get(newRoom).getChatInhalt());
-        db.getClientManager().SendMessageToAllClients("UJR" + client.info.getName() + "%SPLIT%" + newRoom);
     }
     
     boolean isLastRoom(){

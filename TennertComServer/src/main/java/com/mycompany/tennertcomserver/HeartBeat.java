@@ -40,15 +40,6 @@ public class HeartBeat extends Thread {
 
     private void ClientDisconnected(int clientIdx) {
         ClientHandler disconnectedClient = db.getClientManager().getClientHandler(clientIdx);
-        if (disconnectedClient.info != null) {
-            String name = disconnectedClient.info.getName();
-            for (int j = 0; j < db.getClientManager().getAnzClients(); j++) {
-                ClientInfo curClientInfo = disconnectedClient.info;
-                if (curClientInfo != null && !curClientInfo.getName().equals(name)) {
-                    db.getClientManager().SendMessageToClient(j, "CLD" + name);
-                }
-            }   
-        }
         db.getClientManager().RemoveClient(disconnectedClient);
     }
 }

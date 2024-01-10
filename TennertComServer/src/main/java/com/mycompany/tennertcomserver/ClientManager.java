@@ -28,6 +28,10 @@ public class ClientManager {
     public int getAnzClients(){
         return clientHandlers.size();
     }
+    
+    public int indexOfClient(ClientHandler client){
+        return clientHandlers.indexOf(client);
+    }
 
     public void SendMessageToClient(int index, String msg){
         getClientHandler(index).SendMsg(msg);
@@ -53,6 +57,13 @@ public class ClientManager {
         }
     }
     
+    public void SendMessageToAllClientsInRoomExcept(Room room, ClientHandler exceptionClient, String msg){
+        for (int i = 0; i < getAnzClients(); i++) {
+            if(!room.equals(getClientHandler(i).getRoom()) || getClientHandler(i).equals(exceptionClient)) continue;
+            SendMessageToClient(i, msg);
+        }
+    }
+    
     public void SendMessageToAllClientsNotInRoom(Room room, String msg){
         for (int i = 0; i < getAnzClients(); i++) {
             if(room.equals(getClientHandler(i).getRoom())) continue;
@@ -63,8 +74,29 @@ public class ClientManager {
     public void RemoveClient(ClientHandler client){
         if(client.info != null){
             db.getRoomManager().RemoveUserFromRoom(client.getRoom(), client);
-            db.getMainFrame().RemoveName(client.getName());
+            db.getMainFrame().RemoveName(clientHandlers.indexOf(client));
+            SendMessageToAllClientsInRoomExcept(client.getRoom(),client,"ULR" + client.info.getName());
         }
         clientHandlers.remove(client);
+    }
+    
+    public void RemoveClient(int clientIndex){
+        RemoveClient(clientHandlers.get(clientIndex));
+    }
+    
+    public void ClientVerwarnen(int clientIndex, String warnung){
+        SendMessageToClient(clientIndex, "VWA" + warnung);
+    }
+    
+    public void ClientKick(int clientIndex){
+        SendMessageToClient(clientIndex, "KCK");
+        RemoveClient(clientIndex);
+    }
+    
+    public void ClientBann(int clientIndex){
+        ClientInfo info = clientHandlers.get(clientIndex).info;
+        info.ChangeBan(true);
+        db.ChangeClientInfo(info);
+        ClientKick(clientIndex);
     }
 }

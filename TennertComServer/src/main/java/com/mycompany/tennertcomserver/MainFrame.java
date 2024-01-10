@@ -39,9 +39,13 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         list_Rooms = new javax.swing.JList<>();
+        jLabel4 = new javax.swing.JLabel();
         btn_AddRoom = new javax.swing.JButton();
         btn_RenameRoom = new javax.swing.JButton();
         btn_DeleteRoom = new javax.swing.JButton();
+        btn_Verwarnen = new javax.swing.JButton();
+        btn_Kicken = new javax.swing.JButton();
+        btn_Bannen = new javax.swing.JButton();
 
         frm_ChangeRoomName.setBounds(new java.awt.Rectangle(490, 260, 300, 200));
         frm_ChangeRoomName.setMinimumSize(new java.awt.Dimension(300, 200));
@@ -169,6 +173,8 @@ public class MainFrame extends javax.swing.JFrame {
         list_Rooms.setModel(new DefaultListModel());
         jScrollPane2.setViewportView(list_Rooms);
 
+        jLabel4.setText("Räume");
+
         btn_AddRoom.setText("Add Room");
         btn_AddRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +196,27 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_Verwarnen.setText("Verwarnen");
+        btn_Verwarnen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_VerwarnenActionPerformed(evt);
+            }
+        });
+
+        btn_Kicken.setText("Rauswerfen");
+        btn_Kicken.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_KickenActionPerformed(evt);
+            }
+        });
+
+        btn_Bannen.setText("Bann");
+        btn_Bannen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_BannenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panChatLayout = new javax.swing.GroupLayout(panChat);
         panChat.setLayout(panChatLayout);
         panChatLayout.setHorizontalGroup(
@@ -198,20 +225,32 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(875, Short.MAX_VALUE)
                 .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(202, 202, 202))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
-                            .addComponent(btn_AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btn_RenameRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(164, 164, 164))
-                        .addGroup(panChatLayout.createSequentialGroup()
+                        .addComponent(btn_AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_RenameRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(164, 164, 164))
+                    .addGroup(panChatLayout.createSequentialGroup()
+                        .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btn_DeleteRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(44, 44, 44)))))
+                            .addGroup(panChatLayout.createSequentialGroup()
+                                .addComponent(btn_Verwarnen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Kicken, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Bannen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(212, 212, 212))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(210, 210, 210))))
         );
         panChatLayout.setVerticalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,8 +258,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Verwarnen)
+                    .addComponent(btn_Kicken)
+                    .addComponent(btn_Bannen))
+                .addGap(32, 32, 32)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -274,6 +320,18 @@ public class MainFrame extends javax.swing.JFrame {
         frm_AddRoom.setVisible(false);
         db.getRoomManager().AddRoom(txtIpt_RoomNameAdd.getText());
     }//GEN-LAST:event_btn_RoomAddActionPerformed
+
+    private void btn_VerwarnenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VerwarnenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_VerwarnenActionPerformed
+
+    private void btn_KickenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_KickenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_KickenActionPerformed
+
+    private void btn_BannenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BannenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_BannenActionPerformed
 
     private Datenbank db;
     
@@ -329,12 +387,16 @@ public class MainFrame extends javax.swing.JFrame {
         
     }
     
-    public void AddName(String clientName){
-        ((DefaultListModel) list_Clients.getModel()).addElement(clientName);
+    public void AddName(String clientName, String roomName){
+        ((DefaultListModel) list_Clients.getModel()).addElement(clientName + " (" + roomName + ")");
     }
     
-    public void RemoveName(String clientName){
-        ((DefaultListModel) list_Clients.getModel()).removeElement(clientName);
+    public void RemoveName(int index){
+        ((DefaultListModel) list_Clients.getModel()).remove(index);
+    }
+    
+    public void ChangeName(int index, String clientName, String roomName){
+        ((DefaultListModel) list_Clients.getModel()).set(index, clientName + " (" + roomName + ")");
     }
     
     public int getSelectedRoom(){
@@ -355,16 +417,20 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_AddRoom;
+    private javax.swing.JButton btn_Bannen;
     private javax.swing.JButton btn_ChangeName;
     private javax.swing.JButton btn_DeleteRoom;
+    private javax.swing.JButton btn_Kicken;
     private javax.swing.JButton btn_RenameRoom;
     private javax.swing.JButton btn_RoomAdd;
+    private javax.swing.JButton btn_Verwarnen;
     private javax.swing.JButton butStartRetry;
     private javax.swing.JFrame frm_AddRoom;
     private javax.swing.JFrame frm_ChangeRoomName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labStartInfo;

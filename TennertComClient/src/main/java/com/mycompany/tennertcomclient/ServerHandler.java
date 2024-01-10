@@ -32,7 +32,8 @@ public class ServerHandler extends Thread {
             out = new DataOutputStream(server.getOutputStream());
             db.getMainFrame().ChangePanel(1);
             db.getHeartBeat().start();
-        } catch (IOException e) {}
+        } 
+        catch (IOException e) {}
     } 
     
     void SendMsg(String msg){
@@ -61,7 +62,8 @@ public class ServerHandler extends Thread {
         SendMsg("REG"+name+"%SPLIT%"+password);
     }
 
-    void receiveMsg() throws IOException {
+    void receiveMsg() throws IOException{
+        if(in == null) return;
         String input = in.readUTF();
         String code = input.substring(0, 3);
         switch (code) {
@@ -94,6 +96,11 @@ public class ServerHandler extends Thread {
                 break;
             }
             case "UJR":{ //User Joined Room
+                UserJoinedRoom(input.substring(3));
+                break;
+            }
+            case "ULR":{ //User Joined Room
+                UserLeftRoom(input.substring(3));
                 break;
             }
             case "NRC":{ //New Room Created
@@ -110,6 +117,14 @@ public class ServerHandler extends Thread {
             }
             case "RRC":{ //Receive Room Chat
                 ReceiveRoomChat(input.substring(3).split("%SPLIT%"));
+                break;
+            }
+            case "VWA":{ //Verwarnung erhalten
+                ReceiveVerwarnung(input.substring(3));
+                break;
+            }
+            case "KCK":{
+                ReceiveKick();
                 break;
             }
         }
@@ -137,11 +152,11 @@ public class ServerHandler extends Thread {
     }
     
     void ReceivedNewCLient(String clientName){
-        db.getMainFrame().DisplayNewNutzer(clientName);
+        
     }
     
     void ReceivedClientDisconnect(String clientName){
-        db.getMainFrame().RemoveName(clientName);
+        
     }
     
     void ReceivedMessage(String[] data){
@@ -161,8 +176,28 @@ public class ServerHandler extends Thread {
     }
     
     void ReceiveRoomChat(String[] data){
-        if(data.length < 2) data = new String[]{data[0], ""};
         db.getMainFrame().DisplayNewRoomChat(data[0], data[1]);
+        if(data.length < 3) {
+            db.getMainFrame().DisplayNutzerList(new String[0]);
+            return;
+        }
+        String[] nutzer = data[2].split("%SPLIT2%");
+        db.getMainFrame().DisplayNutzerList(nutzer);
     }
-            
+    
+    void ReceiveVerwarnung(String warnung){
+        db.getMainFrame().DisplayErrorFrame(warnung);
+    }
+    
+    void ReceiveKick(){
+        db.getMainFrame().ChangePanel(0);
+    }
+    
+    void UserJoinedRoom(String clientName){
+        db.getMainFrame().DisplayNewNutzer(clientName);
+    }
+    
+    void UserLeftRoom(String clientName){
+        db.getMainFrame().RemoveName(clientName);
+    }
 }

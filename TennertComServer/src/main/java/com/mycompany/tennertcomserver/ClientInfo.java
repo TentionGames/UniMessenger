@@ -1,7 +1,7 @@
 package com.mycompany.tennertcomserver;
 
 public class ClientInfo {
-    private String name;
+    private final String name;
     private String password;
     private boolean banned;
 

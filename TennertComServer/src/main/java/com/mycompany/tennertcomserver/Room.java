@@ -17,6 +17,10 @@ public class Room {
     
     public void ChangeName(String roomName){
         this.roomName = roomName;
+        for (int i = 0; i < connectedUsers.size(); i++) {
+            ClientHandler client = connectedUsers.get(i);
+            db.getMainFrame().ChangeName(db.getClientManager().indexOfClient(client), client.getName(), roomName);
+        }
     }
     
     public String getName(){

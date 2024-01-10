@@ -116,8 +116,8 @@ public class ClientHandler extends Thread {
     void SuccesfullLogin(ClientInfo clientInfo) {
         this.info = clientInfo;
         db.getRoomManager().AddUserToRoom(this, 0);
-        db.getMainFrame().AddName(clientInfo.getName());
-        db.getClientManager().SendMessageToAllClientsExcept("NCL" + info.getName(), this);
+        db.getMainFrame().AddName(clientInfo.getName(), db.getRoomManager().getRoom(0).getName());
+        db.getClientManager().SendMessageToAllClientsInRoomExcept(db.getRoomManager().getRoom(0) , this, "UJR" + info.getName());
         SendMsg("ACL");
     }
 

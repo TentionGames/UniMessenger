@@ -22,6 +22,9 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ErrorFrame = new javax.swing.JFrame();
+        ErrorText = new javax.swing.JTextArea();
+        ErrorOK = new javax.swing.JButton();
         ConnectPanel = new javax.swing.JPanel();
         ConnectInfo = new javax.swing.JLabel();
         ConnectRetryButton = new javax.swing.JButton();
@@ -47,6 +50,40 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btn_JoinRoom = new javax.swing.JButton();
         lbl_currentRoom = new javax.swing.JLabel();
+
+        ErrorText.setEditable(false);
+        ErrorText.setColumns(20);
+        ErrorText.setRows(5);
+
+        ErrorOK.setText("OK");
+        ErrorOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ErrorOKActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ErrorFrameLayout = new javax.swing.GroupLayout(ErrorFrame.getContentPane());
+        ErrorFrame.getContentPane().setLayout(ErrorFrameLayout);
+        ErrorFrameLayout.setHorizontalGroup(
+            ErrorFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ErrorFrameLayout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(ErrorOK)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ErrorFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ErrorText, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        ErrorFrameLayout.setVerticalGroup(
+            ErrorFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ErrorFrameLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ErrorText, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ErrorOK)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
@@ -353,6 +390,10 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inf_NachrichtKeyPressed
 
+    private void ErrorOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ErrorOKActionPerformed
+        ErrorFrame.setVisible(false);
+    }//GEN-LAST:event_ErrorOKActionPerformed
+
     private final Datenbank db;
 
     /**
@@ -456,12 +497,20 @@ public class MainFrame extends javax.swing.JFrame {
         ((DefaultListModel) list_Rooms.getModel()).remove(roomIndex);
     }
 
+    public void DisplayErrorFrame(String message){
+        ErrorFrame.setVisible(true);
+        ErrorText.setText(message);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea ChatField;
     private javax.swing.JPanel ChatPanel;
     private javax.swing.JLabel ConnectInfo;
     private javax.swing.JPanel ConnectPanel;
     private javax.swing.JButton ConnectRetryButton;
+    private javax.swing.JFrame ErrorFrame;
+    private javax.swing.JButton ErrorOK;
+    private javax.swing.JTextArea ErrorText;
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton btn_JoinRoom;
     private javax.swing.JButton btn_Send;

@@ -56,5 +56,15 @@ public class Datenbank {
             if(acc.getName().equals(name)) return acc;
         }
         return null;
-    }// </editor-fold> 
+    }
+
+    public void ChangeClientInfo(ClientInfo clientInfo){
+        for (ClientInfo acc : accs) {
+            if(acc.getName().equals(clientInfo.getName())){
+                acc = clientInfo;
+                return;
+            }
+        }
+    }
+    // </editor-fold> 
 }
