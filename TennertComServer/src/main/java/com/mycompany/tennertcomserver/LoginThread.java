@@ -35,6 +35,7 @@ public class LoginThread extends Thread {
             server = new ServerSocket(3141);
             db.getMainFrame().ChangePanel(1);
             db.getRoomManager().AddRoom("default");
+            db.getLogHandler().ServerGestartet();
         } catch (IOException ex) {
         }
     }

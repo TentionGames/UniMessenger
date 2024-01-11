@@ -457,6 +457,11 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void AddLog(String log){
         LogField.setText(LogField.getText() + log + "\n");
+        db.getSaveSystem().SaveLogFile(LogField.getText());
+    }
+    
+    public void SetLog(String log){
+        LogField.setText(log);
     }
     
     //Namen

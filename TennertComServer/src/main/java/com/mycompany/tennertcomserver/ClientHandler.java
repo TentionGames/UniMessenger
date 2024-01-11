@@ -2,6 +2,8 @@ package com.mycompany.tennertcomserver;
 
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClientHandler extends Thread {
 
@@ -55,7 +57,10 @@ public class ClientHandler extends Thread {
         while (true) {
             try {
                 ReceiveMsg();
-            } catch (IOException e) {}
+                ReceiveFile();
+            } catch (IOException e) {
+                
+            }
         }
     }
 
@@ -76,6 +81,22 @@ public class ClientHandler extends Thread {
     
     private void SendError(String errorMsg){
         SendMsg("ERR"+ errorMsg);
+    }
+    
+    private void ReceiveFile(){
+        try {
+            byte[] bytes = new byte[16*1024];
+            int count;
+            while ((count = in.read(bytes)) > 0) {
+                db.getClientManager().SendBytesToAllClientsInRoom(db.getRoomManager().getRoom(currentRoom), bytes, count);
+            }
+        } catch (IOException ex) {}
+    }
+    
+    public void SendBytes(byte[] bytes, int count){
+        try {
+            out.write(bytes, 0, count);
+        } catch (IOException ex) {}
     }
 
     private void ReceiveMsg() throws IOException {
@@ -104,7 +125,7 @@ public class ClientHandler extends Thread {
             }
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="Login und Registrieren">
     private void ReceivedLogin(String[] data) {
         ClientInfo clientInfo = db.getClientInfo(data[0]);
@@ -131,8 +152,9 @@ public class ClientHandler extends Thread {
     }
     
     private void SuccesfullLogin(ClientInfo clientInfo) {
-        this.info = clientInfo;
+        info = clientInfo;
         db.getMainFrame().AddName(clientInfo.getName(), db.getRoomManager().getRoom(0).getName());
+        db.getLogHandler().ClientJoined(getClientName());
         db.getRoomManager().AddUserToRoom(this, 0);
         SendMsg("ACL");
     }
@@ -161,7 +183,7 @@ public class ClientHandler extends Thread {
         db.getLogHandler().NachrichtEmpfangen(this, nachricht);
         getRoom().AddMsg(info.getName(), nachricht);
         db.getClientManager().SendMessageToAllClientsInRoom(getRoom(), "MSG" + info.getName() + "%SPLIT%" + nachricht);
-        db.getLogHandler().NachrichtGesendetAnRaum(getRoom(), this, nachricht);
+        db.getLogHandler().NachrichtGesendetAnRaum(getRoom(), getClientName(), nachricht);
     }  
     
     private void ReceivedJoinRoomRequest(int roomIndex){

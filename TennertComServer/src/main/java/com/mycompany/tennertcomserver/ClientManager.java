@@ -37,6 +37,10 @@ public class ClientManager {
         getClientHandler(index).SendMsg(msg);
     }
     
+    public void SendBytesToClient(int index, byte[] file, int count){
+        getClientHandler(index).SendBytes(file, count);
+    }
+    
     public void SendMessageToAllClients(String msg){
         for (int i = 0; i < getAnzClients(); i++) {
             SendMessageToClient(i, msg);
@@ -54,6 +58,13 @@ public class ClientManager {
         for (int i = 0; i < getAnzClients(); i++) {
             if(!room.isEqualTo(getClientHandler(i).getRoom())) continue;
             SendMessageToClient(i, msg);
+        }
+    }
+    
+    public void SendBytesToAllClientsInRoom(Room room, byte[] file, int count){
+        for (int i = 0; i < getAnzClients(); i++) {
+            if(!room.isEqualTo(getClientHandler(i).getRoom())) continue;
+            SendBytesToClient(i, file, count);
         }
     }
     
@@ -75,6 +86,7 @@ public class ClientManager {
         if(!client.isClientInfoNull()){
             db.getMainFrame().RemoveName(clientHandlers.indexOf(client));
             SendMessageToAllClientsInRoomExcept(client.getRoom(),client,"ULR" + client.getClientName());
+            db.getLogHandler().ClientDisconnected(client.getClientName());
             db.getRoomManager().RemoveUserFromRoom(client.getRoom(), client);
         }
         clientHandlers.remove(client);
@@ -86,10 +98,12 @@ public class ClientManager {
     
     public void ClientVerwarnen(int clientIndex, String warnung){
         SendMessageToClient(clientIndex, "VWA" + warnung);
+        db.getLogHandler().ClientVerwarnt(clientHandlers.get(clientIndex).getClientName(), warnung);
     }
     
     public void ClientKick(int clientIndex){
         SendMessageToClient(clientIndex, "KCK");
+        db.getLogHandler().ClientGekickt(clientHandlers.get(clientIndex).getClientName());
         RemoveClient(clientIndex);
     }
     
@@ -97,6 +111,8 @@ public class ClientManager {
         ClientInfo info = clientHandlers.get(clientIndex).getClientInfo();
         info.ChangeBan(true);
         db.ChangeClientInfo(info);
+        db.getSaveSystem().SaveClientInfo(info);
+        db.getLogHandler().ClientGebannt(info.getName());
         ClientKick(clientIndex);
     }
 }

@@ -2,6 +2,9 @@ package com.mycompany.tennertcomserver;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SaveSystem {
     
@@ -22,6 +25,8 @@ public class SaveSystem {
                 catch (ClassNotFoundException e) {}
             }
         }
+        
+        db.getMainFrame().SetLog(LoadLogFile());
     }
     
     private void ImportFile(String path) throws FileNotFoundException, IOException, ClassNotFoundException{
@@ -48,5 +53,17 @@ public class SaveSystem {
           if (oos != null) try { oos.close(); } catch (IOException e) {}
           if (fos != null) try { fos.close(); } catch (IOException e) {}
         }
+    }
+    
+    public void SaveLogFile(String log){
+        try {
+            Files.writeString(Path.of("C:/UniMessenger/log.txt"), log);
+        } catch (IOException ex) {}
+    }
+    
+    private String LoadLogFile(){
+        try {
+            return Files.readString(Path.of("C:/UniMessenger/log.txt"));
+        } catch (IOException ex) {return "";}
     }
 }

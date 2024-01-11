@@ -1,9 +1,10 @@
 package com.mycompany.tennertcomclient;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
+
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ServerHandler extends Thread {
 
@@ -21,6 +22,7 @@ public class ServerHandler extends Thread {
         while (true) {
             try {
                 receiveMsg();
+                ReceiveBytes();
             } catch (IOException e) {}
         }
     }
@@ -39,6 +41,29 @@ public class ServerHandler extends Thread {
     public void SendMsg(String msg){
         try {
             out.writeUTF(msg);
+        } catch (IOException ex) {}
+    }
+    
+    private void ReceiveBytes(){
+        try{
+            FileOutputStream fileOut = new FileOutputStream(new File("C:/UniMessenger/datei.png"));
+            byte[] bytes = new byte[16*1024];
+            int count;
+            while ((count = in.read(bytes)) > 0) {
+                fileOut.write(bytes, 0, count);
+            }
+        }catch (IOException ex) {}
+    }
+    
+    public void SendFile(File file){
+        try{
+            byte[] bytes = new byte[16 * 1024];
+            InputStream in = new FileInputStream(file);
+            
+            int count;
+            while ((count = in.read(bytes)) > 0) {
+                out.write(bytes, 0, count);
+            }
         } catch (IOException ex) {}
     }
     

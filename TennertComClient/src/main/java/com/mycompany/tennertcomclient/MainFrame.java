@@ -1,6 +1,7 @@
 package com.mycompany.tennertcomclient;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import javax.swing.DefaultListModel;
 
 public class MainFrame extends javax.swing.JFrame {
@@ -25,6 +26,8 @@ public class MainFrame extends javax.swing.JFrame {
         ErrorFrame = new javax.swing.JFrame();
         ErrorText = new javax.swing.JTextArea();
         ErrorOK = new javax.swing.JButton();
+        FileChooser = new javax.swing.JFrame();
+        jFileChooser = new javax.swing.JFileChooser();
         ConnectPanel = new javax.swing.JPanel();
         ConnectInfo = new javax.swing.JLabel();
         ConnectRetryButton = new javax.swing.JButton();
@@ -42,6 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
         ChatField = new javax.swing.JTextArea();
         inf_Nachricht = new javax.swing.JTextField();
         btn_Send = new javax.swing.JButton();
+        btn_Datei = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         list_Nutzer = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
@@ -87,280 +91,319 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
-        setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
+        FileChooser.setMinimumSize(new java.awt.Dimension(600, 360));
+        FileChooser.setResizable(false);
 
-        ConnectInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ConnectInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ConnectInfo.setText("Kein Server gefunden!");
+        jFileChooser.setAcceptAllFileFilterUsed(false);
+        jFileChooser.setCurrentDirectory(new java.io.File("D:\\"));
+            jFileChooser.setFileFilter(new MyCustomFilter());
+            jFileChooser.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jFileChooserActionPerformed(evt);
+                }
+            });
 
-        ConnectRetryButton.setText("Retry");
-        ConnectRetryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConnectRetryButtonActionPerformed(evt);
-            }
-        });
+            javax.swing.GroupLayout FileChooserLayout = new javax.swing.GroupLayout(FileChooser.getContentPane());
+            FileChooser.getContentPane().setLayout(FileChooserLayout);
+            FileChooserLayout.setHorizontalGroup(
+                FileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FileChooserLayout.createSequentialGroup()
+                    .addGap(0, 6, Short.MAX_VALUE)
+                    .addComponent(jFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
+            FileChooserLayout.setVerticalGroup(
+                FileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(FileChooserLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
-        ConnectPanel.setLayout(ConnectPanelLayout);
-        ConnectPanelLayout.setHorizontalGroup(
-            ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ConnectPanelLayout.createSequentialGroup()
-                        .addGap(590, 590, 590)
-                        .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ConnectPanelLayout.createSequentialGroup()
-                        .addGap(475, 475, 475)
-                        .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(479, Short.MAX_VALUE))
-        );
-        ConnectPanelLayout.setVerticalGroup(
-            ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(290, Short.MAX_VALUE))
-        );
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setMaximumSize(new java.awt.Dimension(1280, 720));
+            setMinimumSize(new java.awt.Dimension(1280, 720));
+            setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        label_login.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        label_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_login.setText("LOGIN");
-        label_login.setToolTipText("");
+            ConnectInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+            ConnectInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            ConnectInfo.setText("Kein Server gefunden!");
 
-        label_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_benutzername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_benutzername.setText("Benutzername:");
-        label_benutzername.setToolTipText("");
+            ConnectRetryButton.setText("Retry");
+            ConnectRetryButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ConnectRetryButtonActionPerformed(evt);
+                }
+            });
 
-        tInput_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tInput_benutzername.setToolTipText("Bitte Benutzernamen hier eintragen");
-        tInput_benutzername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+            javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
+            ConnectPanel.setLayout(ConnectPanelLayout);
+            ConnectPanelLayout.setHorizontalGroup(
+                ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ConnectPanelLayout.createSequentialGroup()
+                    .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ConnectPanelLayout.createSequentialGroup()
+                            .addGap(590, 590, 590)
+                            .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(ConnectPanelLayout.createSequentialGroup()
+                            .addGap(475, 475, 475)
+                            .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(479, Short.MAX_VALUE))
+            );
+            ConnectPanelLayout.setVerticalGroup(
+                ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ConnectPanelLayout.createSequentialGroup()
+                    .addGap(307, 307, 307)
+                    .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(290, Short.MAX_VALUE))
+            );
 
-        label_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_password.setText("Password:");
-        label_password.setToolTipText("");
+            label_login.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+            label_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_login.setText("LOGIN");
+            label_login.setToolTipText("");
 
-        button_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        button_login.setText("Login");
-        button_login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_loginActionPerformed(evt);
-            }
-        });
+            label_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            label_benutzername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_benutzername.setText("Benutzername:");
+            label_benutzername.setToolTipText("");
 
-        button_registrieren.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        button_registrieren.setText("Registrieren");
-        button_registrieren.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_registrierenActionPerformed(evt);
-            }
-        });
+            tInput_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            tInput_benutzername.setToolTipText("Bitte Benutzernamen hier eintragen");
+            tInput_benutzername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        label_loginError.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        label_loginError.setForeground(new java.awt.Color(255, 51, 51));
-        label_loginError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_loginError.setText(" ");
+            label_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_password.setText("Password:");
+            label_password.setToolTipText("");
 
-        tInput_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+            button_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+            button_login.setText("Login");
+            button_login.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    button_loginActionPerformed(evt);
+                }
+            });
 
-        javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
-        LoginPanel.setLayout(LoginPanelLayout);
-        LoginPanelLayout.setHorizontalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                        .addComponent(label_login)
-                        .addGap(583, 583, 583))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                        .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(554, 554, 554))))
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(330, 330, 330)
-                .addComponent(label_loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 308, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(534, 534, 534))
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(459, 459, 459)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tInput_password)
-                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addGroup(LoginPanelLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        LoginPanelLayout.setVerticalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(label_login)
-                .addGap(27, 27, 27)
-                .addComponent(label_benutzername)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(label_password)
-                .addGap(7, 7, 7)
-                .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(label_loginError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button_login)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_registrieren)
-                .addContainerGap(216, Short.MAX_VALUE))
-        );
+            button_registrieren.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+            button_registrieren.setText("Registrieren");
+            button_registrieren.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    button_registrierenActionPerformed(evt);
+                }
+            });
 
-        ChatPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
+            label_loginError.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+            label_loginError.setForeground(new java.awt.Color(255, 51, 51));
+            label_loginError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_loginError.setText(" ");
 
-        ChatField.setEditable(false);
-        ChatField.setColumns(20);
-        ChatField.setRows(5);
-        jScrollPane1.setViewportView(ChatField);
+            tInput_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        inf_Nachricht.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                inf_NachrichtKeyPressed(evt);
-            }
-        });
-
-        btn_Send.setText(">");
-        btn_Send.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SendActionPerformed(evt);
-            }
-        });
-
-        list_Nutzer.setModel(new DefaultListModel());
-        jScrollPane2.setViewportView(list_Nutzer);
-
-        jLabel1.setText("Andere Benutzer");
-
-        list_Rooms.setModel(new DefaultListModel());
-        jScrollPane3.setViewportView(list_Rooms);
-
-        jLabel2.setText("Rooms:");
-
-        btn_JoinRoom.setText("Join Room");
-        btn_JoinRoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_JoinRoomActionPerformed(evt);
-            }
-        });
-
-        lbl_currentRoom.setText("default");
-
-        javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
-        ChatPanel.setLayout(ChatPanelLayout);
-        ChatPanelLayout.setHorizontalGroup(
-            ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChatPanelLayout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addComponent(lbl_currentRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(ChatPanelLayout.createSequentialGroup()
-                                .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_Send))
-                            .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
-                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(137, 137, 137))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                .addComponent(btn_JoinRoom)
-                                .addGap(247, 247, 247))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(268, 268, 268))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(244, 244, 244))))))
-        );
-        ChatPanelLayout.setVerticalGroup(
-            ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChatPanelLayout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_JoinRoom)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addComponent(lbl_currentRoom)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_Send, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(inf_Nachricht, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(98, 98, 98))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+            javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
+            LoginPanel.setLayout(LoginPanelLayout);
+            LoginPanelLayout.setHorizontalGroup(
+                LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                            .addComponent(label_login)
+                            .addGap(583, 583, 583))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                            .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(554, 554, 554))))
+                .addGroup(LoginPanelLayout.createSequentialGroup()
+                    .addGap(330, 330, 330)
+                    .addComponent(label_loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 308, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(534, 534, 534))
+                .addGroup(LoginPanelLayout.createSequentialGroup()
+                    .addGap(459, 459, 459)
+                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tInput_password)
+                        .addComponent(tInput_benutzername, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                        .addGroup(LoginPanelLayout.createSequentialGroup()
+                            .addGap(119, 119, 119)
+                            .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            LoginPanelLayout.setVerticalGroup(
+                LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(LoginPanelLayout.createSequentialGroup()
+                    .addGap(159, 159, 159)
+                    .addComponent(label_login)
+                    .addGap(27, 27, 27)
+                    .addComponent(label_benutzername)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(26, 26, 26)
+                    .addComponent(label_password)
+                    .addGap(7, 7, 7)
+                    .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(40, 40, 40)
+                    .addComponent(label_loginError)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(button_login)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(button_registrieren)
+                    .addContainerGap(216, Short.MAX_VALUE))
+            );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            ChatPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
+
+            ChatField.setEditable(false);
+            ChatField.setColumns(20);
+            ChatField.setRows(5);
+            jScrollPane1.setViewportView(ChatField);
+
+            inf_Nachricht.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    inf_NachrichtKeyPressed(evt);
+                }
+            });
+
+            btn_Send.setText(">");
+            btn_Send.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btn_SendActionPerformed(evt);
+                }
+            });
+
+            btn_Datei.setText("Datei");
+            btn_Datei.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btn_DateiActionPerformed(evt);
+                }
+            });
+
+            list_Nutzer.setModel(new DefaultListModel());
+            jScrollPane2.setViewportView(list_Nutzer);
+
+            jLabel1.setText("Andere Benutzer");
+
+            list_Rooms.setModel(new DefaultListModel());
+            jScrollPane3.setViewportView(list_Rooms);
+
+            jLabel2.setText("Rooms:");
+
+            btn_JoinRoom.setText("Join Room");
+            btn_JoinRoom.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btn_JoinRoomActionPerformed(evt);
+                }
+            });
+
+            lbl_currentRoom.setText("default");
+
+            javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
+            ChatPanel.setLayout(ChatPanelLayout);
+            ChatPanelLayout.setHorizontalGroup(
+                ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ChatPanelLayout.createSequentialGroup()
+                    .addGap(165, 165, 165)
+                    .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                            .addComponent(lbl_currentRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                            .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(ChatPanelLayout.createSequentialGroup()
+                                    .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btn_Datei)
+                                    .addGap(1, 1, 1)
+                                    .addComponent(btn_Send))
+                                .addComponent(jScrollPane1))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                            .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                    .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(137, 137, 137))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                    .addComponent(btn_JoinRoom)
+                                    .addGap(247, 247, 247))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(268, 268, 268))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(244, 244, 244))))))
+            );
+            ChatPanelLayout.setVerticalGroup(
+                ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ChatPanelLayout.createSequentialGroup()
+                    .addGap(104, 104, 104)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(jLabel2)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btn_JoinRoom)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                    .addContainerGap(58, Short.MAX_VALUE)
+                    .addComponent(lbl_currentRoom)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_Send)
+                            .addComponent(btn_Datei))
+                        .addComponent(inf_Nachricht, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(97, 97, 97))
+            );
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+            );
+
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
         db.getServerHandler().SendLogin(tInput_benutzername.getText(), new String(tInput_password.getPassword()));
@@ -395,6 +438,17 @@ public class MainFrame extends javax.swing.JFrame {
     private void ErrorOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ErrorOKActionPerformed
         ErrorFrame.setVisible(false);
     }//GEN-LAST:event_ErrorOKActionPerformed
+
+    private void btn_DateiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DateiActionPerformed
+        FileChooser.setVisible(true);
+    }//GEN-LAST:event_btn_DateiActionPerformed
+
+    private void jFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooserActionPerformed
+        FileChooser.setVisible(false);
+        File file = jFileChooser.getSelectedFile();
+        if(file == null) return;
+        db.getServerHandler().SendFile(file);
+    }//GEN-LAST:event_jFileChooserActionPerformed
 
     private final Datenbank db;
 
@@ -513,12 +567,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JFrame ErrorFrame;
     private javax.swing.JButton ErrorOK;
     private javax.swing.JTextArea ErrorText;
+    private javax.swing.JFrame FileChooser;
     private javax.swing.JPanel LoginPanel;
+    private javax.swing.JButton btn_Datei;
     private javax.swing.JButton btn_JoinRoom;
     private javax.swing.JButton btn_Send;
     private javax.swing.JButton button_login;
     private javax.swing.JButton button_registrieren;
     private javax.swing.JTextField inf_Nachricht;
+    private javax.swing.JFileChooser jFileChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
