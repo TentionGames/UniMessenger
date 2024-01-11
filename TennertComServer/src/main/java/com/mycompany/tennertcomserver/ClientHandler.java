@@ -5,14 +5,14 @@ import java.io.*;
 
 public class ClientHandler extends Thread {
 
-    Datenbank db;
+    private Datenbank db;
 
-    ClientInfo info;
+    private ClientInfo info;
 
-    Socket client;
+    private Socket client;
     private DataInputStream in;
     private DataOutputStream out;
-    Room currentRoom;
+    private int currentRoom;
 
     private long lastBeatReceived = System.currentTimeMillis();
 
@@ -20,15 +20,32 @@ public class ClientHandler extends Thread {
         return lastBeatReceived;
     }
     
-    public Room getRoom(){
-        return currentRoom;
+    public String getClientName(){
+        return info.getName();
     }
     
-    public void setRoom(Room room){
-        this.currentRoom = room;
+    public Room getRoom(){
+        return db.getRoomManager().getRoom(currentRoom);
+    }
+    
+    public void setRoom(int roomIdx){
+        this.currentRoom = roomIdx;
+    }
+    
+    public boolean isClientInfoNull(){
+        return info == null;
+    }
+    
+    public ClientInfo getClientInfo(){
+        return info;
+    }
+    
+    public boolean isEqualTo(ClientHandler other){
+        if(info.getName().equals(other.getClientName())) return true;
+        return false;
     }
 
-    ClientHandler(Datenbank db, Socket client) {
+    public ClientHandler(Datenbank db, Socket client) {
         this.db = db;
         this.client = client;
     }
@@ -42,7 +59,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    void TryStream() {
+    public void TryStream() {
         try {
             in = new DataInputStream(client.getInputStream());
             out = new DataOutputStream(client.getOutputStream());
@@ -50,18 +67,18 @@ public class ClientHandler extends Thread {
         }
     }
     
-    void SendMsg(String msg) {
+    public void SendMsg(String msg) {
         try {
             out.writeUTF(msg);
         } catch (IOException ex) {
         }
     }
     
-    void SendError(String errorMsg){
+    private void SendError(String errorMsg){
         SendMsg("ERR"+ errorMsg);
     }
 
-    void ReceiveMsg() throws IOException {
+    private void ReceiveMsg() throws IOException {
         String input = in.readUTF();
         String code = input.substring(0, 3);
         switch (code) {
@@ -89,7 +106,7 @@ public class ClientHandler extends Thread {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Login und Registrieren">
-    void ReceivedLogin(String[] data) {
+    private void ReceivedLogin(String[] data) {
         ClientInfo clientInfo = db.getClientInfo(data[0]);
         
         if (clientInfo == null) {
@@ -103,25 +120,24 @@ public class ClientHandler extends Thread {
         }
     }
 
-    void ReceivedRegister(String[] data) {
+    private void ReceivedRegister(String[] data) {
         ClientInfo clientInfo = db.newAccount(data[0], data[1]);
         
         if (clientInfo != null) {
             SuccesfullLogin(clientInfo);
         } else {
-            SendError("ERRBenutzer existiert schon!");
+            SendError("Benutzer existiert schon!");
         }
     }
     
-    void SuccesfullLogin(ClientInfo clientInfo) {
+    private void SuccesfullLogin(ClientInfo clientInfo) {
         this.info = clientInfo;
-        db.getRoomManager().AddUserToRoom(this, 0);
         db.getMainFrame().AddName(clientInfo.getName(), db.getRoomManager().getRoom(0).getName());
-        db.getClientManager().SendMessageToAllClientsInRoomExcept(db.getRoomManager().getRoom(0) , this, "UJR" + info.getName());
+        db.getRoomManager().AddUserToRoom(this, 0);
         SendMsg("ACL");
     }
 
-    void SendGeneralServerInfo(){
+    public void SendGeneralServerInfo(){
         String msg = "GSI%SPLIT_2%";
         for (int i = 0; i < db.getClientManager().getAnzClients(); i++) {
             ClientInfo curClientInfo = db.getClientManager().getClientHandler(i).info;
@@ -137,18 +153,20 @@ public class ClientHandler extends Thread {
     }
     // </editor-fold> 
 
-    void ReceivedHeartBeat() {
+    private void ReceivedHeartBeat() {
         lastBeatReceived = System.currentTimeMillis();
     }
 
-    void ReceivedTextChat(String nachricht) {
-        currentRoom.AddMsg(info.getName(), nachricht);
-        db.getClientManager().SendMessageToAllClientsInRoom(currentRoom, "MSG" + info.getName() + "%SPLIT%" + nachricht);
+    private void ReceivedTextChat(String nachricht) {
+        db.getLogHandler().NachrichtEmpfangen(this, nachricht);
+        getRoom().AddMsg(info.getName(), nachricht);
+        db.getClientManager().SendMessageToAllClientsInRoom(getRoom(), "MSG" + info.getName() + "%SPLIT%" + nachricht);
+        db.getLogHandler().NachrichtGesendetAnRaum(getRoom(), this, nachricht);
     }  
     
-    void ReceivedJoinRoomRequest(int roomIndex){
+    private void ReceivedJoinRoomRequest(int roomIndex){
         if(db.getRoomManager().getRoom(roomIndex).equals(currentRoom)) return;
-        db.getRoomManager().ChangeUserRoom(currentRoom, this, roomIndex);
+        db.getRoomManager().ChangeUserRoom(getRoom(), this, roomIndex);
     }
 
     

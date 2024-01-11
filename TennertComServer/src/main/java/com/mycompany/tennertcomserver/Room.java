@@ -19,8 +19,13 @@ public class Room {
         this.roomName = roomName;
         for (int i = 0; i < connectedUsers.size(); i++) {
             ClientHandler client = connectedUsers.get(i);
-            db.getMainFrame().ChangeName(db.getClientManager().indexOfClient(client), client.getName(), roomName);
+            db.getMainFrame().ChangeName(db.getClientManager().indexOfClient(client), client.getClientName(), roomName);
         }
+    }
+    
+    public boolean isEqualTo(Room other){
+        if(roomName.equals(other.getName()) && chatInhalt.equals(other.getChatInhalt())) return true;
+        return false;
     }
     
     public String getName(){

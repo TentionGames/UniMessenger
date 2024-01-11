@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class RoomManager {
     
-    Datenbank db;
+    private Datenbank db;
     
     private ArrayList<Room> rooms = new ArrayList();
     
@@ -18,6 +18,10 @@ public class RoomManager {
     
     public Room getRoom(int room){
         return rooms.get(room);
+    }
+    
+    public int indexOfRoom(Room room){
+        return rooms.indexOf(room);
     }
     
     public void AddRoom(String roomName){
@@ -60,22 +64,23 @@ public class RoomManager {
     
     public void RemoveUserFromRoom(Room currentRoom, ClientHandler client){
         currentRoom.RemoveUser(client);
-        client.setRoom(null);
         db.getMainFrame().ChangeRoomName(rooms.indexOf(currentRoom), currentRoom.getAnzUsers(), currentRoom.getName());
-        db.getClientManager().SendMessageToAllClientsInRoom(currentRoom, "ULR" + client.info.getName());
+        db.getClientManager().SendMessageToAllClientsInRoom(currentRoom, "ULR" + client.getClientName());
+        client.setRoom(-1);
     }
     
     public void AddUserToRoom(ClientHandler client, int newRoom){
         rooms.get(newRoom).AddUser(client);
-        client.setRoom(rooms.get(newRoom));
-        db.getMainFrame().ChangeName(db.getClientManager().indexOfClient(client), client.getName(), rooms.get(newRoom).getName());
+        client.setRoom(newRoom);
+        db.getMainFrame().ChangeName(db.getClientManager().indexOfClient(client), client.getClientName(), rooms.get(newRoom).getName());
         db.getMainFrame().ChangeRoomName(newRoom, rooms.get(newRoom).getAnzUsers(), rooms.get(newRoom).getName());
         
-        db.getClientManager().SendMessageToAllClientsInRoomExcept(rooms.get(newRoom), client, "UJR" + client.info.getName());
+        db.getClientManager().SendMessageToAllClientsInRoomExcept(rooms.get(newRoom), client, "UJR" + client.getClientName());
         
-        String msg = "RRC" + rooms.get(newRoom).getName() + "%SPLIT%" + rooms.get(newRoom).getChatInhalt() + "%SPLIT%";
+        String msg = "RRC" + rooms.get(newRoom).getName() + "%SPLIT%FILL" + rooms.get(newRoom).getChatInhalt() + "%SPLIT%";
         for (int i = 0; i < rooms.get(newRoom).getAnzUsers(); i++) {
-            msg += rooms.get(newRoom).getUser(i).getName() + "%SPLIT2%";
+            if(rooms.get(newRoom).getUser(i).isEqualTo(client)) continue;
+            msg += rooms.get(newRoom).getUser(i).getClientName() + "%SPLIT2%";
         }
         client.SendMsg(msg);
     }
@@ -85,7 +90,7 @@ public class RoomManager {
         AddUserToRoom(client, newRoom);
     }
     
-    boolean isLastRoom(){
+    private boolean isLastRoom(){
         return rooms.size() < 2;
     }
 }

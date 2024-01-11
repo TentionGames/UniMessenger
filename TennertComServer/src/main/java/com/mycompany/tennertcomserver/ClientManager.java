@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ClientManager {
     
-   Datenbank db;
+   private Datenbank db;
    
    private final ArrayList<ClientHandler> clientHandlers = new ArrayList();
    
@@ -52,30 +52,30 @@ public class ClientManager {
     
     public void SendMessageToAllClientsInRoom(Room room, String msg){
         for (int i = 0; i < getAnzClients(); i++) {
-            if(!room.equals(getClientHandler(i).getRoom())) continue;
+            if(!room.isEqualTo(getClientHandler(i).getRoom())) continue;
             SendMessageToClient(i, msg);
         }
     }
     
     public void SendMessageToAllClientsInRoomExcept(Room room, ClientHandler exceptionClient, String msg){
         for (int i = 0; i < getAnzClients(); i++) {
-            if(!room.equals(getClientHandler(i).getRoom()) || getClientHandler(i).equals(exceptionClient)) continue;
+            if(!room.isEqualTo(getClientHandler(i).getRoom()) || getClientHandler(i).isEqualTo(exceptionClient)) continue;
             SendMessageToClient(i, msg);
         }
     }
     
     public void SendMessageToAllClientsNotInRoom(Room room, String msg){
         for (int i = 0; i < getAnzClients(); i++) {
-            if(room.equals(getClientHandler(i).getRoom())) continue;
+            if(room.isEqualTo(getClientHandler(i).getRoom())) continue;
             SendMessageToClient(i, msg);
         }
     }
     
     public void RemoveClient(ClientHandler client){
-        if(client.info != null){
-            db.getRoomManager().RemoveUserFromRoom(client.getRoom(), client);
+        if(!client.isClientInfoNull()){
             db.getMainFrame().RemoveName(clientHandlers.indexOf(client));
-            SendMessageToAllClientsInRoomExcept(client.getRoom(),client,"ULR" + client.info.getName());
+            SendMessageToAllClientsInRoomExcept(client.getRoom(),client,"ULR" + client.getClientName());
+            db.getRoomManager().RemoveUserFromRoom(client.getRoom(), client);
         }
         clientHandlers.remove(client);
     }
@@ -94,7 +94,7 @@ public class ClientManager {
     }
     
     public void ClientBann(int clientIndex){
-        ClientInfo info = clientHandlers.get(clientIndex).info;
+        ClientInfo info = clientHandlers.get(clientIndex).getClientInfo();
         info.ChangeBan(true);
         db.ChangeClientInfo(info);
         ClientKick(clientIndex);

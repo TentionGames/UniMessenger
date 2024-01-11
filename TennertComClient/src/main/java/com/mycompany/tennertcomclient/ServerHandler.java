@@ -7,10 +7,10 @@ import java.net.Socket;
 
 public class ServerHandler extends Thread {
 
-    Socket server;
-    DataInputStream in;
-    DataOutputStream out;
-    Datenbank db;
+    private Socket server;
+    private DataInputStream in;
+    private DataOutputStream out;
+    private Datenbank db;
 
     public ServerHandler(Datenbank db){this.db = db;}
 
@@ -36,7 +36,7 @@ public class ServerHandler extends Thread {
         catch (IOException e) {}
     } 
     
-    void SendMsg(String msg){
+    public void SendMsg(String msg){
         try {
             out.writeUTF(msg);
         } catch (IOException ex) {}
@@ -61,8 +61,14 @@ public class ServerHandler extends Thread {
         }
         SendMsg("REG"+name+"%SPLIT%"+password);
     }
+    
+    public void Disconnect(){
+        //db.getHeartBeat().Stop();
+        //db.getMainFrame().ChangePanel(0);
+        System.exit(0);
+    }
 
-    void receiveMsg() throws IOException{
+    private void receiveMsg() throws IOException{
         if(in == null) return;
         String input = in.readUTF();
         String code = input.substring(0, 3);
@@ -130,15 +136,15 @@ public class ServerHandler extends Thread {
         }
     }
     
-    void ReceivedHeartBeat(){
+    private void ReceivedHeartBeat(){
         db.getHeartBeat().ReceivedBeat();
     }
     
-    void ReceivedError(String errorMsg){
+    private void ReceivedError(String errorMsg){
         db.getMainFrame().DisplayLoginError(errorMsg);
     }
     
-    void ReceivedGeneralServerInfo(String[] data){
+    private void ReceivedGeneralServerInfo(String[] data){
         String[] nutzerNamen = data[0].split("%SPLIT_2%");
         String[] rooms = data[1].split("%SPLIT_2%");
         if(nutzerNamen.length > 0){
@@ -147,36 +153,36 @@ public class ServerHandler extends Thread {
         db.getMainFrame().DisplayNewRoomList(rooms);
     }
     
-    void ReceivedLoginAccept(){
+    private void ReceivedLoginAccept(){
         db.getMainFrame().ChangePanel(2);
     }
     
-    void ReceivedNewCLient(String clientName){
+    private void ReceivedNewCLient(String clientName){
         
     }
     
-    void ReceivedClientDisconnect(String clientName){
+    private void ReceivedClientDisconnect(String clientName){
         
     }
     
-    void ReceivedMessage(String[] data){
+    private void ReceivedMessage(String[] data){
         db.getMainFrame().DisplayMSG(data[0], data[1]);
     }
     
-    void ReceivedNewRoomCreated(String roomName){
+    private void ReceivedNewRoomCreated(String roomName){
         db.getMainFrame().AddRoom(roomName);
     }
     
-    void ReceivedRoomNameChanged(String[] data){
+    private void ReceivedRoomNameChanged(String[] data){
         db.getMainFrame().ChangeRoomName(Integer.parseInt(data[0]), Integer.parseInt(data[1]) > 0, data[2]);
     }
     
-    void ReceivedRoomDeleted(int roomIndex){
+    private void ReceivedRoomDeleted(int roomIndex){
         db.getMainFrame().DeleteRoom(roomIndex);
     }
     
-    void ReceiveRoomChat(String[] data){
-        db.getMainFrame().DisplayNewRoomChat(data[0], data[1]);
+    private void ReceiveRoomChat(String[] data){
+        db.getMainFrame().DisplayNewRoomChat(data[0], data[1].substring(4));
         if(data.length < 3) {
             db.getMainFrame().DisplayNutzerList(new String[0]);
             return;
@@ -185,19 +191,19 @@ public class ServerHandler extends Thread {
         db.getMainFrame().DisplayNutzerList(nutzer);
     }
     
-    void ReceiveVerwarnung(String warnung){
+    private void ReceiveVerwarnung(String warnung){
         db.getMainFrame().DisplayErrorFrame(warnung);
     }
     
-    void ReceiveKick(){
-        db.getMainFrame().ChangePanel(0);
+    private void ReceiveKick(){
+        Disconnect();
     }
     
-    void UserJoinedRoom(String clientName){
+    private void UserJoinedRoom(String clientName){
         db.getMainFrame().DisplayNewNutzer(clientName);
     }
     
-    void UserLeftRoom(String clientName){
+    private void UserLeftRoom(String clientName){
         db.getMainFrame().RemoveName(clientName);
     }
 }

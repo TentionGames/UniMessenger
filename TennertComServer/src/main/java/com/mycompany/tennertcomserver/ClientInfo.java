@@ -1,6 +1,8 @@
 package com.mycompany.tennertcomserver;
 
-public class ClientInfo {
+import java.io.Serializable;
+
+public class ClientInfo implements Serializable{
     private final String name;
     private String password;
     private boolean banned;
@@ -26,4 +28,6 @@ public class ClientInfo {
     public void ChangeBan(boolean banned){
         this.banned = banned;
     }
+    
+    
 }

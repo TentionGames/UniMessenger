@@ -5,9 +5,9 @@ import java.io.*;
 
 public class LoginThread extends Thread {
 
-    Datenbank db;
+    private Datenbank db;
 
-    ServerSocket server;
+    private ServerSocket server;
 
     public LoginThread(Datenbank db) {
         this.db = db;

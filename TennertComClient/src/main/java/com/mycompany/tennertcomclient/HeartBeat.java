@@ -5,6 +5,7 @@ public class HeartBeat extends Thread {
     long lastBeatReceived = System.currentTimeMillis();
 
     private final Datenbank db;
+    private boolean running = true;
     
     public HeartBeat(Datenbank db){
         this.db = db;
@@ -12,13 +13,18 @@ public class HeartBeat extends Thread {
     
     @Override
     public void run() {
-        while (true) {
+        running = true;
+        while (running) {
             SendHB();
             Wait(1000);
             ListenToHB();
         }
     }
 
+    public void Stop(){
+        running = false;
+    }
+    
     private void Wait(int millSec) {
         try {
             Thread.sleep(1000);
@@ -32,7 +38,7 @@ public class HeartBeat extends Thread {
 
     private void ListenToHB() {
         if (System.currentTimeMillis() - lastBeatReceived >= 3000) {
-            db.getMainFrame().ChangePanel(0);
+            db.getServerHandler().Disconnect();
         }
     }
 

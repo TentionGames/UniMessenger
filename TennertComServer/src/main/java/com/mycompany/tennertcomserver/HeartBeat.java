@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class HeartBeat extends Thread {
 
-    Datenbank db;
+    private Datenbank db;
 
     public HeartBeat(Datenbank db) {
         this.db = db;
@@ -19,6 +19,8 @@ public class HeartBeat extends Thread {
         }
     }
 
+    
+    
     private void Wait(int millSec) {
         try {
             Thread.sleep((long) millSec);

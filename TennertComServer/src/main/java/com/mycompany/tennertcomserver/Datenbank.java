@@ -10,6 +10,8 @@ public class Datenbank {
     private final HeartBeat heartBeat;
     private final RoomManager roomManager;
     private final ClientManager clientManager;
+    private final LogHandler logHandler;
+    private final SaveSystem saveSystem;
     
     private final ArrayList<ClientInfo> accs = new ArrayList();
     
@@ -19,6 +21,8 @@ public class Datenbank {
         heartBeat = new HeartBeat(this);
         roomManager = new RoomManager(this);
         clientManager = new ClientManager(this);
+        logHandler = new LogHandler(this);
+        saveSystem = new SaveSystem(this);
     }
     
     // <editor-fold defaultstate="collapsed" desc="Manager Verwaltung"> 
@@ -41,6 +45,14 @@ public class Datenbank {
     public ClientManager getClientManager(){
         return clientManager;
     }
+    
+    public LogHandler getLogHandler(){
+        return logHandler;
+    }
+    
+    public SaveSystem getSaveSystem(){
+        return saveSystem;
+    }
     // </editor-fold> 
 
     // <editor-fold defaultstate="collapsed" desc="LoginDaten Verwaltung">    
@@ -48,6 +60,7 @@ public class Datenbank {
         if(getClientInfo(name) != null) return null;
         ClientInfo clientInfo = new ClientInfo(name.trim(), password.trim());
         accs.add(clientInfo);
+        saveSystem.SaveClientInfo(clientInfo);
         return clientInfo;
     }
     
@@ -65,6 +78,10 @@ public class Datenbank {
                 return;
             }
         }
+    }
+    
+    public void AddClientInfo(ClientInfo client){
+        accs.add(client);
     }
     // </editor-fold> 
 }

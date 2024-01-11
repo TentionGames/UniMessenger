@@ -51,6 +51,8 @@ public class MainFrame extends javax.swing.JFrame {
         btn_JoinRoom = new javax.swing.JButton();
         lbl_currentRoom = new javax.swing.JLabel();
 
+        ErrorFrame.setMinimumSize(new java.awt.Dimension(300, 200));
+
         ErrorText.setEditable(false);
         ErrorText.setColumns(20);
         ErrorText.setRows(5);
@@ -67,22 +69,22 @@ public class MainFrame extends javax.swing.JFrame {
         ErrorFrameLayout.setHorizontalGroup(
             ErrorFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ErrorFrameLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(ErrorOK)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ErrorFrameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ErrorText, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(ErrorFrameLayout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(ErrorOK)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ErrorFrameLayout.setVerticalGroup(
             ErrorFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ErrorFrameLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(ErrorText, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(ErrorText, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ErrorOK)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
