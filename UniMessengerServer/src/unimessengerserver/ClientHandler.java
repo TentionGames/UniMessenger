@@ -193,6 +193,6 @@ public class ClientHandler extends Thread {
         String msg = "FIL" + fileName + "%SPLIT%" + byteCount + "%SPLIT%" + info.getName();
         db.getClientManager().SendMessageToAllClientsInRoom(db.getRoomManager().getRoom(currentRoom), msg);
         db.getClientManager().SendBytesToAllClientsInRoom(db.getRoomManager().getRoom(currentRoom), bytes, byteCount);
-        db.getLogHandler().NachrichtGesendetAnRaum(getRoom(), getClientName(), fileName);
+        db.getLogHandler().FileGesendetAnRaum(getRoom(), getClientName(), fileName);
     }
 }

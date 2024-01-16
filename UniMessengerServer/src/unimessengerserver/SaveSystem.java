@@ -3,8 +3,6 @@ package unimessengerserver;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SaveSystem {
     
@@ -12,7 +10,9 @@ public class SaveSystem {
     
     public SaveSystem(Datenbank db){
         this.db = db;
-        File directory = new File("C:/UniMessenger/Server/");
+        File directory = new File("C:/UniMessenger/");
+        if(!directory.exists()) directory.mkdir();
+        directory = new File("C:/UniMessenger/Server/");
         if(!directory.exists()) directory.mkdir();
         File[] files = directory.listFiles();
         for (int i = 0; i < files.length; i++) {
