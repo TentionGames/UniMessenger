@@ -57,9 +57,7 @@ public class ClientHandler extends Thread {
         while (true) {
             try {
                 ReceiveMsg();
-            } catch (IOException e) {
-                
-            }
+            } catch (IOException e) {}
         }
     }
 
@@ -118,6 +116,15 @@ public class ClientHandler extends Thread {
                 ReceivedFile(data[0], Integer.parseInt(data[1]));
                 break;
             }
+            case "PRB":{
+                ReceivePrivateRoomJoin(Integer.parseInt(input.substring(3)));
+                break;
+            }
+            case "SPM":{
+                String[] data = input.substring(3).split("%SPLIT%");
+                ReceivePrivatMSG(data[0], data[1]);
+                break;
+            }
         }
     }
     
@@ -148,6 +155,8 @@ public class ClientHandler extends Thread {
     
     private void SuccesfullLogin(ClientInfo clientInfo) {
         info = clientInfo;
+        
+        db.getClientManager().Resort(this);
         db.getMainFrame().AddName(clientInfo.getName(), db.getRoomManager().getRoom(0).getName());
         db.getLogHandler().ClientJoined(getClientName());
         db.getRoomManager().AddUserToRoom(this, 0);
@@ -194,5 +203,19 @@ public class ClientHandler extends Thread {
         db.getClientManager().SendMessageToAllClientsInRoom(db.getRoomManager().getRoom(currentRoom), msg);
         db.getClientManager().SendBytesToAllClientsInRoom(db.getRoomManager().getRoom(currentRoom), bytes, byteCount);
         db.getLogHandler().FileGesendetAnRaum(getRoom(), getClientName(), fileName);
+    }
+    
+    private void ReceivePrivateRoomJoin(int user){
+        db.getClientManager().SendMessageToClient(user, "PRB" + info.getName());
+        SendMsg("PRB" + db.getClientManager().getClientHandler(user).getClientName());
+        db.getLogHandler().PrivaterRaumBeigetreten(info.getName(), db.getClientManager().getClientHandler(user).getClientName());
+        db.getLogHandler().PrivaterRaumBeigetreten(db.getClientManager().getClientHandler(user).getClientName(), info.getName());
+    }
+    
+    private void ReceivePrivatMSG(String partner, String msg){
+        db.getClientManager().SendMessageToClient(partner, "RPM" + info.getName() + "%SPLIT%" + info.getName() + "%SPLIT%" + msg);
+        SendMsg("RPM" + partner + "%SPLIT%" + info.getName() + "%SPLIT%" + msg);
+        db.getLogHandler().PrivaterRaumNachrichtGesendet(info.getName(), partner, msg);
+        db.getLogHandler().PrivaterRaumNachrichtErhalten(info.getName(), partner, msg);
     }
 }

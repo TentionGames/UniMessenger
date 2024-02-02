@@ -4,6 +4,7 @@ import java.io.*;
 
 import java.net.Socket;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.BadLocationException;
@@ -17,6 +18,8 @@ public class ServerHandler extends Thread {
     private DataOutputStream out;
     private Datenbank db;
 
+    private ArrayList<PrivateRoom> privateRooms = new ArrayList();
+    
     public ServerHandler(Datenbank db){this.db = db;}
 
     @Override
@@ -150,6 +153,15 @@ public class ServerHandler extends Thread {
                 ReceiveFile(data[0], Integer.parseInt(data[1]), data[2]);
                 break;
             }
+            case "PRB":{
+                ReceivePrivatRoomJoin(input.substring(3));
+                break;
+            }
+            case "RPM":{
+                String[] data = input.substring(3).split("%SPLIT%");
+                ReceivePrivatRoomMsg(data[0], data[1], data[2]);
+                break;
+            }
         }
     }
     
@@ -238,6 +250,20 @@ public class ServerHandler extends Thread {
             db.getMainFrame().DisplayImage(sender, bytes);
         }else if(fileType.equals(".pdf")){
             db.getMainFrame().DisplayPdf(file, bytes);
+        }
+    }
+    
+    private void ReceivePrivatRoomJoin(String partner){
+        PrivateRoom privatRoom = new PrivateRoom(db, partner);
+        privateRooms.add(privatRoom);
+    }
+
+    private void ReceivePrivatRoomMsg(String partner, String sender, String msg) {
+        for (int i = 0; i < privateRooms.size(); i++) {
+            if(privateRooms.get(i).isPartner(partner)){
+                privateRooms.get(i).AddMsg(sender,msg);
+                return;
+            }
         }
     }
 }

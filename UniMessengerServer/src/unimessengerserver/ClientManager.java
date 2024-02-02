@@ -20,12 +20,32 @@ public class ClientManager {
         clientHandlers.add(clientHandler);
         clientHandler.start();
     }
+   
+    public void Resort(ClientHandler client){
+        int index = indexOfClient(client);
+        for (int i = 0; i < index; i++) {
+            if(clientHandlers.get(i).isClientInfoNull()){
+                clientHandlers.remove(index);
+                clientHandlers.add(i, client);
+            }
+        }
+    }
     
     public ClientHandler getClientHandler(int index){
         return clientHandlers.get(index);
     }
     
     public int getAnzClients(){
+        int size = clientHandlers.size();
+        for (int i = 0; i < size; i++) {
+            if(clientHandlers.get(i).isClientInfoNull()){
+                return i;
+            }
+        }
+        return size;
+    }
+    
+    public int getAnzAllClients(){
         return clientHandlers.size();
     }
     
@@ -41,8 +61,16 @@ public class ClientManager {
         getClientHandler(index).SendBytes(file, count);
     }
     
+    public void SendMessageToClient(String name, String msg){
+        for (int i = 0; i < clientHandlers.size(); i++) {
+            if(clientHandlers.get(i).getClientName().equals(name)){
+                SendMessageToClient(i, msg);
+            }
+        }
+    }
+    
     public void SendMessageToAllClients(String msg){
-        for (int i = 0; i < getAnzClients(); i++) {
+        for (int i = 0; i < getAnzAllClients(); i++) {
             SendMessageToClient(i, msg);
         }
     }

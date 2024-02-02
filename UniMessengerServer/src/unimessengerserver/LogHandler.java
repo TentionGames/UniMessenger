@@ -88,4 +88,16 @@ public class LogHandler {
     public void FileGesendet(ClientHandler clientEmpfangen, String clientGesendetName, String fileName){
         AddLog("An \"" + clientEmpfangen.getClientName() + "\" im Raum \"" + clientEmpfangen.getRoom().getName() + "\" wurde das File \"" + fileName + "\" von \"" + clientGesendetName + "\" gesendet.");
     }
+    
+    public void PrivaterRaumBeigetreten(String clientErstellt, String clientConnected){
+        AddLog("\"" + clientErstellt + "\" ist einem privaten Raum mit \"" + clientConnected + "\" beigetreten");
+    }
+    
+    public void PrivaterRaumNachrichtGesendet(String clientGesendet, String clientErhalten, String msg){
+        AddLog("\"" + clientGesendet + "\" hat die Nachricht \"" + msg + "\" in den privaten Raum mit \"" + clientErhalten + "\" gesendet");
+    }
+    
+    public void PrivaterRaumNachrichtErhalten(String clientGesendet, String clientErhalten, String msg){
+        AddLog("\"" + clientErhalten + "\" hat die Nachricht \"" + msg + "\" im privaten Raum mit \"" + clientGesendet + "\" erhalten");
+    }
 }
