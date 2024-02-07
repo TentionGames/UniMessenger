@@ -18,8 +18,6 @@ public class HeartBeat extends Thread {
             ListenToHB();
         }
     }
-
-    
     
     private void Wait(int millSec) {
         try {
@@ -33,7 +31,7 @@ public class HeartBeat extends Thread {
     }
 
     private void ListenToHB() {
-        for (int i = 0; i < db.getClientManager().getAnzClients(); i++) {
+        for (int i = 0; i < db.getClientManager().getAnzAllClients(); i++) {
             if (System.currentTimeMillis() - db.getClientManager().getClientHandler(i).getLastBeatReceived() > 3000) {
                 ClientDisconnected(i);
             }

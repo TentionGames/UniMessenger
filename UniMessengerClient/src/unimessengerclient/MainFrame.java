@@ -1,21 +1,18 @@
 package unimessengerclient;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -49,9 +46,6 @@ public class MainFrame extends javax.swing.JFrame {
         ErrorOK = new javax.swing.JButton();
         FileChooser = new javax.swing.JFrame();
         jFileChooser = new javax.swing.JFileChooser();
-        ImageFrame = new javax.swing.JFrame();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        ImagePane = new javax.swing.JTextPane();
         ConnectPanel = new javax.swing.JPanel();
         ConnectInfo = new javax.swing.JLabel();
         ConnectRetryButton = new javax.swing.JButton();
@@ -120,353 +114,333 @@ public class MainFrame extends javax.swing.JFrame {
         FileChooser.setResizable(false);
 
         jFileChooser.setAcceptAllFileFilterUsed(false);
-        jFileChooser.setCurrentDirectory(new java.io.File("D:"));
-        jFileChooser.setFileFilter(new MyCustomFilter());
-        jFileChooser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooserActionPerformed(evt);
-            }
-        });
+        jFileChooser.setCurrentDirectory(new java.io.File("D:\\"));
+            jFileChooser.setFileFilter(new MyCustomFilter());
+            jFileChooser.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jFileChooserActionPerformed(evt);
+                }
+            });
 
-        javax.swing.GroupLayout FileChooserLayout = new javax.swing.GroupLayout(FileChooser.getContentPane());
-        FileChooser.getContentPane().setLayout(FileChooserLayout);
-        FileChooserLayout.setHorizontalGroup(
-            FileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FileChooserLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        FileChooserLayout.setVerticalGroup(
-            FileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FileChooserLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+            javax.swing.GroupLayout FileChooserLayout = new javax.swing.GroupLayout(FileChooser.getContentPane());
+            FileChooser.getContentPane().setLayout(FileChooserLayout);
+            FileChooserLayout.setHorizontalGroup(
+                FileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FileChooserLayout.createSequentialGroup()
+                    .addGap(0, 6, Short.MAX_VALUE)
+                    .addComponent(jFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
+            FileChooserLayout.setVerticalGroup(
+                FileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(FileChooserLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        ImagePane.setEditable(false);
-        jScrollPane4.setViewportView(ImagePane);
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setMaximumSize(new java.awt.Dimension(1280, 720));
+            setMinimumSize(new java.awt.Dimension(1280, 720));
+            setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        javax.swing.GroupLayout ImageFrameLayout = new javax.swing.GroupLayout(ImageFrame.getContentPane());
-        ImageFrame.getContentPane().setLayout(ImageFrameLayout);
-        ImageFrameLayout.setHorizontalGroup(
-            ImageFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ImageFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        ImageFrameLayout.setVerticalGroup(
-            ImageFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ImageFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+            ConnectInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+            ConnectInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            ConnectInfo.setText("Kein Server gefunden!");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
-        setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
+            ConnectRetryButton.setText("Retry");
+            ConnectRetryButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ConnectRetryButtonActionPerformed(evt);
+                }
+            });
 
-        ConnectInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ConnectInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ConnectInfo.setText("Kein Server gefunden!");
+            javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
+            ConnectPanel.setLayout(ConnectPanelLayout);
+            ConnectPanelLayout.setHorizontalGroup(
+                ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ConnectPanelLayout.createSequentialGroup()
+                    .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ConnectPanelLayout.createSequentialGroup()
+                            .addGap(590, 590, 590)
+                            .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(ConnectPanelLayout.createSequentialGroup()
+                            .addGap(475, 475, 475)
+                            .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(479, Short.MAX_VALUE))
+            );
+            ConnectPanelLayout.setVerticalGroup(
+                ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ConnectPanelLayout.createSequentialGroup()
+                    .addGap(307, 307, 307)
+                    .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(290, Short.MAX_VALUE))
+            );
 
-        ConnectRetryButton.setText("Retry");
-        ConnectRetryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConnectRetryButtonActionPerformed(evt);
-            }
-        });
+            label_login.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+            label_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_login.setText("LOGIN");
+            label_login.setToolTipText("");
 
-        javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
-        ConnectPanel.setLayout(ConnectPanelLayout);
-        ConnectPanelLayout.setHorizontalGroup(
-            ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ConnectPanelLayout.createSequentialGroup()
-                        .addGap(590, 590, 590)
-                        .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ConnectPanelLayout.createSequentialGroup()
-                        .addGap(475, 475, 475)
-                        .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(479, Short.MAX_VALUE))
-        );
-        ConnectPanelLayout.setVerticalGroup(
-            ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(ConnectInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ConnectRetryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(290, Short.MAX_VALUE))
-        );
+            label_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            label_benutzername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_benutzername.setText("Benutzername:");
+            label_benutzername.setToolTipText("");
 
-        label_login.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        label_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_login.setText("LOGIN");
-        label_login.setToolTipText("");
+            tInput_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            tInput_benutzername.setToolTipText("Bitte Benutzernamen hier eintragen");
+            tInput_benutzername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        label_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_benutzername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_benutzername.setText("Benutzername:");
-        label_benutzername.setToolTipText("");
+            label_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_password.setText("Password:");
+            label_password.setToolTipText("");
 
-        tInput_benutzername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tInput_benutzername.setToolTipText("Bitte Benutzernamen hier eintragen");
-        tInput_benutzername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+            button_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+            button_login.setText("Login");
+            button_login.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    button_loginActionPerformed(evt);
+                }
+            });
 
-        label_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_password.setText("Password:");
-        label_password.setToolTipText("");
+            button_registrieren.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+            button_registrieren.setText("Registrieren");
+            button_registrieren.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    button_registrierenActionPerformed(evt);
+                }
+            });
 
-        button_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        button_login.setText("Login");
-        button_login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_loginActionPerformed(evt);
-            }
-        });
+            label_loginError.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+            label_loginError.setForeground(new java.awt.Color(255, 51, 51));
+            label_loginError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label_loginError.setText(" ");
 
-        button_registrieren.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        button_registrieren.setText("Registrieren");
-        button_registrieren.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_registrierenActionPerformed(evt);
-            }
-        });
+            tInput_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        label_loginError.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        label_loginError.setForeground(new java.awt.Color(255, 51, 51));
-        label_loginError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_loginError.setText(" ");
+            javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
+            LoginPanel.setLayout(LoginPanelLayout);
+            LoginPanelLayout.setHorizontalGroup(
+                LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                            .addComponent(label_login)
+                            .addGap(583, 583, 583))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                            .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(554, 554, 554))))
+                .addGroup(LoginPanelLayout.createSequentialGroup()
+                    .addGap(330, 330, 330)
+                    .addComponent(label_loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 308, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(534, 534, 534))
+                .addGroup(LoginPanelLayout.createSequentialGroup()
+                    .addGap(459, 459, 459)
+                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tInput_password)
+                        .addComponent(tInput_benutzername, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                        .addGroup(LoginPanelLayout.createSequentialGroup()
+                            .addGap(119, 119, 119)
+                            .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            LoginPanelLayout.setVerticalGroup(
+                LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(LoginPanelLayout.createSequentialGroup()
+                    .addGap(159, 159, 159)
+                    .addComponent(label_login)
+                    .addGap(27, 27, 27)
+                    .addComponent(label_benutzername)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(26, 26, 26)
+                    .addComponent(label_password)
+                    .addGap(7, 7, 7)
+                    .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(40, 40, 40)
+                    .addComponent(label_loginError)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(button_login)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(button_registrieren)
+                    .addContainerGap(216, Short.MAX_VALUE))
+            );
 
-        tInput_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+            ChatPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
-        LoginPanel.setLayout(LoginPanelLayout);
-        LoginPanelLayout.setHorizontalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                        .addComponent(label_login)
-                        .addGap(583, 583, 583))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                        .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(554, 554, 554))))
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(330, 330, 330)
-                .addComponent(label_loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 308, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_registrieren, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(534, 534, 534))
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(459, 459, 459)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tInput_password)
-                    .addComponent(tInput_benutzername, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addGroup(LoginPanelLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(label_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        LoginPanelLayout.setVerticalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(label_login)
-                .addGap(27, 27, 27)
-                .addComponent(label_benutzername)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tInput_benutzername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(label_password)
-                .addGap(7, 7, 7)
-                .addComponent(tInput_password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(label_loginError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button_login)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_registrieren)
-                .addContainerGap(216, Short.MAX_VALUE))
-        );
+            ChatField.setEditable(false);
+            ChatField.setColumns(20);
+            ChatField.setRows(5);
+            jScrollPane1.setViewportView(ChatField);
 
-        ChatPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
+            inf_Nachricht.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    inf_NachrichtKeyPressed(evt);
+                }
+            });
 
-        ChatField.setEditable(false);
-        ChatField.setColumns(20);
-        ChatField.setRows(5);
-        jScrollPane1.setViewportView(ChatField);
+            btn_Send.setText(">");
+            btn_Send.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btn_SendActionPerformed(evt);
+                }
+            });
 
-        inf_Nachricht.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                inf_NachrichtKeyPressed(evt);
-            }
-        });
+            btn_Datei.setText("Datei");
+            btn_Datei.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btn_DateiActionPerformed(evt);
+                }
+            });
 
-        btn_Send.setText(">");
-        btn_Send.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SendActionPerformed(evt);
-            }
-        });
+            list_Nutzer.setModel(new DefaultListModel());
+            jScrollPane2.setViewportView(list_Nutzer);
 
-        btn_Datei.setText("Datei");
-        btn_Datei.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_DateiActionPerformed(evt);
-            }
-        });
+            jLabel1.setText("Andere Benutzer");
 
-        list_Nutzer.setModel(new DefaultListModel());
-        jScrollPane2.setViewportView(list_Nutzer);
+            list_Rooms.setModel(new DefaultListModel());
+            jScrollPane3.setViewportView(list_Rooms);
 
-        jLabel1.setText("Andere Benutzer");
+            jLabel2.setText("Rooms:");
 
-        list_Rooms.setModel(new DefaultListModel());
-        jScrollPane3.setViewportView(list_Rooms);
+            btn_JoinRoom.setText("Join Room");
+            btn_JoinRoom.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btn_JoinRoomActionPerformed(evt);
+                }
+            });
 
-        jLabel2.setText("Rooms:");
+            lbl_currentRoom.setText("default");
 
-        btn_JoinRoom.setText("Join Room");
-        btn_JoinRoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_JoinRoomActionPerformed(evt);
-            }
-        });
+            PrivaterRaumBtn.setText("Privaten Raum betreten");
+            PrivaterRaumBtn.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    PrivaterRaumBtnActionPerformed(evt);
+                }
+            });
 
-        lbl_currentRoom.setText("default");
-
-        PrivaterRaumBtn.setText("Privaten Raum betreten");
-        PrivaterRaumBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrivaterRaumBtnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
-        ChatPanel.setLayout(ChatPanelLayout);
-        ChatPanelLayout.setHorizontalGroup(
-            ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChatPanelLayout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addComponent(lbl_currentRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(ChatPanelLayout.createSequentialGroup()
-                                .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_Datei)
-                                .addGap(1, 1, 1)
-                                .addComponent(btn_Send))
-                            .addComponent(jScrollPane1))
-                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
+            ChatPanel.setLayout(ChatPanelLayout);
+            ChatPanelLayout.setHorizontalGroup(
+                ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ChatPanelLayout.createSequentialGroup()
+                    .addGap(165, 165, 165)
+                    .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                            .addComponent(lbl_currentRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                            .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(ChatPanelLayout.createSequentialGroup()
+                                    .addComponent(inf_Nachricht, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btn_Datei)
+                                    .addGap(1, 1, 1)
+                                    .addComponent(btn_Send))
+                                .addComponent(jScrollPane1))
+                            .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                                     .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(137, 137, 137))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                            .addComponent(btn_JoinRoom)
-                                            .addGap(247, 247, 247))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addGap(268, 268, 268)))))
-                            .addGroup(ChatPanelLayout.createSequentialGroup()
-                                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                                        .addGap(202, 202, 202)
-                                        .addComponent(jLabel1))
-                                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                                        .addGap(163, 163, 163)
-                                        .addComponent(PrivaterRaumBtn)))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
-        );
-        ChatPanelLayout.setVerticalGroup(
-            ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addComponent(lbl_currentRoom)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ChatPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PrivaterRaumBtn)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_JoinRoom)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btn_Send)
-                                .addComponent(btn_Datei))
-                            .addComponent(inf_Nachricht, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(97, 97, 97))))
-        );
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(137, 137, 137))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                                .addComponent(btn_JoinRoom)
+                                                .addGap(247, 247, 247))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addGap(268, 268, 268)))))
+                                .addGroup(ChatPanelLayout.createSequentialGroup()
+                                    .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                                            .addGap(202, 202, 202)
+                                            .addComponent(jLabel1))
+                                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                                            .addGap(163, 163, 163)
+                                            .addComponent(PrivaterRaumBtn)))
+                                    .addGap(0, 0, Short.MAX_VALUE))))))
+            );
+            ChatPanelLayout.setVerticalGroup(
+                ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                    .addContainerGap(58, Short.MAX_VALUE)
+                    .addComponent(lbl_currentRoom)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(PrivaterRaumBtn)
+                            .addGap(34, 34, 34)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn_JoinRoom)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btn_Send)
+                                    .addComponent(btn_Datei))
+                                .addComponent(inf_Nachricht, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(97, 97, 97))))
+            );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+                    .addContainerGap()
+                    .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+            );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
         db.getServerHandler().SendLogin(tInput_benutzername.getText(), new String(tInput_password.getPassword()));
@@ -634,48 +608,86 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void DisplayImage(String absender, byte[] bytes){
         try {
-            ImageFrame.setVisible(true);
-            ImagePane.setText(absender);
-
             ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
             BufferedImage image;
             image = ImageIO.read(bin);
-            int height = 400;
+            int height = 440;
             Image scaledImage = image.getScaledInstance(-1, height, Image.SCALE_SMOOTH);
-            ImagePane.insertIcon(new ImageIcon(scaledImage));
+            
+            MakeImagePane(absender, new ImageIcon(scaledImage));
         } catch (IOException ex) {}
     }
     
-    public void DisplayPdf(File file, byte[] bytes){
+    public void MakeImagePane(String sender, ImageIcon imageIcon){
+        JFrame imageFrame = new JFrame();
+        JTextPane imagePanel = new JTextPane();
+        imageFrame.setTitle("Gesendet von " + sender);
+        int width = imageIcon.getIconWidth() + 30;
+        int height = imageIcon.getIconHeight() + 50;
+        imageFrame.setMinimumSize(new Dimension(width, height));
+        imageFrame.setResizable(false);
+
+        imagePanel.setEditable(false);
+        GroupLayout ImageFrameLayout = new GroupLayout(imageFrame.getContentPane());
+        imageFrame.getContentPane().setLayout(ImageFrameLayout);
+        ImageFrameLayout.setHorizontalGroup(
+            ImageFrameLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(imagePanel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, width, Short.MAX_VALUE)
+        );
+        ImageFrameLayout.setVerticalGroup(
+            ImageFrameLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(imagePanel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, height, Short.MAX_VALUE)
+        );
+
+        imageFrame.setVisible(true);
+        imagePanel.insertIcon(imageIcon);
+    }
+    
+    public void DisplayPdf(File file, String absender, byte[] input){
          try {
-            int width = 800;
-            JTextPane pdfPane = MakePdfPane(width);
+            int width = 500;
+            int height = (int)((float)width * 1.42f);
+            JTextPane pdfPane = MakePdfPane(width, height);
             PDDocument pdf = Loader.loadPDF(file);
             PDFRenderer pdfRenderer = new PDFRenderer(pdf);
 
             for(int i = 0; i < pdf.getNumberOfPages(); i++){
                 BufferedImage image = pdfRenderer.renderImageWithDPI(i, 300, ImageType.RGB);
-                Image scaledImage = image.getScaledInstance(width,-1, Image.SCALE_SMOOTH);
+                Image scaledImage = image.getScaledInstance(width-50, -1, Image.SCALE_SMOOTH);
                 pdfPane.insertIcon(new ImageIcon(scaledImage));
+
                 StyledDocument doc = (StyledDocument) pdfPane.getDocument();
                 Style style = doc.addStyle("defaultStyle", null);
                 doc.insertString(doc.getLength(), "\n", style);
+                pdfPane.setCaretPosition(pdfPane.getDocument().getLength());
             }
             
-            pdfPane.setCaretPosition(0);
         } catch (IOException ex) {} catch (BadLocationException ex) {}
     }
     
-    private JTextPane MakePdfPane(int width){
-        JTextPane pdfPane= new JTextPane();
+    private JTextPane MakePdfPane(int width, int height){
+        JFrame pdfFrame = new JFrame();
+        JTextPane pdfPane = new JTextPane();
+        JScrollPane pdfScroll = new JScrollPane(pdfPane);
+        
+        pdfFrame.setMinimumSize(new Dimension(width, height));
+        pdfFrame.setResizable(false);
+        
         pdfPane.setEditable(false);
-        JScrollPane scroll = new JScrollPane(pdfPane);
-        JFrame frame = new JFrame();
-        frame.add(scroll);
-        frame.setBounds(100, 100, width+40, (int) (width*1.3));
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);
+        
+        GroupLayout ImageFrameLayout = new GroupLayout(pdfFrame.getContentPane());
+        pdfFrame.getContentPane().setLayout(ImageFrameLayout);
+        ImageFrameLayout.setHorizontalGroup(
+            ImageFrameLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(pdfScroll, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, width, Short.MAX_VALUE)
+        );
+        ImageFrameLayout.setVerticalGroup(
+            ImageFrameLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(pdfScroll, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, height, Short.MAX_VALUE)
+        );
+
+        pdfFrame.setVisible(true);
+        
         return pdfPane;
     }
     
@@ -691,8 +703,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton ErrorOK;
     private javax.swing.JTextArea ErrorText;
     private javax.swing.JFrame FileChooser;
-    private javax.swing.JFrame ImageFrame;
-    private javax.swing.JTextPane ImagePane;
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton PrivaterRaumBtn;
     private javax.swing.JButton btn_Datei;
@@ -707,7 +717,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel label_benutzername;
     private javax.swing.JLabel label_login;
     private javax.swing.JLabel label_loginError;

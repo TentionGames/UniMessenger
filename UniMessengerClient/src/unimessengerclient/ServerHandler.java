@@ -249,11 +249,14 @@ public class ServerHandler extends Thread {
         if(fileType.equals(".png") || fileType.equals(".jpg")){
             db.getMainFrame().DisplayImage(sender, bytes);
         }else if(fileType.equals(".pdf")){
-            db.getMainFrame().DisplayPdf(file, bytes);
+            db.getMainFrame().DisplayPdf(file, sender, bytes);
         }
     }
     
     private void ReceivePrivatRoomJoin(String partner){
+        for (int i = 0; i < privateRooms.size(); i++) {
+            if(privateRooms.get(i).isPartner(partner))return;
+        }
         PrivateRoom privatRoom = new PrivateRoom(db, partner);
         privateRooms.add(privatRoom);
     }
@@ -265,5 +268,7 @@ public class ServerHandler extends Thread {
                 return;
             }
         }
+        ReceivePrivatRoomJoin(partner);
+        ReceivePrivatRoomMsg(partner, sender, msg);
     }
 }
