@@ -1,5 +1,7 @@
 package unimessengerclient;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,14 +9,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class PrivateRoom {
+public class PrivateRoom{
     
-    JFrame PRFrame = new javax.swing.JFrame();
-    JScrollPane PRScroll = new javax.swing.JScrollPane();
-    JTextArea PRChat = new javax.swing.JTextArea();
-    JLabel PRPartnerLabel = new javax.swing.JLabel();
-    JTextField PRInput = new javax.swing.JTextField();
-    JButton PRSendBtn = new javax.swing.JButton();
+    JFrame PRFrame = new JFrame();
+    JScrollPane PRScroll = new JScrollPane();
+    JTextArea PRChat = new JTextArea();
+    JLabel PRPartnerLabel = new JLabel();
+    JTextField PRInput = new JTextField();
+    JButton PRSendBtn = new JButton();
     
     private Datenbank db;
     private String partner;
@@ -26,9 +28,11 @@ public class PrivateRoom {
         
         //UI
         PRFrame.setVisible(true);
-        PRFrame.setMinimumSize(new java.awt.Dimension(720, 500));
+        PRFrame.setMinimumSize(new java.awt.Dimension(800, 500));
+        PRFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         PRChat.setColumns(20);
         PRChat.setRows(5);
+        PRChat.setEditable(false);
         PRScroll.setViewportView(PRChat);
 
         PRPartnerLabel.setText("Raum mit " + partner);
@@ -39,6 +43,14 @@ public class PrivateRoom {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(PRInput.getText().isBlank()) return;
                 db.getServerHandler().SendMsg("SPM" + partner + "%SPLIT%" + PRInput.getText());
+            }
+        });
+        
+        PRFrame.addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent e)
+            {
+                closeMainForm();
             }
         });
 
@@ -81,4 +93,8 @@ public class PrivateRoom {
         PRChat.setText(PRChat.getText() + sender + ":\t" + msg + "\n");
     }
     
+    private void closeMainForm()
+    {
+        db.getServerHandler().RemovePR(this);
+    }
 }

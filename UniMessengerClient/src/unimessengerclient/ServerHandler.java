@@ -33,6 +33,10 @@ public class ServerHandler extends Thread {
         }
     }
     
+    public void RemovePR(PrivateRoom pr){
+        privateRooms.remove(pr);
+    }
+    
     public void TryConnect(){
         try {
             server = new Socket("localhost", 3141);

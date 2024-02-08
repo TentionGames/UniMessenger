@@ -207,6 +207,9 @@ public class ClientHandler extends Thread {
     }
     
     private void ReceivePrivateRoomJoin(int user){
+        if(db.getClientManager().indexOfClient(this) <= user){
+            user++;
+        }
         db.getClientManager().SendMessageToClient(user, "PRB" + info.getName());
         SendMsg("PRB" + db.getClientManager().getClientHandler(user).getClientName());
         db.getLogHandler().PrivaterRaumBeigetreten(info.getName(), db.getClientManager().getClientHandler(user).getClientName());
