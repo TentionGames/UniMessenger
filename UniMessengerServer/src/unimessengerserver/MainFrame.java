@@ -1,7 +1,12 @@
 package unimessengerserver;
 
+import java.awt.Color;
 import java.io.*;
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -11,6 +16,27 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(Datenbank db) {
         this.db = db;
         initComponents();
+        
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+            UIManager.put("control", new Color(43, 45, 49));
+            UIManager.put("info", new Color(128, 128, 128));
+            UIManager.put("nimbusBase", new Color(49, 51, 56));
+            UIManager.put("nimbusAlertYellow", new Color(248, 187, 0));
+            UIManager.put("nimbusDisabledText", new Color(128, 128, 128));
+            UIManager.put("nimbusFocus", new Color(80,80,80));
+            UIManager.put("nimbusGreen", new Color(176, 179, 50));
+            UIManager.put("nimbusInfoBlue", new Color(66, 139, 221));
+            UIManager.put("nimbusLightBackground", new Color(49, 51, 56));
+            UIManager.put("nimbusOrange", new Color(191, 98, 4));
+            UIManager.put("nimbusRed", new Color(169, 46, 34));
+            UIManager.put("nimbusSelectedText", new Color(255, 255, 255));
+            UIManager.put("nimbusSelectionBackground", new Color(80,80,80));
+            UIManager.put("text", new Color(230, 230, 230));
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (UnsupportedLookAndFeelException exc) {
+            System.err.println("Nimbus: Unsupported Look and feel!");
+        }
     }
 
     /**
@@ -67,6 +93,7 @@ public class MainFrame extends javax.swing.JFrame {
         frm_ChangeRoomName.setMinimumSize(new java.awt.Dimension(300, 200));
         frm_ChangeRoomName.setResizable(false);
 
+        btn_ChangeName.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_ChangeName.setText("Change Name");
         btn_ChangeName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +138,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Room Name:");
 
+        btn_RoomAdd.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_RoomAdd.setText("Add Room");
         btn_RoomAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +178,7 @@ public class MainFrame extends javax.swing.JFrame {
         frm_Verwarnen.setMinimumSize(new java.awt.Dimension(300, 200));
         frm_Verwarnen.setResizable(false);
 
+        btn_VerwarnenSenden.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_VerwarnenSenden.setText("Verwarnen");
         btn_VerwarnenSenden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,16 +216,23 @@ public class MainFrame extends javax.swing.JFrame {
         frm_Nutzerdaten.setMinimumSize(new java.awt.Dimension(720, 480));
         frm_Nutzerdaten.setResizable(false);
 
+        ClientData.setForeground(java.awt.SystemColor.control);
         ClientData.setModel(new DefaultListModel());
+        ClientData.setToolTipText("");
+        ClientData.setSelectionBackground(java.awt.SystemColor.controlDkShadow);
         jScrollPane5.setViewportView(ClientData);
 
+        BannedClients.setForeground(java.awt.SystemColor.control);
         BannedClients.setModel(new DefaultListModel());
+        BannedClients.setSelectionBackground(java.awt.SystemColor.controlDkShadow);
+        BannedClients.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane6.setViewportView(BannedClients);
 
         jLabel5.setText("Nutzerdaten:");
 
         jLabel6.setText("Gebannte Nutzer:");
 
+        BannNutzer.setBackground(java.awt.SystemColor.activeCaptionText);
         BannNutzer.setText("Bannen");
         BannNutzer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,6 +240,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        UnbannNutzer.setBackground(java.awt.SystemColor.activeCaptionText);
         UnbannNutzer.setText("Entbannen");
         UnbannNutzer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,6 +295,7 @@ public class MainFrame extends javax.swing.JFrame {
         labStartInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labStartInfo.setText("Anderer Server läuft schon!");
 
+        butStartRetry.setBackground(java.awt.SystemColor.activeCaptionText);
         butStartRetry.setText("Retry");
         butStartRetry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,16 +326,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(303, Short.MAX_VALUE))
         );
 
+        list_Clients.setForeground(java.awt.SystemColor.control);
         list_Clients.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(list_Clients);
 
         jLabel1.setText("Clients");
 
+        list_Rooms.setForeground(java.awt.SystemColor.control);
         list_Rooms.setModel(new DefaultListModel());
         jScrollPane2.setViewportView(list_Rooms);
 
         jLabel4.setText("Räume");
 
+        btn_AddRoom.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_AddRoom.setText("Add Room");
         btn_AddRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,6 +346,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_RenameRoom.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_RenameRoom.setText("Rename Room");
         btn_RenameRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,6 +354,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_DeleteRoom.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_DeleteRoom.setText("Delete Room");
         btn_DeleteRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -319,6 +362,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_Verwarnen.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_Verwarnen.setText("Verwarnen");
         btn_Verwarnen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,6 +370,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_Kicken.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_Kicken.setText("Rauswerfen");
         btn_Kicken.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,6 +378,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_Bannen.setBackground(java.awt.SystemColor.activeCaptionText);
         btn_Bannen.setText("Bann");
         btn_Bannen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,6 +391,7 @@ public class MainFrame extends javax.swing.JFrame {
         LogField.setRows(5);
         jScrollPane3.setViewportView(LogField);
 
+        jButton1.setBackground(java.awt.SystemColor.activeCaptionText);
         jButton1.setText("Zeige Nutzerdaten");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,59 +403,64 @@ public class MainFrame extends javax.swing.JFrame {
         panChat.setLayout(panChatLayout);
         panChatLayout.setHorizontalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(210, 210, 210))
             .addGroup(panChatLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
                 .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
-                        .addComponent(btn_AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(5, 5, 5)
-                        .addComponent(btn_RenameRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_DeleteRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panChatLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
                         .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                                .addComponent(btn_AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(5, 5, 5)
+                                .addComponent(btn_RenameRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_DeleteRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panChatLayout.createSequentialGroup()
-                                .addGap(163, 163, 163)
-                                .addComponent(jLabel4))
-                            .addGroup(panChatLayout.createSequentialGroup()
-                                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
+                                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panChatLayout.createSequentialGroup()
+                                        .addGap(163, 163, 163)
+                                        .addComponent(jLabel4))
                                     .addGroup(panChatLayout.createSequentialGroup()
                                         .addComponent(btn_Verwarnen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn_Kicken, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_Bannen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(41, Short.MAX_VALUE))
-                    .addGroup(panChatLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(btn_Kicken, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btn_Bannen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(41, Short.MAX_VALUE))
+                            .addGroup(panChatLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(136, 136, 136))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(209, 209, 209))))))
         );
         panChatLayout.setVerticalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panChatLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(66, 66, 66)
+                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panChatLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_Verwarnen)
-                            .addComponent(btn_Kicken)
-                            .addComponent(btn_Bannen))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_Kicken)
+                            .addComponent(btn_Verwarnen)
+                            .addComponent(btn_Bannen))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,9 +468,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_RenameRoom)
                             .addComponent(btn_AddRoom)
-                            .addComponent(btn_DeleteRoom)))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                            .addComponent(btn_DeleteRoom))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -541,6 +592,7 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                
                 Datenbank datenbank = new Datenbank();
                 
                 datenbank.getMainFrame().setVisible(true);

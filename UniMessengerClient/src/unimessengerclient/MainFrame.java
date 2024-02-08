@@ -1,5 +1,6 @@
 package unimessengerclient;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -14,6 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyledDocument;
@@ -30,6 +35,27 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(Datenbank db) {
         this.db = db;
         initComponents();
+        
+         try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+            UIManager.put("control", new Color(43, 45, 49));
+            UIManager.put("info", new Color(128, 128, 128));
+            UIManager.put("nimbusBase", new Color(49, 51, 56));
+            UIManager.put("nimbusAlertYellow", new Color(248, 187, 0));
+            UIManager.put("nimbusDisabledText", new Color(128, 128, 128));
+            UIManager.put("nimbusFocus", new Color(80,80,80));
+            UIManager.put("nimbusGreen", new Color(176, 179, 50));
+            UIManager.put("nimbusInfoBlue", new Color(66, 139, 221));
+            UIManager.put("nimbusLightBackground", new Color(49, 51, 56));
+            UIManager.put("nimbusOrange", new Color(191, 98, 4));
+            UIManager.put("nimbusRed", new Color(169, 46, 34));
+            UIManager.put("nimbusSelectedText", new Color(255, 255, 255));
+            UIManager.put("nimbusSelectionBackground", new Color(80,80,80));
+            UIManager.put("text", new Color(230, 230, 230));
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (UnsupportedLookAndFeelException exc) {
+            System.err.println("Nimbus: Unsupported Look and feel!");
+        }
     }
 
     /**
@@ -80,6 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
         ErrorText.setColumns(20);
         ErrorText.setRows(5);
 
+        ErrorOK.setBackground(java.awt.SystemColor.activeCaptionText);
         ErrorOK.setText("OK");
         ErrorOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
             ConnectInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             ConnectInfo.setText("Kein Server gefunden!");
 
+            ConnectRetryButton.setBackground(java.awt.SystemColor.activeCaptionText);
             ConnectRetryButton.setText("Retry");
             ConnectRetryButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,6 +225,7 @@ public class MainFrame extends javax.swing.JFrame {
             label_password.setText("Password:");
             label_password.setToolTipText("");
 
+            button_login.setBackground(java.awt.SystemColor.activeCaptionText);
             button_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
             button_login.setText("Login");
             button_login.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +234,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             });
 
+            button_registrieren.setBackground(java.awt.SystemColor.activeCaptionText);
             button_registrieren.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
             button_registrieren.setText("Registrieren");
             button_registrieren.addActionListener(new java.awt.event.ActionListener() {
@@ -288,6 +318,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             });
 
+            btn_Send.setBackground(java.awt.SystemColor.activeCaptionText);
             btn_Send.setText(">");
             btn_Send.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,6 +326,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             });
 
+            btn_Datei.setBackground(java.awt.SystemColor.activeCaptionText);
             btn_Datei.setText("Datei");
             btn_Datei.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,16 +334,19 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             });
 
+            list_Nutzer.setForeground(java.awt.SystemColor.control);
             list_Nutzer.setModel(new DefaultListModel());
             jScrollPane2.setViewportView(list_Nutzer);
 
             jLabel1.setText("Andere Benutzer");
 
+            list_Rooms.setForeground(java.awt.SystemColor.control);
             list_Rooms.setModel(new DefaultListModel());
             jScrollPane3.setViewportView(list_Rooms);
 
             jLabel2.setText("Rooms:");
 
+            btn_JoinRoom.setBackground(java.awt.SystemColor.activeCaptionText);
             btn_JoinRoom.setText("Join Room");
             btn_JoinRoom.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,6 +356,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             lbl_currentRoom.setText("default");
 
+            PrivaterRaumBtn.setBackground(java.awt.SystemColor.activeCaptionText);
             PrivaterRaumBtn.setText("Privaten Raum betreten");
             PrivaterRaumBtn.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,19 +393,19 @@ public class MainFrame extends javax.swing.JFrame {
                                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(137, 137, 137))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
-                                                .addComponent(btn_JoinRoom)
-                                                .addGap(247, 247, 247))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatPanelLayout.createSequentialGroup()
                                                 .addComponent(jLabel2)
                                                 .addGap(268, 268, 268)))))
                                 .addGroup(ChatPanelLayout.createSequentialGroup()
                                     .addGroup(ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(ChatPanelLayout.createSequentialGroup()
-                                            .addGap(202, 202, 202)
+                                            .addGap(175, 175, 175)
+                                            .addComponent(PrivaterRaumBtn))
+                                        .addGroup(ChatPanelLayout.createSequentialGroup()
+                                            .addGap(210, 210, 210)
                                             .addComponent(jLabel1))
                                         .addGroup(ChatPanelLayout.createSequentialGroup()
-                                            .addGap(163, 163, 163)
-                                            .addComponent(PrivaterRaumBtn)))
+                                            .addGap(210, 210, 210)
+                                            .addComponent(btn_JoinRoom)))
                                     .addGap(0, 0, Short.MAX_VALUE))))))
             );
             ChatPanelLayout.setVerticalGroup(
@@ -461,6 +497,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_JoinRoomActionPerformed
 
     private void btn_SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SendActionPerformed
+        if(inf_Nachricht.getText().isBlank() || inf_Nachricht.getText().isEmpty()) return;
         db.getServerHandler().SendMsg("MSG"+inf_Nachricht.getText());
         inf_Nachricht.setText("");
     }//GEN-LAST:event_btn_SendActionPerformed
@@ -572,7 +609,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     public void DisplayNewRoomChat(String roomName, String chat){
-        lbl_currentRoom.setText(roomName);
+        lbl_currentRoom.setText("Raum: " + roomName);
         ChatField.setText(chat);
     }
     
@@ -589,7 +626,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     public void ChangeRoomName(int roomIndex, boolean inRoom, String roomName){
-        if(inRoom) lbl_currentRoom.setText(roomName);
+        if(inRoom) lbl_currentRoom.setText("Raum: " + roomName);
         ((DefaultListModel) list_Rooms.getModel()).setElementAt(roomName, roomIndex);
     }
     

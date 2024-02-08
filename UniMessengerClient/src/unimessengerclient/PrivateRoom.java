@@ -31,9 +31,10 @@ public class PrivateRoom {
         PRChat.setRows(5);
         PRScroll.setViewportView(PRChat);
 
-        PRPartnerLabel.setText(partner);
+        PRPartnerLabel.setText("Raum mit " + partner);
 
         PRSendBtn.setText(">");
+        PRSendBtn.setBackground(java.awt.SystemColor.activeCaptionText);
         PRSendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(PRInput.getText().isBlank()) return;
