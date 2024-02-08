@@ -60,6 +60,7 @@ public class Datenbank {
         if(getClientInfo(name) != null) return null;
         ClientInfo clientInfo = new ClientInfo(name.trim(), password.trim());
         accs.add(clientInfo);
+        mainFrame.AddNutzerNormal(name, password, true);
         saveSystem.SaveClientInfo(clientInfo);
         return clientInfo;
     }
@@ -82,6 +83,56 @@ public class Datenbank {
     
     public void AddClientInfo(ClientInfo client){
         accs.add(client);
+        if(client.isBanned()) mainFrame.AddNutzerBanned(client.getName(), client.getPassword());
+        else mainFrame.AddNutzerNormal(client.getName(), client.getPassword(), false);
+    }
+    
+    public int indexOfClientInfo(ClientInfo info){
+        boolean banned = false; 
+        int bannedIdx = 0;
+        int nutzerIdx = 0;
+        for (int i = 0; i < accs.size(); i++) {
+            if(accs.get(i).equals(info)){
+                return banned?bannedIdx:nutzerIdx;
+            }
+            if(accs.get(i).isBanned()) bannedIdx++;
+            else nutzerIdx++;
+        }
+        return -1;
+    }
+    
+    public void NutzerBann(int nutzerIdx){
+        int bannedIdx = 0;
+        int nutzerIdxCount = 0;
+        for (int i = 0; i < accs.size(); i++) {
+            if(accs.get(i).isBanned()){
+                bannedIdx++;
+                continue;
+            }
+            if(nutzerIdxCount == nutzerIdx){
+                accs.get(i).ChangeBan(true);
+                mainFrame.AddNutzerBanned(accs.get(i).getName(), accs.get(i).getPassword(), bannedIdx);
+                mainFrame.RemoveNutzerNormal(nutzerIdx);
+            }
+            nutzerIdxCount++;
+        }
+    }
+    
+    public void NutzerEntbann(int bannedIdx){
+        int nutzerIdx = 0;
+        int bannedIdxCount = 0;
+        for (int i = 0; i < accs.size(); i++) {
+            if(!accs.get(i).isBanned()){
+                nutzerIdx++;
+                continue;
+            }
+            if(bannedIdxCount == bannedIdx){
+                accs.get(i).ChangeBan(false);
+                mainFrame.AddNutzerNormal(accs.get(i).getName(), accs.get(i).getPassword(), false, nutzerIdx);
+                mainFrame.RemoveNutzerBanned(bannedIdx);
+            }
+            bannedIdxCount++;
+        }
     }
     // </editor-fold> 
 }

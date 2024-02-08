@@ -34,6 +34,15 @@ public class MainFrame extends javax.swing.JFrame {
         btn_VerwarnenSenden = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         Inp_verwarnen = new javax.swing.JTextArea();
+        frm_Nutzerdaten = new javax.swing.JFrame();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        ClientData = new javax.swing.JList<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        BannedClients = new javax.swing.JList<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        BannNutzer = new javax.swing.JButton();
+        UnbannNutzer = new javax.swing.JButton();
         panStartServer = new javax.swing.JPanel();
         labStartInfo = new javax.swing.JLabel();
         butStartRetry = new javax.swing.JButton();
@@ -52,9 +61,11 @@ public class MainFrame extends javax.swing.JFrame {
         btn_Bannen = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         LogField = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
 
         frm_ChangeRoomName.setBounds(new java.awt.Rectangle(490, 260, 300, 200));
         frm_ChangeRoomName.setMinimumSize(new java.awt.Dimension(300, 200));
+        frm_ChangeRoomName.setResizable(false);
 
         btn_ChangeName.setText("Change Name");
         btn_ChangeName.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +107,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         frm_AddRoom.setBounds(new java.awt.Rectangle(490, 260, 300, 200));
         frm_AddRoom.setMinimumSize(new java.awt.Dimension(300, 200));
+        frm_AddRoom.setResizable(false);
 
         jLabel3.setText("Room Name:");
 
@@ -136,6 +148,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         frm_Verwarnen.setMinimumSize(new java.awt.Dimension(300, 200));
+        frm_Verwarnen.setResizable(false);
 
         btn_VerwarnenSenden.setText("Verwarnen");
         btn_VerwarnenSenden.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +184,74 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
+        frm_Nutzerdaten.setMinimumSize(new java.awt.Dimension(720, 480));
+        frm_Nutzerdaten.setResizable(false);
+
+        ClientData.setModel(new DefaultListModel());
+        jScrollPane5.setViewportView(ClientData);
+
+        BannedClients.setModel(new DefaultListModel());
+        jScrollPane6.setViewportView(BannedClients);
+
+        jLabel5.setText("Nutzerdaten:");
+
+        jLabel6.setText("Gebannte Nutzer:");
+
+        BannNutzer.setText("Bannen");
+        BannNutzer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BannNutzerActionPerformed(evt);
+            }
+        });
+
+        UnbannNutzer.setText("Entbannen");
+        UnbannNutzer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UnbannNutzerActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout frm_NutzerdatenLayout = new javax.swing.GroupLayout(frm_Nutzerdaten.getContentPane());
+        frm_Nutzerdaten.getContentPane().setLayout(frm_NutzerdatenLayout);
+        frm_NutzerdatenLayout.setHorizontalGroup(
+            frm_NutzerdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frm_NutzerdatenLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(frm_NutzerdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGroup(frm_NutzerdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69))
+            .addGroup(frm_NutzerdatenLayout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(BannNutzer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(UnbannNutzer)
+                .addGap(143, 143, 143))
+        );
+        frm_NutzerdatenLayout.setVerticalGroup(
+            frm_NutzerdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frm_NutzerdatenLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(frm_NutzerdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(frm_NutzerdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(frm_NutzerdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BannNutzer)
+                    .addComponent(UnbannNutzer))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         labStartInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -265,6 +345,13 @@ public class MainFrame extends javax.swing.JFrame {
         LogField.setRows(5);
         jScrollPane3.setViewportView(LogField);
 
+        jButton1.setText("Zeige Nutzerdaten");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panChatLayout = new javax.swing.GroupLayout(panChat);
         panChat.setLayout(panChatLayout);
         panChatLayout.setHorizontalGroup(
@@ -276,32 +363,34 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panChatLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
                 .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
+                        .addComponent(btn_AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(5, 5, 5)
+                        .addComponent(btn_RenameRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_DeleteRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panChatLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
                         .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panChatLayout.createSequentialGroup()
-                                .addComponent(btn_AddRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_RenameRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(164, 164, 164))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panChatLayout.createSequentialGroup()
-                                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn_DeleteRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(163, 163, 163)
+                                .addComponent(jLabel4))
+                            .addGroup(panChatLayout.createSequentialGroup()
+                                .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton1)
                                     .addGroup(panChatLayout.createSequentialGroup()
                                         .addComponent(btn_Verwarnen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn_Kicken, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn_Bannen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(btn_Kicken, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Bannen, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(41, Short.MAX_VALUE))
                     .addGroup(panChatLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(212, 212, 212))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panChatLayout.setVerticalGroup(
             panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,17 +406,19 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(btn_Verwarnen)
                             .addComponent(btn_Kicken)
                             .addComponent(btn_Bannen))
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_AddRoom)
                             .addComponent(btn_RenameRoom)
+                            .addComponent(btn_AddRoom)
                             .addComponent(btn_DeleteRoom)))
-                    .addComponent(jScrollPane3))
-                .addContainerGap(132, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -399,6 +490,22 @@ public class MainFrame extends javax.swing.JFrame {
         db.getClientManager().ClientVerwarnen(verwarnenIdx, Inp_verwarnen.getText());
         frm_Verwarnen.setVisible(false);
     }//GEN-LAST:event_btn_VerwarnenSendenActionPerformed
+
+    private void BannNutzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BannNutzerActionPerformed
+        int bannIdx = getSelectedNutzer();
+        if(bannIdx < 0) return;
+        db.NutzerBann(bannIdx);
+    }//GEN-LAST:event_BannNutzerActionPerformed
+
+    private void UnbannNutzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnbannNutzerActionPerformed
+        int bannIdx = getSelectedBannedNutzer();
+        if(bannIdx < 0) return;
+        db.NutzerEntbann(bannIdx);
+    }//GEN-LAST:event_UnbannNutzerActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        frm_Nutzerdaten.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private Datenbank db;
     
@@ -499,10 +606,52 @@ public class MainFrame extends javax.swing.JFrame {
     public void DeleteRoom(int roomIndex){
         ((DefaultListModel) list_Rooms.getModel()).remove(roomIndex);
     }
+    
+    //Nutzerdaten
+    
+    public int getSelectedNutzer(){
+        return ClientData.getSelectedIndex();
+    }
+    
+    public int getSelectedBannedNutzer(){
+        return BannedClients.getSelectedIndex();
+    }
+    
+    public void AddNutzerNormal(String name, String passwort, boolean online){
+        ((DefaultListModel) ClientData.getModel()).addElement("Name: \"" + name + "\", Passwort: \"" + passwort + "\", " + (online?"online":"offline"));
+    }
+    
+    public void AddNutzerNormal(String name, String passwort, boolean online, int pos){
+        ((DefaultListModel) ClientData.getModel()).add(pos, "Name: \"" + name + "\", Passwort: \"" + passwort + "\", " + (online?"online":"offline"));
+    }
+    
+    public void AddNutzerBanned(String name, String passwort){
+        ((DefaultListModel) BannedClients.getModel()).addElement("Name: \"" + name + "\", Passwort: \"" + passwort + "\"");
+    }
+    
+    public void AddNutzerBanned(String name, String passwort, int pos){
+        ((DefaultListModel) BannedClients.getModel()).add(pos, "Name: \"" + name + "\", Passwort: \"" + passwort + "\"");
+    }
+    
+    public void RemoveNutzerNormal(int pos){
+        ((DefaultListModel) ClientData.getModel()).remove(pos);
+    }
+    
+    public void RemoveNutzerBanned(int pos){
+        ((DefaultListModel) BannedClients.getModel()).remove(pos);
+    }
+    
+    public void ChangeOnline(int pos, boolean online, ClientInfo info){
+        ((DefaultListModel) ClientData.getModel()).setElementAt("Name: \"" + info.getName() + "\", Passwort: \"" + info.getPassword() + "\", " + (online?"online":"offline"), pos);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BannNutzer;
+    private javax.swing.JList<String> BannedClients;
+    private javax.swing.JList<String> ClientData;
     private javax.swing.JTextArea Inp_verwarnen;
     private javax.swing.JTextArea LogField;
+    private javax.swing.JButton UnbannNutzer;
     private javax.swing.JButton btn_AddRoom;
     private javax.swing.JButton btn_Bannen;
     private javax.swing.JButton btn_ChangeName;
@@ -515,15 +664,21 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton butStartRetry;
     private javax.swing.JFrame frm_AddRoom;
     private javax.swing.JFrame frm_ChangeRoomName;
+    private javax.swing.JFrame frm_Nutzerdaten;
     private javax.swing.JFrame frm_Verwarnen;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel labStartInfo;
     private javax.swing.JList<String> list_Clients;
     private javax.swing.JList<String> list_Rooms;

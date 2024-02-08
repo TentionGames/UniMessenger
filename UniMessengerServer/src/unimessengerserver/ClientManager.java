@@ -112,6 +112,7 @@ public class ClientManager {
     
     public void RemoveClient(ClientHandler client){
         if(!client.isClientInfoNull()){
+            db.getMainFrame().ChangeOnline(db.indexOfClientInfo(client.getClientInfo()), false, client.getClientInfo());
             db.getMainFrame().RemoveName(clientHandlers.indexOf(client));
             SendMessageToAllClientsInRoomExcept(client.getRoom(),client,"ULR" + client.getClientName());
             db.getLogHandler().ClientDisconnected(client.getClientName());

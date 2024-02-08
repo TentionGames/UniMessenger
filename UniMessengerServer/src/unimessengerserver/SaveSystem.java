@@ -41,12 +41,15 @@ public class SaveSystem {
     }
     
     public void SaveClientInfo(ClientInfo clientInfo){
+        ClientInfo saveClientInfo = new ClientInfo(clientInfo.getName(), clientInfo.getPassword());
+        saveClientInfo.ChangeOnline(false);
+        
         ObjectOutputStream oos = null;
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream("C:/UniMessenger/Server/" + clientInfo.getName() + ".ser");
+            fos = new FileOutputStream("C:/UniMessenger/Server/" + saveClientInfo.getName() + ".ser");
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(clientInfo);
+            oos.writeObject(saveClientInfo);
         }
         catch (IOException e) {System.out.println(e);}
         finally {
