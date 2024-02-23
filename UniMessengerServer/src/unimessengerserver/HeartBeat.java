@@ -32,7 +32,7 @@ public class HeartBeat extends Thread {
 
     private void ListenToHB() {
         for (int i = 0; i < db.getClientManager().getAnzAllClients(); i++) {
-            if (System.currentTimeMillis() - db.getClientManager().getClientHandler(i).getLastBeatReceived() > 3000) {
+            if (System.currentTimeMillis() - db.getClientManager().getClientHandler(i).getLastBeatReceived() > 10000) {
                 ClientDisconnected(i);
             }
         }

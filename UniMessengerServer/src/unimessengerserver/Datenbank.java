@@ -87,8 +87,7 @@ public class Datenbank {
         else mainFrame.AddNutzerNormal(client.getName(), client.getPassword(), false);
     }
     
-    public int indexOfClientInfo(ClientInfo info){
-        boolean banned = false; 
+    public int indexOfClientInfo(ClientInfo info, boolean banned){
         int bannedIdx = 0;
         int nutzerIdx = 0;
         for (int i = 0; i < accs.size(); i++) {
@@ -111,6 +110,9 @@ public class Datenbank {
             }
             if(nutzerIdxCount == nutzerIdx){
                 accs.get(i).ChangeBan(true);
+                int indexInClientHandlers = clientManager.indexOfClient(accs.get(i));
+                if(indexInClientHandlers > -1) clientManager.ClientKick(indexInClientHandlers);
+                logHandler.ClientGebannt(accs.get(i).getName());
                 mainFrame.AddNutzerBanned(accs.get(i).getName(), accs.get(i).getPassword(), bannedIdx);
                 mainFrame.RemoveNutzerNormal(nutzerIdx);
             }
@@ -128,6 +130,7 @@ public class Datenbank {
             }
             if(bannedIdxCount == bannedIdx){
                 accs.get(i).ChangeBan(false);
+                logHandler.ClientEntbannt(accs.get(i).getName());
                 mainFrame.AddNutzerNormal(accs.get(i).getName(), accs.get(i).getPassword(), false, nutzerIdx);
                 mainFrame.RemoveNutzerBanned(bannedIdx);
             }

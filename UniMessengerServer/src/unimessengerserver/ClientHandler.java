@@ -155,7 +155,7 @@ public class ClientHandler extends Thread {
     
     private void SuccesfullLogin(ClientInfo clientInfo) {
         info = clientInfo;
-        db.getMainFrame().ChangeOnline(db.indexOfClientInfo(info), true, info);
+        db.getMainFrame().ChangeOnline(db.indexOfClientInfo(info, false), true, info);
         
         db.getClientManager().Resort(this);
         db.getMainFrame().AddName(clientInfo.getName(), db.getRoomManager().getRoom(0).getName());

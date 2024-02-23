@@ -49,6 +49,15 @@ public class ClientManager {
         return clientHandlers.size();
     }
     
+    public int indexOfClient(ClientInfo client){
+        for (int i = 0; i < clientHandlers.size(); i++) {
+            if(clientHandlers.get(i).getClientInfo().equals(client)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
     public int indexOfClient(ClientHandler client){
         return clientHandlers.indexOf(client);
     }
@@ -112,7 +121,9 @@ public class ClientManager {
     
     public void RemoveClient(ClientHandler client){
         if(!client.isClientInfoNull()){
-            db.getMainFrame().ChangeOnline(db.indexOfClientInfo(client.getClientInfo()), false, client.getClientInfo());
+            if(client.getClientInfo().isOnline()){
+                db.getMainFrame().ChangeOnline(db.indexOfClientInfo(client.getClientInfo(), false), false, client.getClientInfo());
+            }
             db.getMainFrame().RemoveName(clientHandlers.indexOf(client));
             SendMessageToAllClientsInRoomExcept(client.getRoom(),client,"ULR" + client.getClientName());
             db.getLogHandler().ClientDisconnected(client.getClientName());
@@ -140,6 +151,8 @@ public class ClientManager {
         ClientInfo info = clientHandlers.get(clientIndex).getClientInfo();
         info.ChangeBan(true);
         db.ChangeClientInfo(info);
+        db.getMainFrame().AddNutzerBanned(info.getName(), info.getPassword(), db.indexOfClientInfo(info, true));
+        db.getMainFrame().RemoveNutzerNormal(db.indexOfClientInfo(info, false));
         db.getSaveSystem().SaveClientInfo(info);
         db.getLogHandler().ClientGebannt(info.getName());
         ClientKick(clientIndex);

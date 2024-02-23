@@ -1,5 +1,6 @@
 package unimessengerclient;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
@@ -41,8 +42,13 @@ public class PrivateRoom{
         PRSendBtn.setBackground(java.awt.SystemColor.activeCaptionText);
         PRSendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if(PRInput.getText().isBlank()) return;
-                db.getServerHandler().SendMsg("SPM" + partner + "%SPLIT%" + PRInput.getText());
+                SendMsg();
+            }
+        });
+        
+        PRInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                 if(evt.getKeyCode() == KeyEvent.VK_ENTER) SendMsg();
             }
         });
         
@@ -96,5 +102,10 @@ public class PrivateRoom{
     private void closeMainForm()
     {
         db.getServerHandler().RemovePR(this);
+    }
+    
+    private void SendMsg(){
+        if(PRInput.getText().isBlank() || PRInput.getText().isEmpty()) return;
+        db.getServerHandler().SendMsg("SPM" + partner + "%SPLIT%" + PRInput.getText());
     }
 }

@@ -55,6 +55,10 @@ public class LogHandler {
         AddLog("\"" + clientName + "\" wurde vom Server gebannt.");
     }
     
+    public void ClientEntbannt(String clientName){
+        AddLog("\"" + clientName + "\" wurde wieder entbannt.");
+    }
+    
     public void ClientBetrittRaum(String clientName, String raumName){
         AddLog("\"" + clientName + "\" ist dem Raum \"" + raumName + "\" beigetreten.");
     }

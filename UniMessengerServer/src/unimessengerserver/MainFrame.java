@@ -89,6 +89,7 @@ public class MainFrame extends javax.swing.JFrame {
         LogField = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
 
+        frm_ChangeRoomName.setTitle("Change Room Name");
         frm_ChangeRoomName.setBounds(new java.awt.Rectangle(490, 260, 300, 200));
         frm_ChangeRoomName.setMinimumSize(new java.awt.Dimension(300, 200));
         frm_ChangeRoomName.setResizable(false);
@@ -132,6 +133,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
+        frm_AddRoom.setTitle("Add Room");
         frm_AddRoom.setBounds(new java.awt.Rectangle(490, 260, 300, 200));
         frm_AddRoom.setMinimumSize(new java.awt.Dimension(300, 200));
         frm_AddRoom.setResizable(false);
@@ -175,6 +177,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        frm_Verwarnen.setTitle("Verwarnen");
         frm_Verwarnen.setMinimumSize(new java.awt.Dimension(300, 200));
         frm_Verwarnen.setResizable(false);
 
@@ -213,6 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
+        frm_Nutzerdaten.setTitle("Gespeicherte Nutzerdaten");
         frm_Nutzerdaten.setMinimumSize(new java.awt.Dimension(720, 480));
         frm_Nutzerdaten.setResizable(false);
 
@@ -288,6 +292,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Server");
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
